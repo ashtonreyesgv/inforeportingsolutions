@@ -46,7 +46,7 @@
         <a href="index.html" class="is-active">Home</a>
         <a href="services.html">Services</a>
         <a href="about.html">About</a>
-        <a href="insights.html">Insights</a>
+        <a href="insights.html">Articles</a>
         <a href="contact.html">Contact</a>
       </nav>
       <div class="header-actions">
@@ -74,8 +74,21 @@
             </div>
           </div>
           <div class="hero__figure" aria-hidden="true">
-            <div class="hero__emblem">
-              <img src="assets/images/InfoReporting-Crest-shield-white.png" alt="" />
+            <div class="seal">
+              <svg class="seal__type" viewBox="0 0 240 240" aria-hidden="true">
+                <defs>
+                  <path id="sealTop" d="M 26 120 A 94 94 0 0 1 214 120" />
+                  <path id="sealBot" d="M 214 122 A 94 94 0 0 1 26 122" />
+                </defs>
+                <text class="seal__txt"><textPath href="#sealTop" startOffset="50%">INFOREPORTING&#160;&#160;SOLUTIONS</textPath></text>
+                <text class="seal__txt seal__txt--sub"><textPath href="#sealBot" startOffset="50%">1099&#160;&#160;·&#160;&#160;1042-S&#160;&#160;·&#160;&#160;WITHHOLDING</textPath></text>
+                <rect class="seal__pip" x="22.5" y="116.5" width="7" height="7" transform="rotate(45 26 120)" />
+                <rect class="seal__pip" x="210.5" y="116.5" width="7" height="7" transform="rotate(45 214 120)" />
+              </svg>
+              <div class="seal__core">
+                <img class="seal__bg" src="assets/images/InfoReporting-Crest-shield-white.png" alt="" aria-hidden="true" />
+                <img class="seal__fg" src="assets/images/InfoReporting-Crest-shield-white.png" alt="InfoReporting Solutions" />
+              </div>
             </div>
           </div>
         </div>
@@ -223,11 +236,11 @@
       </div>
     </section>
 
-    <!-- Insights preview -->
+    <!-- Articles preview -->
     <section class="section">
       <div class="container">
         <div class="section-head" data-reveal>
-          <span class="eyebrow eyebrow--navy">Insights</span>
+          <span class="eyebrow eyebrow--navy">Articles</span>
           <h2>Notes from the reporting front line</h2>
           <p class="t-lead">Plain-English reads on the changes that affect 1099 and 1042-S filers.</p>
         </div>
@@ -237,31 +250,31 @@
               <span class="tag">1099 / 1042-S</span>
               <span class="insight-card__date">May 18, 2026</span>
             </div>
-            <h3><a href="insights.html">2026 Form 1099 / 1042-S Reporting Checklist for IRIS</a></h3>
+            <h3><a href="insight-iris-checklist.html">2026 Form 1099 / 1042-S Reporting Checklist for IRIS</a></h3>
             <p>The IRS is retiring FIRE for 2026 information returns. New schema, a $2,000 threshold and no TCC carryover mean early action is required.</p>
-            <a href="insights.html" class="link-arrow">Read more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a href="insight-iris-checklist.html" class="link-arrow">Read more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           </article>
           <article class="insight-card" data-reveal>
             <div class="insight-card__meta">
               <span class="tag">Form W-9</span>
               <span class="insight-card__date">May 12, 2026</span>
             </div>
-            <h3><a href="insights.html">IRS Revises Draft Form W-9 Again: What the June 2026 Changes Mean</a></h3>
+            <h3><a href="insight-draft-w9-2026.html">IRS Revises Draft Form W-9 Again: What the June 2026 Changes Mean</a></h3>
             <p>A revised draft changes the January 2026 stance on whether a sole proprietor provides an SSN or an entity identification number.</p>
-            <a href="insights.html" class="link-arrow">Read more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a href="insight-draft-w9-2026.html" class="link-arrow">Read more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           </article>
           <article class="insight-card" data-reveal>
             <div class="insight-card__meta">
               <span class="tag">CP2100</span>
               <span class="insight-card__date">Apr 6, 2026</span>
             </div>
-            <h3><a href="insights.html">Understand IRS CP2100 and CP2100A Notices</a></h3>
+            <h3><a href="insight-cp2100-notices.html">Understand IRS CP2100 and CP2100A Notices</a></h3>
             <p>What a Form 1099 name and Tax Identification Number mismatch means — and the steps to resolve it before it escalates.</p>
-            <a href="insights.html" class="link-arrow">Read more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a href="insight-cp2100-notices.html" class="link-arrow">Read more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           </article>
         </div>
         <div class="t-center" style="margin-top:40px" data-reveal>
-          <a href="insights.html" class="btn btn--outline btn--lg">All insights</a>
+          <a href="insights.html" class="btn btn--outline btn--lg">All articles</a>
         </div>
       </div>
     </section>
@@ -297,7 +310,7 @@
           <li><a href="index.html">Home</a></li>
           <li><a href="services.html">Services</a></li>
           <li><a href="about.html">About</a></li>
-          <li><a href="insights.html">Insights</a></li>
+          <li><a href="insights.html">Articles</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
       </div>
