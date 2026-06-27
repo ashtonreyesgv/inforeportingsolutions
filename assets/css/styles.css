@@ -551,6 +551,7 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
 .site-footer__bottom a:hover { color: #fff; }
 .site-footer__bottom .gv { color: #e0934a; font-weight: 600; }
 .site-footer__bottom .gv:hover { color: #eaa563; }
+.footer-legal { display: flex; flex-wrap: wrap; gap: 8px 18px; }
 
 /* 17. Utilities & motion ------------------------------------------------- */
 .mt-0 { margin-top: 0; }
