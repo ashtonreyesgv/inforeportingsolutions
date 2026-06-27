@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tribal Casino Compliance Quick Check | InfoReporting Solutions</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/@tabler/icons-webfont/3.31.0/tabler-icons.min.css">
+<style>
+:root{
+  --color-background-primary:#FFFFFF;
+  --color-background-secondary:#F5F5F4;
+  --color-background-tertiary:#EDEDEB;
+  --color-background-warning:#FAEEDA;
+  --color-text-primary:#1A1A19;
+  --color-text-secondary:#5F5E5A;
+  --color-text-tertiary:#888780;
+  --color-border-tertiary:rgba(0,0,0,0.10);
+  --color-border-secondary:rgba(0,0,0,0.20);
+  --border-radius-md:8px;
+  --border-radius-lg:12px;
+  --font-sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+/* Embedded on inforeportingsolutions.com — always render light to match the
+   surrounding page; OS dark-mode override intentionally disabled. */
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans);background:var(--color-background-tertiary);color:var(--color-text-primary);line-height:1.5}
+.page{max-width:680px;margin:0 auto;padding:2rem 1.25rem 4rem}
+.wrap{padding:1.5rem 1.5rem;background:var(--color-background-primary);border-radius:var(--border-radius-lg);box-shadow:0 1px 3px rgba(0,0,0,0.08)}
+.title{font-size:19px;font-weight:500;margin-bottom:0.4rem}
+.subtitle{font-size:13px;color:var(--color-text-secondary);margin-bottom:1.5rem;line-height:1.5}
+.q-card{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.1rem;margin-bottom:0.7rem;background:var(--color-background-primary)}
+.q-num{font-size:11px;font-weight:500;color:var(--color-text-tertiary);margin-bottom:4px}
+.q-text{font-size:14px;color:var(--color-text-primary);line-height:1.55;margin-bottom:0.75rem}
+.btn-group{display:flex;gap:6px}
+.btn-ans{flex:1;padding:9px 6px;font-size:13px;border:1.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:var(--color-background-primary);color:var(--color-text-secondary);cursor:pointer;font-weight:400}
+.btn-ans:hover{background:var(--color-background-secondary)}
+.btn-ans.sel-yes{background:#639922 !important;border-color:#3B6D11 !important;color:#FFFFFF !important;font-weight:500}
+.btn-ans.sel-no{background:#E24B4A !important;border-color:#A32D2D !important;color:#FFFFFF !important;font-weight:500}
+.btn-ans.sel-na{background:#5F5E5A !important;border-color:#444441 !important;color:#FFFFFF !important;font-weight:500}
+.filing-select{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem}
+.filing-card{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:0.9rem;cursor:pointer;text-align:left}
+.filing-card:hover,.filing-card.selected{border-color:#1F3864;border-width:2px}
+.filing-card.selected{background:#E6F1FB}
+.filing-title{font-size:13px;font-weight:500}
+.submit-row{margin-top:1.25rem;text-align:center}
+.btn-submit{background:#1F3864;color:white;font-weight:500;font-size:14px;padding:11px 28px;border-radius:var(--border-radius-md);border:none;cursor:pointer;width:100%}
+.btn-submit:hover{background:#162a4a}
+.btn-submit:disabled{opacity:0.4;cursor:default}
+.progress-note{font-size:12px;color:var(--color-text-tertiary);text-align:center;margin-top:0.6rem}
+.report-wrap{padding:0.25rem 0}
+.outcome-row{display:flex;gap:1.25rem;align-items:center;padding:1.5rem 1rem;border-radius:var(--border-radius-lg);margin-bottom:1.25rem}
+.outcome-ring-wrap{flex-shrink:0;position:relative;width:88px;height:88px}
+.outcome-text{flex:1}
+.outcome-rating{font-size:17px;font-weight:500;margin-bottom:4px}
+.outcome-narrative{font-size:13px;color:var(--color-text-secondary);line-height:1.55}
+.gap-section{margin-bottom:1.25rem}
+.gap-title{font-size:14px;font-weight:500;margin-bottom:0.6rem;display:flex;align-items:center;gap:6px}
+.gap-item{padding:0.7rem 0.9rem;border-radius:var(--border-radius-md);margin-bottom:0.5rem;border-left:3px solid #E24B4A;background:var(--color-background-primary);border-top:0.5px solid var(--color-border-tertiary);border-right:0.5px solid var(--color-border-tertiary);border-bottom:0.5px solid var(--color-border-tertiary)}
+.gap-text{font-size:12.5px;line-height:1.5}
+.gap-penalty{font-size:11px;color:#A32D2D;margin-top:4px;font-style:italic}
+.full-promo{background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:1.1rem 1.25rem;margin-bottom:1.25rem;border:0.5px dashed var(--color-border-secondary)}
+.full-promo-title{font-size:13px;font-weight:500;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.full-promo-text{font-size:12px;color:var(--color-text-secondary);line-height:1.5}
+.disclaimer{font-size:11px;color:var(--color-text-tertiary);line-height:1.6;padding:1rem;background:var(--color-background-secondary);border-radius:var(--border-radius-md);margin-top:1.25rem}
+.cta-card{background:#1F3864;border-radius:var(--border-radius-lg);padding:1.5rem;margin-bottom:1rem;text-align:center}
+.cta-title{font-size:15px;font-weight:500;color:white;margin-bottom:6px}
+.cta-sub{font-size:12.5px;color:rgba(255,255,255,0.75);margin-bottom:1rem;line-height:1.5}
+.btn-cta{background:#C9A227;color:#1F3864;font-weight:500;font-size:13px;padding:9px 20px;border-radius:var(--border-radius-md);border:none;cursor:pointer;text-decoration:none;display:inline-block}
+.btn-nav{padding:8px 18px;font-size:13px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:var(--color-background-primary);color:var(--color-text-primary);cursor:pointer}
+.full-promo-cta{display:inline-block;margin-top:0.7rem;font-size:12px;font-weight:500;color:#1F3864;text-decoration:none;border:1px solid #1F3864;border-radius:var(--border-radius-md);padding:6px 14px}
+.full-promo-cta:hover{background:#1F3864;color:#fff}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="wrap" id="app">
+  <div id="quiz-screen">
+    <div class="title">Tribal Casino Compliance Quick Check</div>
+    <div class="subtitle">12 questions &middot; About 3 minutes &middot; Tax Year 2026 &middot; This is a self-assessment for general informational purposes only, not legal or tax advice.</div>
+
+    <div class="filing-select">
+      <div class="filing-card" id="card-self" onclick="selectFiling('self')">
+        <div class="filing-title">We file ourselves</div>
+      </div>
+      <div class="filing-card" id="card-outsourced" onclick="selectFiling('outsourced')">
+        <div class="filing-title">We use a third party</div>
+      </div>
+    </div>
+
+    <div id="questions-container"></div>
+
+    <div class="submit-row">
+      <button class="btn-submit" id="submit-btn" disabled onclick="buildReport()">See my results</button>
+      <div class="progress-note" id="progress-note">Select a filing method to begin</div>
+    </div>
+  </div>
+
+  <div id="report-screen" style="display:none">
+    <div class="report-wrap" id="report-content"></div>
+  </div>
+</div>
+</div>
+
+<script>
+const BASE_QUESTIONS = [
+{num:"Q1",text:"Does the property have a documented policy requiring collection of a valid Form W-9 from patrons before a reportable payout is made?",cat:"Patron-facing",penalty:"6721/6722 \u2014 $340 per missing/incorrect payee statement; reduced to $60 if corrected within 30 days, $130 if corrected by Aug. 1."},
+{num:"Q2",text:"Is there a cage-level process for applying backup withholding when a patron does not provide a valid TIN on a reportable payout?",cat:"Patron-facing",penalty:"Failure to backup withhold under IRC \u00a73406 makes the payor liable for the under-withheld amount, generally 24%, plus interest."},
+{num:"Q3",text:"Is the CMS configured to apply the 2026 OBBBA thresholds \u2014 $2,000 for slot, bingo, and keno W-2G reporting, and the dual condition ($2,000 and at least 300x the wager) for sports wagering?",cat:"Patron-facing",penalty:"Misapplied thresholds carry 6721/6722 exposure per affected return."},
+{num:"Q4",text:"Does accounts payable have a documented policy requiring collection of a valid Form W-9 from vendors and contractors before first payment?",cat:"Accounts payable",penalty:"6721/6722 \u2014 $340 per missing/incorrect payee statement; reduced to $60/$130 if corrected timely."},
+{num:"Q5",text:"Does the accounts payable system apply backup withholding to vendor and contractor payments when no valid W-9 is on file or an open B-Notice is unresolved?",cat:"Accounts payable",penalty:"Failure to backup withhold under IRC \u00a73406 makes the payor liable, generally 24% of the payment, plus interest."},
+{num:"Q6",text:"Are federal tax deposits for withheld amounts made on time through EFTPS?",cat:"Tax deposits",penalty:"Failure-to-deposit penalty (\u00a76656): 2% to 15% depending on how late, escalating with IRS notices."},
+{num:"Q7",text:"Does the property file Form 1042-S for any payments made to foreign vendors, foreign patrons, or other foreign persons?",cat:"Information returns",penalty:"6721/6722 applies; intentional disregard carries $680 per return with no annual cap."},
+{num:"Q8",text:"Are all required information returns filed by their statutory due date, and are recipient copies furnished by the applicable furnishing deadline?",cat:"Information returns",penalty:"Late filing/furnishing penalty: $340 per return, reduced to $60/$130 if corrected timely; annual cap of $1,397,000\u2013$4,191,500 depending on filer size."},
+{num:"Q9",text:"Does the property file Form 945 (Annual Return of Withheld Federal Income Tax) to report backup withholding and mandatory gambling withholding?",cat:"MeF filing",penalty:"Late filing carries a \u00a76651 penalty of 5% of unpaid tax per month, up to 25%."},
+{num:"Q10",text:"Is Form 1042 filed electronically through MeF? (Required for filers meeting the applicable threshold; failure to e-file can trigger an IRS examination of all foreign payee transactions.)",cat:"MeF filing",penalty:"Failure to e-file when required can result in a penalty under \u00a76011(e) and \u00a76721, plus heightened examination risk."},
+{num:"Q11",text:"Has the property confirmed whether its state(s) have updated their W-2G, 1099, and 1042-S reporting thresholds to align with the 2026 federal OBBBA changes?",cat:"State reporting",penalty:"State penalty regimes vary by state and are separate from federal exposure."},
+];
+
+const FILING_QUESTION_SELF = {num:"Q12",text:"Has the property obtained its IRIS-specific TCC (a FIRE TCC is not transferable), for either A2A (API) filing or Manual (UI) filing?",cat:"IRIS readiness",penalty:"Without an active IRIS TCC, the property cannot file electronically once FIRE is decommissioned, risking full late-filing exposure for every affected return."};
+
+const FILING_QUESTION_OUTSOURCED = {num:"Q12",text:"Has the property obtained written confirmation that its third-party provider holds an active IRIS TCC and is filing through IRIS (not FIRE), via A2A or manual submission?",cat:"Provider readiness",penalty:"Liability for 6721/6722 penalties generally remains with the filer of record, regardless of provider error."};
+
+let filingType = null;
+let answers = {};
+let questions = [];
+
+function selectFiling(type) {
+  filingType = type;
+  document.getElementById('card-self').classList.toggle('selected', type==='self');
+  document.getElementById('card-outsourced').classList.toggle('selected', type==='outsourced');
+  questions = [...BASE_QUESTIONS, type==='self' ? FILING_QUESTION_SELF : FILING_QUESTION_OUTSOURCED];
+  renderQuestions();
+}
+
+function renderQuestions() {
+  const container = document.getElementById('questions-container');
+  container.innerHTML = questions.map(q => {
+    const ans = answers[q.num] || null;
+    return `<div class="q-card">
+      <div class="q-num">${q.num} &middot; ${q.cat}</div>
+      <div class="q-text">${q.text}</div>
+      <div class="btn-group">
+        <button class="btn-ans ${ans==='yes'?'sel-yes':''}" onclick="setAnswer('${q.num}','yes')">Yes</button>
+        <button class="btn-ans ${ans==='no'?'sel-no':''}" onclick="setAnswer('${q.num}','no')">No</button>
+        <button class="btn-ans ${ans==='na'?'sel-na':''}" onclick="setAnswer('${q.num}','na')">N/A</button>
+      </div>
+    </div>`;
+  }).join('');
+  updateProgress();
+}
+
+function setAnswer(num, val) {
+  answers[num] = val;
+  renderQuestions();
+}
+
+function updateProgress() {
+  const answered = questions.filter(q => answers[q.num]).length;
+  const total = questions.length;
+  document.getElementById('progress-note').textContent = `${answered} of ${total} answered`;
+  document.getElementById('submit-btn').disabled = answered < total;
+}
+
+function ringSvg(pct, color) {
+  const r = 36, c = 2*Math.PI*r;
+  const offset = c - (pct/100)*c;
+  return `<svg width="88" height="88" viewBox="0 0 88 88" style="transform:rotate(-90deg)">
+    <circle cx="44" cy="44" r="${r}" fill="none" stroke="var(--color-border-tertiary)" stroke-width="7"/>
+    <circle cx="44" cy="44" r="${r}" fill="none" stroke="${color}" stroke-width="7" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${offset}"/>
+  </svg>`;
+}
+
+function buildReport() {
+  document.getElementById('quiz-screen').style.display='none';
+  document.getElementById('report-screen').style.display='block';
+
+  let gaps = [];
+  questions.forEach(q => {
+    if (answers[q.num] === 'no') gaps.push(q);
+  });
+
+  const gapCount = gaps.length;
+  let rating, color, bg, narrative;
+  if (gapCount === 0) {
+    rating = 'No gaps identified'; color = '#3B6D11'; bg = '#EAF3DE';
+    narrative = "Based on your answers, none of the 12 highest-priority risk areas in this quick check turned up a gap. That's a good sign\u2014though this short version only covers the most common, highest-penalty areas. The full assessment covers Name/TIN matching, B-Notice handling, royalty payments, and several other areas this quick check doesn't touch.";
+  } else if (gapCount <= 2) {
+    rating = `${gapCount} gap${gapCount===1?'':'s'} identified`; color = '#854F0B'; bg = '#FAEEDA';
+    narrative = `Based on your answers, ${gapCount} of the 12 highest-priority risk areas in this quick check turned up a gap. Each of these carries real penalty exposure under federal information reporting rules\u2014worth addressing directly rather than letting it carry into the next filing season.`;
+  } else {
+    rating = `${gapCount} gaps identified`; color = '#A32D2D'; bg = '#FCEBEB';
+    narrative = `Based on your answers, ${gapCount} of the 12 highest-priority risk areas in this quick check turned up a gap. With this many gaps in the highest-priority areas alone, it's likely additional issues exist in the areas this short check doesn't cover. This is worth a closer look before the next filing season.`;
+  }
+
+  const ringPct = gapCount === 0 ? 100 : Math.max(20, 100 - gapCount*15);
+
+  let html = `
+    <div class="outcome-row" style="background:${bg}">
+      <div class="outcome-ring-wrap">
+        ${ringSvg(ringPct, color)}
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column">
+          <span style="font-size:16px;font-weight:500;color:${color}">${ringPct}</span>
+          <span style="font-size:9px;color:var(--color-text-secondary)">score</span>
+        </div>
+      </div>
+      <div class="outcome-text">
+        <div class="outcome-rating" style="color:${color}">${rating}</div>
+        <div class="outcome-narrative">${narrative}</div>
+      </div>
+    </div>`;
+
+  if (gaps.length > 0) {
+    html += `<div class="gap-section"><div class="gap-title"><i class="ti ti-alert-circle" style="color:#A32D2D"></i>Gaps identified</div>`;
+    gaps.forEach(g => {
+      html += `<div class="gap-item"><div class="gap-text"><strong>${g.cat}:</strong> ${g.text}</div><div class="gap-penalty">${g.penalty}</div></div>`;
+    });
+    html += `</div>`;
+  }
+
+  html += `
+    <div class="full-promo">
+      <div class="full-promo-title"><i class="ti ti-list-check" aria-hidden="true" style="color:var(--color-text-tertiary)"></i>Want the full picture?</div>
+      <div class="full-promo-text">This quick check covers the highest-priority risk areas only. The full Tribal Casino Compliance Readiness Assessment covers over 40 additional questions across Name/TIN matching, B-Notice procedures, withholding certificate operations, royalty payment treatment, and MeF correction processes\u2014plus a full operational efficiency review.</div>
+      <a class="full-promo-cta" href="../compliance-assessment.html" target="_top">Take the full assessment &#8599;</a>
+    </div>
+    <div class="cta-card">
+      <div class="cta-title">Want to discuss these results?</div>
+      <div class="cta-sub">Colin Brien is a tax attorney with 20 years of Big 4 experience in information reporting and withholding compliance for tribal casinos.</div>
+      <a class="btn-cta" href="../contact.html" target="_top">Schedule a consultation &#8599;</a>
+    </div>
+    <div class="disclaimer">This quick check is a self-reported, abbreviated diagnostic tool for general informational purposes only. It is not legal or tax advice, does not constitute a comprehensive compliance review, and does not create an attorney-client or advisory relationship. Penalty figures are illustrative and subject to change. Results depend entirely on the accuracy of answers provided. Consult qualified tax counsel before taking or refraining from any action.</div>
+    <div style="text-align:center;margin-top:1rem"><button class="btn-nav" onclick="location.reload()">Start over</button></div>
+  `;
+
+  document.getElementById('report-content').innerHTML = html;
+}
+</script>
+</body>
+</html>

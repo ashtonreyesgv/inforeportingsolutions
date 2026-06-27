@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tribal Casino Compliance Readiness Assessment | InfoReporting Solutions</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/@tabler/icons-webfont/3.31.0/tabler-icons.min.css">
+<style>
+:root{
+  --color-background-primary:#FFFFFF;
+  --color-background-secondary:#F5F5F4;
+  --color-background-tertiary:#EDEDEB;
+  --color-background-warning:#FAEEDA;
+  --color-text-primary:#1A1A19;
+  --color-text-secondary:#5F5E5A;
+  --color-text-tertiary:#888780;
+  --color-text-warning:#854F0B;
+  --color-border-tertiary:rgba(0,0,0,0.10);
+  --color-border-secondary:rgba(0,0,0,0.20);
+  --border-radius-md:8px;
+  --border-radius-lg:12px;
+  --font-sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+/* Embedded on inforeportingsolutions.com — always render light to match the
+   surrounding page; OS dark-mode override intentionally disabled. */
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans);background:var(--color-background-tertiary);color:var(--color-text-primary);line-height:1.5}
+.page{max-width:720px;margin:0 auto;padding:2rem 1.25rem 4rem}
+.wrap{padding:1.5rem 1.5rem;background:var(--color-background-primary);border-radius:var(--border-radius-lg);box-shadow:0 1px 3px rgba(0,0,0,0.08)}
+.progress-bar{height:4px;background:var(--color-border-tertiary);border-radius:2px;margin-bottom:0.75rem}
+.progress-fill{height:4px;background:#1F3864;border-radius:2px;transition:width 0.3s}
+.filing-pill{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:500;color:var(--color-text-secondary);background:var(--color-background-secondary);padding:3px 10px;border-radius:12px;margin-bottom:1rem}
+.section-label{font-size:12px;font-weight:500;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.5rem}
+.section-title{font-size:18px;font-weight:500;color:var(--color-text-primary);margin-bottom:0.75rem}
+.upcoming-row{display:flex;gap:6px;margin-bottom:1rem;flex-wrap:wrap}
+.upcoming-chip{font-size:10.5px;padding:3px 8px;border-radius:10px;background:var(--color-background-secondary);color:var(--color-text-tertiary)}
+.upcoming-chip.current{background:#1F3864;color:#fff}
+.na-toggle{display:flex;align-items:center;gap:8px;background:var(--color-background-warning);border-radius:var(--border-radius-md);padding:10px 14px;margin-bottom:1.25rem;cursor:pointer}
+.na-toggle input{cursor:pointer}
+.na-toggle span{font-size:13px;color:var(--color-text-warning);font-weight:500}
+.sub-label{font-size:13px;font-weight:500;color:#1F3864;margin:1.25rem 0 0.5rem;padding-bottom:4px;border-bottom:0.5px solid var(--color-border-tertiary)}
+.q-card{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:0.875rem 1.1rem;margin-bottom:0.6rem;background:var(--color-background-primary)}
+.q-card.op{background:var(--color-background-secondary);border-color:var(--color-border-tertiary)}
+.q-num{font-size:11px;font-weight:500;color:var(--color-text-tertiary);margin-bottom:4px}
+.q-text{font-size:13.5px;color:var(--color-text-primary);line-height:1.55;margin-bottom:0.7rem}
+.op-prefix{font-weight:500;color:#0F6E56}
+.btn-group{display:flex;gap:6px;flex-wrap:wrap}
+.btn-ans{flex:1;min-width:70px;padding:8px 6px;font-size:12px;border:1.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:var(--color-background-primary);color:var(--color-text-secondary);cursor:pointer;font-weight:400}
+.btn-ans:hover{background:var(--color-background-secondary)}
+.btn-ans.sel-yes{background:#639922 !important;border-color:#3B6D11 !important;color:#FFFFFF !important;font-weight:500}
+.btn-ans.sel-no{background:#E24B4A !important;border-color:#A32D2D !important;color:#FFFFFF !important;font-weight:500}
+.btn-ans.sel-na{background:#5F5E5A !important;border-color:#444441 !important;color:#FFFFFF !important;font-weight:500}
+.tier-options{display:flex;flex-direction:column;gap:6px}
+.tier-opt{display:flex;align-items:flex-start;gap:10px;padding:8px 10px;border:1.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);cursor:pointer;background:var(--color-background-primary)}
+.tier-opt:hover{background:var(--color-background-secondary)}
+.tier-opt.selected{background:#0F6E56 !important;border-color:#085041 !important}
+.tier-opt.selected .tier-desc{color:#FFFFFF}
+.tier-desc{font-size:12.5px;color:var(--color-text-primary);line-height:1.5}
+.nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:1.25rem;gap:1rem}
+.btn-nav{padding:8px 18px;font-size:14px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:var(--color-background-primary);color:var(--color-text-primary);cursor:pointer}
+.btn-nav:hover{background:var(--color-background-secondary)}
+.btn-primary{background:#1F3864;color:white;border-color:#1F3864}
+.btn-primary:hover{background:#162a4a;color:white}
+.btn-nav:disabled{opacity:0.35;cursor:default}
+.q-count{font-size:12px;color:var(--color-text-secondary)}
+.filing-select{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:1.25rem 0}
+.filing-card{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.1rem;cursor:pointer;text-align:left}
+.filing-card:hover,.filing-card.selected{border-color:#1F3864;border-width:2px}
+.filing-card.selected{background:#E6F1FB}
+.filing-title{font-size:14px;font-weight:500;margin-bottom:0.25rem}
+.filing-desc{font-size:12px;color:var(--color-text-secondary);line-height:1.5}
+.report-wrap{padding:0.5rem 0}
+.outcome-row{display:flex;gap:1.25rem;align-items:center;padding:1.5rem 1rem;border-radius:var(--border-radius-lg);margin-bottom:1.25rem}
+.outcome-ring-wrap{flex-shrink:0;position:relative;width:96px;height:96px}
+.outcome-text{flex:1}
+.outcome-rating{font-size:18px;font-weight:500;margin-bottom:4px}
+.outcome-narrative{font-size:13px;color:var(--color-text-secondary);line-height:1.55}
+.sec-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem}
+.sec-card{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:0.8rem 1rem}
+.sec-name{font-size:11px;font-weight:500;color:var(--color-text-secondary);margin-bottom:4px}
+.sec-rating{font-size:14px;font-weight:500}
+.sec-bar-track{height:4px;background:var(--color-border-tertiary);border-radius:2px;margin-top:6px}
+.sec-bar-fill{height:4px;border-radius:2px}
+.gap-section{margin-bottom:1.5rem}
+.gap-title{font-size:14px;font-weight:500;margin-bottom:0.75rem;display:flex;align-items:center;gap:6px}
+.gap-item{padding:0.7rem 0.9rem;border-radius:var(--border-radius-md);margin-bottom:0.5rem;border-left:3px solid #E24B4A;background:var(--color-background-primary);border-top:0.5px solid var(--color-border-tertiary);border-right:0.5px solid var(--color-border-tertiary);border-bottom:0.5px solid var(--color-border-tertiary)}
+.gap-item.imp{border-left-color:#EF9F27}
+.gap-cat{font-size:10px;color:var(--color-text-secondary);font-weight:500;margin-bottom:2px}
+.gap-text{font-size:12.5px;line-height:1.5}
+.gap-penalty{font-size:11px;color:#A32D2D;margin-top:4px;font-style:italic}
+.op-summary{margin-bottom:1.5rem}
+.op-score-row{display:flex;align-items:center;gap:12px;padding:1rem;background:var(--color-background-secondary);border-radius:var(--border-radius-lg);margin-bottom:1rem}
+.op-score-icon{flex-shrink:0;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.op-score-label{font-size:13px;color:var(--color-text-primary);line-height:1.45}
+.op-item{padding:0.7rem 0.9rem;border-radius:var(--border-radius-md);margin-bottom:0.5rem;background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-left:3px solid var(--color-border-tertiary)}
+.op-item.strong{border-left-color:#3B6D11}
+.op-item.moderate{border-left-color:#854F0B}
+.op-item.weak{border-left-color:#A32D2D}
+.op-item-q{font-size:12px;color:var(--color-text-secondary);margin-bottom:4px}
+.op-item-answer{font-size:13px;font-weight:500;margin-bottom:3px}
+.op-item-answer.strong{color:#3B6D11}
+.op-item-answer.moderate{color:#854F0B}
+.op-item-answer.weak{color:#A32D2D}
+.op-item-impact{font-size:12px;color:var(--color-text-secondary);line-height:1.5}
+.benchmark-card{background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:1.1rem 1.25rem;margin-bottom:1.5rem;border:0.5px dashed var(--color-border-secondary)}
+.benchmark-title{font-size:13px;font-weight:500;display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.benchmark-text{font-size:12px;color:var(--color-text-secondary);line-height:1.5}
+.disclaimer{font-size:11px;color:var(--color-text-tertiary);line-height:1.6;padding:1rem;background:var(--color-background-secondary);border-radius:var(--border-radius-md);margin-top:1.5rem}
+.cta-card{background:#1F3864;border-radius:var(--border-radius-lg);padding:1.5rem;margin-bottom:1rem;text-align:center}
+.cta-title{font-size:15px;font-weight:500;color:white;margin-bottom:6px}
+.cta-sub{font-size:12.5px;color:rgba(255,255,255,0.75);margin-bottom:1rem;line-height:1.5}
+.btn-cta{background:#C9A227;color:#1F3864;font-weight:500;font-size:13px;padding:9px 20px;border-radius:var(--border-radius-md);border:none;cursor:pointer;text-decoration:none;display:inline-block}
+.dev-note{background:#FFF8E6;border:1px solid #C9A227;border-radius:var(--border-radius-md);padding:0.75rem 1rem;font-size:11.5px;color:#5F4A0E;margin-bottom:1.5rem;line-height:1.5}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="wrap" id="app">
+  <div id="intro-screen">
+    <p class="section-label">InfoReporting Solutions</p>
+    <h2 class="section-title">Tribal Casino Compliance Readiness Assessment</h2>
+    <p style="font-size:13px;color:var(--color-text-secondary);margin-bottom:1.25rem">Tax Year 2026 &middot; This is a self-assessment for diagnostic purposes only, not legal or tax advice.</p>
+    <p class="section-label">How does your property file its information returns?</p>
+    <div class="filing-select">
+      <div class="filing-card" id="card-self" onclick="selectFiling('self')">
+        <div class="filing-title">We file ourselves</div>
+        <div class="filing-desc">Sections A&ndash;F, plus Section G: IRIS credentialing &amp; filing method</div>
+      </div>
+      <div class="filing-card" id="card-outsourced" onclick="selectFiling('outsourced')">
+        <div class="filing-title">We use a third party</div>
+        <div class="filing-desc">Sections A&ndash;F, plus Section H: provider readiness</div>
+      </div>
+    </div>
+    <button class="btn-nav btn-primary" id="start-btn" disabled onclick="startAssessment()" style="width:100%;padding:10px">Start assessment</button>
+  </div>
+
+  <div id="assessment-screen" style="display:none">
+    <div class="progress-bar"><div class="progress-fill" id="prog"></div></div>
+    <div class="filing-pill" id="filing-pill"><i class="ti ti-route" aria-hidden="true" style="font-size:13px"></i><span id="filing-pill-text"></span></div>
+    <p class="section-label" id="sec-label"></p>
+    <h2 class="section-title" id="sec-title"></h2>
+    <div class="upcoming-row" id="upcoming-row"></div>
+    <div class="na-toggle" id="na-toggle-wrap" onclick="toggleSectionNA()">
+      <input type="checkbox" id="na-checkbox" onclick="event.stopPropagation()" onchange="toggleSectionNA(true)">
+      <span>This entire section is not applicable to the property</span>
+    </div>
+    <div id="questions-container"></div>
+    <div class="nav-row">
+      <button class="btn-nav" id="btn-back" onclick="goBack()">&larr; Back</button>
+      <span class="q-count" id="q-count"></span>
+      <button class="btn-nav btn-primary" id="btn-next" onclick="goNext()">Next &rarr;</button>
+    </div>
+  </div>
+
+  <div id="report-screen" style="display:none">
+    <div class="report-wrap" id="report-content"></div>
+  </div>
+</div>
+</div>
+
+<script>
+const SECTIONS = [
+{id:"A",label:"Section A of H",title:"Patron-Facing (Gaming Floor & Cage)",items:[
+{sub:"Withholding Certificates (Forms W-9, W-8, and 8233) \u2014 Patrons"},
+{num:"P-1",text:"Does the property have a documented policy requiring collection of a valid Form W-9 from patrons before a reportable payout is made?",weight:"Critical",penalty:"6721/6722 \u2014 $340 per missing/incorrect payee statement; reduced to $60 if corrected within 30 days, $130 if corrected by Aug. 1."},
+{num:"P-2",text:"Does that policy extend to promotional prizes, drawings, and non-wagering giveaways reportable on Form 1099-MISC?",weight:"Important",penalty:"Same 6721/6722 exposure as P-1, applied to Form 1099-MISC."},
+{op:"P-3",text:"How does the property collect Form W-9 from patrons?",impact:"Determines how quickly forms are captured and how often they arrive incomplete or illegible.",tiers:[{label:"Electronic, before play",desc:"Electronic system at sign-up/registration, before play begins"},{label:"Tablet, at time of win",desc:"Tablet-based collection at the cage, immediately after a win"},{label:"Paper, re-keyed later",desc:"Paper form at the cage, manually re-keyed into the CMS afterward"}]},
+{op:"P-3a",text:"When patron names are entered at the cage or in the CMS, are they entered exactly as they appear on the W-9?",impact:"Name-entry mismatches between the system and the form are a common, avoidable driver of CP2100 notices.",tiers:[{label:"Direct entry, no re-keying",desc:"System pulls the name field directly from an electronic form \u2014 no manual re-keying"},{label:"Manual, with verification",desc:"Manual entry, but with a verification or double-check step before saving"},{label:"Manual, unverified",desc:"Manual entry with no verification step"}]},
+{op:"P-4",text:"How does the property collect Form W-9 for promotional prizes and giveaways specifically?",impact:"A weaker process here than for gaming wins often signals an overlooked gap even when general W-9 policy looks fine on paper.",tiers:[{label:"Electronic, at sign-up",desc:"Electronic system at sign-up, same as gaming wins"},{label:"Electronic, at time of award",desc:"Electronic or tablet collection at the time the prize is awarded"},{label:"Paper, manual",desc:"Paper form, collected manually"}]},
+{num:"P-5",text:"Is there a documented process for soliciting Form W-8 (W-8BEN) from foreign patrons prior to a reportable payout?",weight:"Critical",penalty:"Absent a valid W-8, Chapter 3 withholding at the 30% statutory rate applies; 6721/6722 exposure also applies to Form 1042-S."},
+{num:"P-6",text:"Is there a process for identifying and flagging expired W-8 forms? (W-8 forms generally expire after three calendar years.)",weight:"Important",penalty:"An expired W-8 is treated as if no form is on file, reinstating the 30% withholding rate and 1042-S reporting risk."},
+{num:"P-7",text:"Are W-9s and W-8s reviewed for completeness and internal consistency before being accepted (e.g., name matches TIN type, entity type box checked, signature and date present, treaty analysis)?",weight:"Important",penalty:"Incomplete forms increase risk of a Name/TIN mismatch, triggering 24% backup withholding exposure."},
+{num:"P-8",text:"Are W-9s and W-8s retained in a secure, accessible location for at least four years from the date of the last payment\u2014or for as long as the patron remains an active reportable payee, if longer?",weight:"Important",penalty:"Four years is a floor, not a ceiling. For a patron who continues to play and receive reportable payouts, the form must stay current and on file for the life of that relationship; inadequate retention undermines a reasonable-cause defense to 6721/6722 penalties."},
+{op:"P-9",text:"How does the property collect Form W-8 from foreign patrons?",impact:"An undefined collection method is a common driver of missed solicitations entirely.",tiers:[{label:"Electronic, before play",desc:"Electronic system at sign-up, before play"},{label:"Paper, at time of payout",desc:"Paper form at the cage, at the time of payout"},{label:"No defined method",desc:"No defined or consistent method"}]},
+{sub:"Name / TIN Matching \u2014 Patrons"},
+{num:"P-10",text:"Does the property participate in TIN matching services, whether through the IRS TIN Matching Program (e-Services) or a third-party verification provider?",weight:"Important",penalty:"Pre-screening reduces post-filing 6721/6722 exposure for incorrect TINs."},
+{num:"P-10a",text:"Is there a mechanism for patrons to report changes in circumstance (such as address or name change) so the property can collect an updated Form W-9 or W-8?",weight:"Important",penalty:"Outdated patron information increases risk of CP2100 notices and complicates a reasonable-cause defense."},
+{num:"P-11",text:"Is there a documented process for responding to IRS CP2100 / CP2100A notices (B-Notices), including tracking the 15-business-day response window?",weight:"Critical",penalty:"Failure to solicit a corrected W-9 within the required window obligates backup withholding at 24% on future payments."},
+{num:"P-12",text:"Is the patron's TIN type (SSN/ITIN) captured at the time of collection?",weight:"Important",penalty:"An incorrect TIN type is a common, avoidable driver of CP2100 notices."},
+{num:"P-13",text:"Does the property distinguish a First B Notice (requiring a new Form W-9) from a Second B Notice (requiring SSA verification or IRS Letter 147C, not another W-9)?",weight:"Important",penalty:"Using First B Notice procedure for a Second B Notice does not satisfy the requirement and can leave the property exposed to ongoing backup withholding obligations."},
+{sub:"Withholding \u2014 Gaming Floor"},
+{num:"P-14",text:"Does the property have documented procedures distinguishing mandatory withholding (24% on qualifying gambling winnings) from backup withholding (24% triggered by a missing or invalid TIN)?",weight:"Critical",penalty:"Failure to withhold required amounts exposes the property to liability for the tax under IRC \u00a73403."},
+{num:"P-15",text:"Is the CMS configured to apply the 2026 OBBBA thresholds \u2014 $2,000 for slot, bingo, and keno W-2G reporting, and the dual condition ($2,000 and at least 300x the wager) for sports wagering?",weight:"Critical",penalty:"Misapplied thresholds carry 6721/6722 exposure per affected return."},
+{num:"P-16",text:"Is there a cage-level process for applying backup withholding when a patron does not provide a valid TIN on a reportable payout?",weight:"Critical",penalty:"Failure to backup withhold under IRC \u00a73406 makes the payor liable for the under-withheld amount, generally 24%, plus interest. Note: 26 CFR 31.3406(f)-1(c)(3) generally prohibits refusing payment outright \u2014 the required response is to withhold and pay net."},
+{num:"P-17",text:"Is there a process for applying Chapter 3 withholding on reportable winnings paid to foreign patrons?",weight:"Important",penalty:"Under-withholding makes the withholding agent personally liable under IRC \u00a71461."},
+]},
+{id:"B",label:"Section B of H",title:"Accounts Payable (Vendors, Contractors, Royalties)",items:[
+{sub:"Withholding Certificates (Forms W-9, W-8, and 8233) \u2014 Vendors"},
+{num:"A-1",text:"Does AP have a documented policy requiring collection of a valid Form W-9 from vendors and contractors before first payment?",weight:"Critical",penalty:"6721/6722 \u2014 $340 per missing/incorrect payee statement; reduced to $60/$130 if corrected timely."},
+{num:"A-2",text:"Does AP correctly collect Form 8233 from foreign individuals performing personal services in the U.S., rather than incorrectly requesting Form W-8BEN, which does not apply to U.S.-source compensation for personal services?",weight:"Critical",penalty:"Using the wrong form can result in over- or under-withholding and improper documentation; 6721/6722 exposure applies to Form 1042-S."},
+{op:"A-3",text:"How does AP collect Form W-9 from vendors and contractors, and at what point in onboarding?",impact:"Collecting W-9s after payments have already started is a frequent source of retroactive backup withholding exposure.",tiers:[{label:"Portal, before onboarding completes",desc:"Onboarding portal with built-in validation, collected before onboarding completes"},{label:"PDF, before first payment",desc:"Emailed or mailed PDF, collected before first payment"},{label:"Ad hoc, after payment begins",desc:"Ad hoc, often collected after payment has already begun"}]},
+{num:"A-4",text:"Does AP have a documented process for soliciting the correct Form W-8 variant (W-8BEN, W-8BEN-E, W-8ECI, etc.) from foreign vendors based on entity type?",weight:"Critical",penalty:"Absent a valid W-8, Chapter 3 withholding at 30% applies; 6721/6722 exposure also applies to Form 1042-S."},
+{num:"A-5",text:"Is there a process for tracking W-8 expiration (generally three calendar years) across the vendor file and re-soliciting before lapse?",weight:"Important",penalty:"An expired W-8 reinstates the 30% withholding rate."},
+{num:"A-6",text:"Are W-9s, W-8s, and Forms 8233 reviewed for completeness and internal consistency before being accepted (e.g., name matches TIN type, entity type box checked, signature and date present, treaty analysis)?",weight:"Important",penalty:"Incomplete forms increase risk of a Name/TIN mismatch."},
+{num:"A-7",text:"Are W-9s, W-8s, and Forms 8233 retained in a secure, accessible location for at least four years from the date of the last payment\u2014or for as long as the vendor remains an active payee, if longer?",weight:"Important",penalty:"Four years is a floor, not a ceiling. For a vendor with an ongoing relationship, the form needs to stay current for as long as payments continue; inadequate retention undermines a reasonable-cause defense to penalties."},
+{op:"A-8",text:"How does AP determine which W-8 variant (or whether Form 8233 applies) for a given foreign vendor or individual?",impact:"Manual, case-by-case determination scales poorly and is a common source of the wrong form being accepted.",tiers:[{label:"Automated, in portal",desc:"Automated determination built into the onboarding portal"},{label:"Manual, by trained staff",desc:"Manual determination by trained AP staff, case by case"},{label:"No consistent method",desc:"No consistent method for making this determination"}]},
+{num:"A-8a",text:"Is there a formal mechanism for vendors to report changes in circumstance (such as address or entity type) that nullify previously collected tax documentation?",weight:"Important",penalty:"An unreported change in entity type can render documentation on file inaccurate, undermining a reasonable-cause defense."},
+{sub:"Name / TIN Matching \u2014 Vendors"},
+{num:"A-9",text:"Does AP participate in TIN matching services, whether through the IRS TIN Matching Program (e-Services) or a third-party verification provider?",weight:"Important",penalty:"Pre-screening reduces post-filing 6721/6722 exposure."},
+{num:"A-10",text:"Is there a documented process for responding to vendor-related CP2100 / CP2100A B-Notices, including the 15-business-day response window?",weight:"Critical",penalty:"Failure to respond within the window obligates backup withholding at 24% on future payments."},
+{num:"A-11",text:"Does AP distinguish a First B Notice (requiring a new Form W-9) from a Second B Notice (requiring SSA verification or IRS Letter 147C)?",weight:"Important",penalty:"Using First B Notice procedure for a Second B Notice does not satisfy the requirement."},
+{sub:"Withholding \u2014 Accounts Payable"},
+{num:"A-12",text:"Does the AP system apply backup withholding to vendor and contractor payments when no valid W-9 is on file or an open B-Notice is unresolved?",weight:"Critical",penalty:"Failure to backup withhold under IRC \u00a73406 makes the payor liable, generally 24% of the payment, plus interest. Note: 26 CFR 31.3406(f)-1(c)(3) generally prohibits refusing payment outright."},
+{num:"A-13",text:"Is there a process for applying Chapter 3 withholding on payments to foreign vendors reportable on Form 1042-S?",weight:"Important",penalty:"Under-withholding makes the withholding agent personally liable under IRC \u00a71461."},
+{num:"A-14",text:"Are royalty payments (e.g., music licensing, software/IP licensing) flagged separately to ensure correct 1099-MISC Box 2 treatment?",weight:"Important",penalty:"Misclassified royalty payments risk 6721/6722 exposure."},
+]},
+{id:"C",label:"Section C of H",title:"Timely Tax Deposits",items:[
+{sub:"Deposits"},
+{num:"D-1",text:"Is the property aware of its federal deposit schedule (monthly vs. semi-weekly depositor) for withheld amounts under EFTPS rules?",weight:"Important",penalty:"Misclassifying deposit frequency is a common driver of late-deposit penalties under \u00a76656."},
+{num:"D-2",text:"Are federal tax deposits for withheld amounts made on time through EFTPS?",weight:"Critical",penalty:"Failure-to-deposit penalty (\u00a76656): 2% (1-5 days late), 5% (6-15 days), 10% (16+ days), 15% (10+ days after IRS demand)."},
+{num:"D-3",text:"Are backup withholding amounts tracked separately by source (cage vs. AP) so they can be reconciled to Form 945?",weight:"Important",penalty:"Reconciliation failures increase risk of underreported deposits and \u00a76656 penalties."},
+{num:"D-4",text:"Does the property reconcile total withheld amounts against EFTPS deposits each quarter before filing Form 945 or Form 1042?",weight:"Important",penalty:"Unreconciled discrepancies are more costly to correct after filing."},
+]},
+{id:"D",label:"Section D of H",title:"Form 1099, Form 1042-S, and Form W-2G Reporting",items:[
+{sub:"Filing Scope & Timeliness"},
+{num:"R-2",text:"Does the property file Form 1042-S for any payments made to foreign vendors, foreign patrons, or other foreign persons?",weight:"Critical",penalty:"6721/6722 applies; intentional disregard carries $680 per return with no annual cap."},
+{num:"R-3",text:"Does AP have a defined process to determine the payment type and, where the payee is foreign, whether the income is U.S.-source and subject to Chapter 3 withholding and Form 1042-S reporting?",weight:"Critical",penalty:"Misclassification is a root cause of under-withholding under IRC \u00a71461 and missing Form 1042-S filings."},
+{op:"R-4",text:"At what point is the payment-type and U.S.-source determination made?",impact:"Determining sourcing only at invoice review (or not at all) is a common source of late-discovered foreign-source payments and retroactive withholding shortfalls.",tiers:[{label:"At onboarding, re-verified later",desc:"Determined and documented during vendor onboarding, before any payment, then re-verified at invoice review"},{label:"Only at invoice review",desc:"Determined only at invoice review, on a payment-by-payment basis"},{label:"Not consistently captured",desc:"Not consistently captured; determination is ad hoc or after the fact"}]},
+{num:"R-5",text:"Are all required information returns filed by their statutory due date, and are recipient copies furnished by the applicable furnishing deadline?",weight:"Critical",penalty:"Late filing/furnishing penalty: $340 per return, reduced to $60/$130 if corrected timely; annual cap of $1,397,000 (small filers) or $4,191,500 (large filers)."},
+{num:"R-6",text:"If the property cannot meet a filing deadline, does it have a documented process for requesting an extension \u2014 Form 8809 for most returns, Form 7004 for Form 1042, and Form 15397 for recipient statement extensions?",weight:"Important",penalty:"Using the wrong extension form forfeits the relief and exposes the full late-filing/furnishing penalty."},
+{op:"R-7",text:"Does the property use the optional aggregate reporting method for bingo, keno, or slot machine winnings?",impact:"Not using the aggregate method where eligible creates unnecessary form volume and cage paperwork without any compliance benefit.",tiers:[{label:"Used consistently, correctly",desc:"Used consistently where eligible, with system logic correctly excluding any payment subject to backup withholding"},{label:"Used inconsistently",desc:"Used inconsistently or only manually applied"},{label:"Not used",desc:"Not used; every qualifying payment is filed on a separate Form W-2G"}]},
+]},
+{id:"E",label:"Section E of H",title:"MeF Filing (Form 945 & Form 1042)",items:[
+{sub:"Form 945"},
+{num:"M-1",text:"Does the property file Form 945 (Annual Return of Withheld Federal Income Tax) to report backup withholding and mandatory gambling withholding?",weight:"Critical",penalty:"Late filing carries a \u00a76651 penalty of 5% of unpaid tax per month, up to 25%."},
+{op:"M-2",text:"Is Form 945 filed on paper or electronically through MeF?",impact:"Paper filing carries longer IRS processing times and no real-time confirmation of acceptance.",tiers:[{label:"Electronic, via MeF",desc:"Filed electronically through MeF"},{label:"Paper, with a defined process",desc:"Filed on paper, but with a defined internal process and tracking"},{label:"Paper, no defined process",desc:"Filed on paper, with no defined process"}]},
+{num:"M-3",text:"If a previously filed Form 945 needs correction, does the process correctly use Form 945-X (a separate, standalone form, not attached to Form 945)?",weight:"Critical",penalty:"An improperly filed correction may not be processed correctly, prolonging interest exposure."},
+{sub:"Form 1042"},
+{num:"M-4",text:"Is Form 1042 filed electronically through MeF? (Required for filers meeting the applicable threshold; failure to e-file can trigger an IRS examination of all foreign payee transactions.)",weight:"Critical",penalty:"Failure to e-file when required can result in a penalty under \u00a76011(e) and \u00a76721."},
+{num:"M-5",text:"If a previously filed Form 1042 needs correction, does the process correctly check the \"Amended Return\" box and attach the required explanation statement?",weight:"Critical",penalty:"An incomplete amended filing risks rejection or delayed processing."},
+]},
+{id:"F",label:"Section F of H",title:"State Reporting",items:[
+{sub:"State Alignment"},
+{num:"S-1",text:"Has the property confirmed whether its state(s) have updated their W-2G, 1099, and 1042-S reporting thresholds to align with the 2026 federal OBBBA changes?",weight:"Important",penalty:"State penalty regimes vary by state and are separate from federal exposure."},
+{num:"S-2",text:"Is the property aware that most states still require legacy Publication 1220 ASCII format and may not accept IRIS XML for the Combined Federal/State Filing program?",weight:"Important",penalty:"A required separate state filing exposes the property to that state's own late-filing penalty regime."},
+{num:"S-3",text:"Are gaming compact provisions reviewed separately from general state tax law for thresholds not updated to reflect federal changes?",weight:"Important",penalty:"Compact violations can carry consequences under the compact itself."},
+]},
+];
+
+const SECTION_SELF = {id:"G",label:"Section G of H",title:"Self-Filing Only \u2014 IRIS Credentialing & Filing Method",filingType:"self",items:[
+{sub:"IRIS Credentialing & Filing Method"},
+{num:"I-1",text:"Has the property obtained its IRIS-specific TCC (a FIRE TCC is not transferable), for either A2A (API) filing or Manual (UI) filing?",weight:"Critical",penalty:"Without an active IRIS TCC, the property cannot file electronically once FIRE is decommissioned."},
+{num:"I-2",text:"Has the technology team started mapping data fields for IRIS, including separating combined fields (such as full name) into discrete first/last name fields?",weight:"Critical",penalty:"Improperly mapped data fails schema validation at submission, risking missed deadlines."},
+{num:"I-3",text:"If filing manually through the IRIS UI: is the property aware each file is capped at 250 records, and has it assessed whether its volume makes manual filing workable?",weight:"Important",penalty:"Operational bottlenecks from the 250-record cap can lead to missed deadlines."},
+{num:"I-4",text:"If filing via A2A: has IRS Automated Transmission System (ATS) testing been completed with the internal technology team?",weight:"Important",penalty:"Untested A2A integrations risk transmission failures near the deadline."},
+{num:"I-5",text:"Has the property confirmed the technology team is capable of filing Form 945 and Form 1042 electronically through MeF, and uses Form 945-X and the Form 1042 amended-return process for corrections?",weight:"Critical",penalty:"An improperly filed correction may not be processed correctly, prolonging interest exposure."},
+{num:"I-6",text:"Is there a named internal owner responsible for monitoring IRIS file status and responding to \"accepted with errors\" notices within the 60-day window?",weight:"Critical",penalty:"Uncorrected filings beyond 60 days are treated as incorrect returns."},
+]};
+
+const SECTION_OUTSOURCED = {id:"H",label:"Section H of H",title:"Outsourced Filing Only \u2014 Provider Readiness",filingType:"outsourced",items:[
+{sub:"Provider Readiness"},
+{num:"V-1",text:"Has the property obtained written confirmation that its third-party provider holds an active IRIS TCC and is filing through IRIS (not FIRE), via A2A or manual submission?",weight:"Critical",penalty:"Liability for 6721/6722 penalties generally remains with the filer of record, regardless of provider error."},
+{num:"V-2",text:"Has the property confirmed with the provider that data fields have been properly mapped for IRIS, including separating combined fields into discrete first/last name fields?",weight:"Critical",penalty:"Improperly mapped data fails schema validation at submission."},
+{num:"V-3",text:"Has the property confirmed the provider is capable of filing Form 945 and Form 1042 electronically through MeF, using Form 945-X and the Form 1042 amended-return process for corrections? (Note: Form 1042 must be e-filed; Form 945 can still be filed on paper.)",weight:"Critical",penalty:"Improperly filed corrections can leave the property exposed even though the error originated with the vendor."},
+{num:"V-4",text:"Is there a named internal owner responsible for managing the provider relationship and reviewing filings before submission?",weight:"Important",penalty:"Without oversight, errors may not be caught before the IRS does."},
+{op:"V-5",text:"Has the property reviewed the cost structure of its third-party provider for IRIS reporting relative to actual filing volume and the cost of an in-house alternative?",impact:"Pricing accepted without review or benchmarking is a common source of overpaying relative to actual filing volume.",tiers:[{label:"Reviewed and benchmarked",desc:"Reviewed within the past year and benchmarked against alternatives"},{label:"Understood, not recently reviewed",desc:"Understood generally, but not recently reviewed or benchmarked"},{label:"Not reviewed",desc:"Not reviewed; pricing accepted as presented by the provider"}]},
+]};
+
+let filingType = null;
+let sections = [];
+let currentSection = 0;
+let answers = {};
+let sectionNA = {};
+
+function selectFiling(type) {
+  filingType = type;
+  document.getElementById('card-self').classList.toggle('selected', type==='self');
+  document.getElementById('card-outsourced').classList.toggle('selected', type==='outsourced');
+  document.getElementById('start-btn').disabled = false;
+}
+
+function startAssessment() {
+  sections = [...SECTIONS, filingType==='self' ? SECTION_SELF : SECTION_OUTSOURCED];
+  currentSection = 0;
+  document.getElementById('intro-screen').style.display='none';
+  document.getElementById('assessment-screen').style.display='block';
+  document.getElementById('filing-pill-text').textContent = filingType==='self' ? 'Self-filing path: Sections A\u2013G' : 'Outsourced path: Sections A\u2013F, H';
+  renderSection();
+}
+
+function toggleSectionNA(fromCheckbox) {
+  const s = sections[currentSection];
+  if (!fromCheckbox) {
+    document.getElementById('na-checkbox').checked = !document.getElementById('na-checkbox').checked;
+  }
+  sectionNA[s.id] = document.getElementById('na-checkbox').checked;
+  document.getElementById('questions-container').style.opacity = sectionNA[s.id] ? '0.35' : '1';
+  document.getElementById('questions-container').style.pointerEvents = sectionNA[s.id] ? 'none' : 'auto';
+}
+
+function renderSection() {
+  const s = sections[currentSection];
+  const total = sections.length;
+  const pct = ((currentSection) / total * 100).toFixed(0);
+  document.getElementById('prog').style.width = pct + '%';
+  document.getElementById('sec-label').textContent = s.label;
+  document.getElementById('sec-title').textContent = s.title;
+  document.getElementById('q-count').textContent = `Section ${currentSection+1} of ${total}`;
+  document.getElementById('btn-back').disabled = currentSection === 0;
+  document.getElementById('na-checkbox').checked = !!sectionNA[s.id];
+  document.getElementById('questions-container').style.opacity = sectionNA[s.id] ? '0.35' : '1';
+  document.getElementById('questions-container').style.pointerEvents = sectionNA[s.id] ? 'none' : 'auto';
+
+  const upRow = document.getElementById('upcoming-row');
+  upRow.innerHTML = sections.map((sec,i) => {
+    const shortTitle = sec.title.split('(')[0].split(',')[0].trim().split(' ').slice(0,3).join(' ');
+    return `<span class="upcoming-chip ${i===currentSection?'current':''}">${sec.id}. ${shortTitle}</span>`;
+  }).join('');
+
+  const isLast = currentSection === sections.length - 1;
+  document.getElementById('btn-next').textContent = isLast ? 'View my report \u2192' : 'Next \u2192';
+
+  const container = document.getElementById('questions-container');
+  container.innerHTML = '';
+  s.items.forEach((item, idx) => {
+    if (item.sub) {
+      container.innerHTML += `<div class="sub-label">${item.sub}</div>`;
+      return;
+    }
+    const itemId = item.op || item.num;
+    if (item.op) {
+      const sel = answers[itemId] || null;
+      let opts = item.tiers.map((t,i) => {
+        const v = 'tier'+(i+1);
+        const isSel = sel===v;
+        return `<div class="tier-opt ${isSel?'selected':''}" onclick="setTierAnswer('${itemId}','${v}')">
+          <span class="tier-desc"><strong>${t.label}</strong> &mdash; ${t.desc}</span>
+        </div>`;
+      }).join('');
+      container.innerHTML += `
+        <div class="q-card op">
+          <div class="q-num">${itemId}</div>
+          <div class="q-text"><span class="op-prefix">Operational:</span> ${item.text}</div>
+          <div class="tier-options">${opts}</div>
+        </div>`;
+      return;
+    }
+    const ans = answers[itemId] || null;
+    container.innerHTML += `
+      <div class="q-card">
+        <div class="q-num">${itemId} &middot; ${item.weight}</div>
+        <div class="q-text">${item.text}</div>
+        <div class="btn-group">
+          <button class="btn-ans ${ans==='yes'?'sel-yes':''}" onclick="setAnswer('${itemId}','yes')">Yes</button>
+          <button class="btn-ans ${ans==='no'?'sel-no':''}" onclick="setAnswer('${itemId}','no')">No</button>
+          <button class="btn-ans ${ans==='na'?'sel-na':''}" onclick="setAnswer('${itemId}','na')">N/A</button>
+        </div>
+      </div>`;
+  });
+}
+
+function setAnswer(id, val) { answers[id] = val; renderSection(); }
+function setTierAnswer(id, val) { answers[id] = val; renderSection(); }
+function goBack() { if(currentSection > 0) { currentSection--; renderSection(); } }
+function goNext() {
+  if(currentSection < sections.length - 1) { currentSection++; renderSection(); }
+  else buildReport();
+}
+
+function ringSvg(pct, color) {
+  const r = 40, c = 2*Math.PI*r;
+  const offset = c - (pct/100)*c;
+  return `<svg width="96" height="96" viewBox="0 0 96 96" style="transform:rotate(-90deg)">
+    <circle cx="48" cy="48" r="${r}" fill="none" stroke="var(--color-border-tertiary)" stroke-width="8"/>
+    <circle cx="48" cy="48" r="${r}" fill="none" stroke="${color}" stroke-width="8" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${offset}"/>
+  </svg>`;
+}
+
+function buildReport() {
+  document.getElementById('assessment-screen').style.display='none';
+  document.getElementById('report-screen').style.display='block';
+
+  let critGaps = [], impGaps = [], opItems = [];
+  let sectionResults = [];
+
+  sections.forEach(s => {
+    if (sectionNA[s.id]) {
+      sectionResults.push({title:s.title, rating:'Not applicable', color:'var(--color-text-secondary)', pct:null});
+      return;
+    }
+    let hasCrit = false, hasImp = false, yes=0, total=0;
+    s.items.forEach(item => {
+      if (item.sub) return;
+      if (item.op) {
+        const a = answers[item.op];
+        if (a) {
+          const tierIdx = parseInt(a.replace('tier',''), 10) - 1;
+          opItems.push({cat:s.title, q:item.text, tierIdx, label:item.tiers[tierIdx].label, impact:item.impact});
+        }
+        return;
+      }
+      const a = answers[item.num];
+      if (!a || a === 'na') return;
+      total++;
+      if (a === 'yes') yes++;
+      if (a === 'no') {
+        if (item.weight === 'Critical') { hasCrit = true; critGaps.push({cat:s.title, num:item.num, text:item.text, penalty:item.penalty}); }
+        else { hasImp = true; impGaps.push({cat:s.title, num:item.num, text:item.text, penalty:item.penalty}); }
+      }
+    });
+    let rating, color;
+    if (hasCrit) { rating = 'Presumed not compliant'; color = '#A32D2D'; }
+    else if (hasImp) { rating = 'Compliance with risks'; color = '#854F0B'; }
+    else { rating = 'Presumed full compliance'; color = '#3B6D11'; }
+    const pct = total===0 ? 100 : Math.round((yes/total)*100);
+    sectionResults.push({title:s.title, rating, color, pct});
+  });
+
+  const totalCrit = critGaps.length;
+  const sectionsWithCrit = new Set(critGaps.map(g=>g.cat)).size;
+  let overallRating, overallColor, overallBg, narrative;
+  const totalGaps = critGaps.length + impGaps.length;
+  const filingLabel = filingType==='self' ? 'self-filing' : 'outsourced filing';
+
+  if (totalCrit === 0 && impGaps.length === 0) {
+    overallRating = 'Presumed full compliance'; overallColor = '#3B6D11'; overallBg = '#EAF3DE';
+    narrative = `Based on your responses, the property's information reporting and withholding processes for ${filingLabel} appear well-established across the areas covered in this assessment. No critical or other gaps were identified. This is a strong foundation\u2014the main task going forward is monitoring, since requirements (thresholds, forms, filing systems) change from year to year even when internal process doesn't.`;
+  } else if (totalCrit === 0) {
+    overallRating = 'Compliance with identified risks'; overallColor = '#854F0B'; overallBg = '#FAEEDA';
+    narrative = `Based on your responses, the property's core compliance controls are largely in place, but ${impGaps.length} area${impGaps.length===1?'':'s'} flagged as "Important" rather than "Critical" represent real risk that should be addressed\u2014these tend to be the gaps that turn into a CP2100 notice or a documentation problem at audit, even though they are not the kind of gap that alone signals a structural compliance failure.`;
+  } else if (totalCrit >= 4 || sectionsWithCrit >= 3) {
+    overallRating = 'Presumed not compliant'; overallColor = '#A32D2D'; overallBg = '#FCEBEB';
+    narrative = `Based on your responses, ${totalCrit} critical gap${totalCrit===1?'':'s'} were identified across ${sectionsWithCrit} different section${sectionsWithCrit===1?'':'s'} of this assessment. When critical gaps span multiple compliance areas rather than sitting in one isolated spot, that pattern usually points to a process-level issue rather than a one-off oversight\u2014meaning a single fix is unlikely to resolve the underlying exposure. This warrants prompt attention before the next filing cycle.`;
+  } else {
+    overallRating = 'Compliance with identified risks (partial)'; overallColor = '#854F0B'; overallBg = '#FAEEDA';
+    narrative = `Based on your responses, ${totalCrit} critical gap${totalCrit===1?'':'s'} were identified, concentrated in ${sectionsWithCrit} section${sectionsWithCrit===1?'':'s'} of the assessment. Because the gaps are concentrated rather than spread broadly, this looks more like a specific, addressable process issue than a wholesale breakdown\u2014but a critical gap by definition carries real penalty exposure and is worth resolving directly rather than alongside lower-priority items.`;
+  }
+
+  const ringPct = totalGaps===0 ? 100 : Math.max(15, 100 - (critGaps.length*15) - (impGaps.length*5));
+
+  let html = `
+    <div class="outcome-row" style="background:${overallBg}">
+      <div class="outcome-ring-wrap">
+        ${ringSvg(ringPct, overallColor)}
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column">
+          <span style="font-size:18px;font-weight:500;color:${overallColor}">${ringPct}</span>
+          <span style="font-size:9px;color:var(--color-text-secondary)">score</span>
+        </div>
+      </div>
+      <div class="outcome-text">
+        <div class="outcome-rating" style="color:${overallColor}">${overallRating}</div>
+        <div class="outcome-narrative">${narrative}</div>
+      </div>
+    </div>
+    <div class="sec-grid">
+      ${sectionResults.map(r => `<div class="sec-card"><div class="sec-name">${r.title}</div><div class="sec-rating" style="color:${r.color}">${r.rating}</div>${r.pct!==null?`<div class="sec-bar-track"><div class="sec-bar-fill" style="width:${r.pct}%;background:${r.color}"></div></div>`:''}</div>`).join('')}
+    </div>
+    <div class="benchmark-card">
+      <div class="benchmark-title"><i class="ti ti-chart-bar" aria-hidden="true" style="color:var(--color-text-tertiary)"></i>Industry benchmark (coming soon)</div>
+      <div class="benchmark-text">Once enough properties have completed this assessment, this section will show how your results compare to other tribal casinos\u2014anonymized and aggregated, with no individual property identifiable. Not enough responses have been collected yet to display a benchmark.</div>
+    </div>`;
+
+  if (critGaps.length > 0) {
+    html += `<div class="gap-section"><div class="gap-title"><i class="ti ti-alert-circle" style="color:#A32D2D"></i>Critical gaps</div>`;
+    critGaps.forEach(g => {
+      html += `<div class="gap-item"><div class="gap-cat">${g.cat} &middot; ${g.num}</div><div class="gap-text">${g.text}</div><div class="gap-penalty">${g.penalty}</div></div>`;
+    });
+    html += `</div>`;
+  }
+  if (impGaps.length > 0) {
+    html += `<div class="gap-section"><div class="gap-title"><i class="ti ti-alert-triangle" style="color:#EF9F27"></i>Other gaps</div>`;
+    impGaps.forEach(g => {
+      html += `<div class="gap-item imp"><div class="gap-cat">${g.cat} &middot; ${g.num}</div><div class="gap-text">${g.text}</div><div class="gap-penalty">${g.penalty}</div></div>`;
+    });
+    html += `</div>`;
+  }
+  if (critGaps.length === 0 && impGaps.length === 0) {
+    html += `<div style="text-align:center;padding:1.5rem;background:var(--color-background-secondary);border-radius:var(--border-radius-lg);margin-bottom:1.5rem"><i class="ti ti-circle-check" style="font-size:28px;color:#639922;display:block;margin-bottom:8px"></i><div style="font-size:13px;color:var(--color-text-secondary)">No compliance gaps identified based on your responses.</div></div>`;
+  }
+
+  if (opItems.length > 0) {
+    const strongCount = opItems.filter(o=>o.tierIdx===0).length;
+    const moderateCount = opItems.filter(o=>o.tierIdx===1).length;
+    const weakCount = opItems.filter(o=>o.tierIdx===2).length;
+    const opTotal = opItems.length;
+    let summaryLabel, summaryColor, summaryIcon;
+    if (weakCount === 0 && moderateCount === 0) { summaryLabel = 'Your operational processes are largely automated and efficient.'; summaryColor='#3B6D11'; summaryIcon='ti-bolt'; }
+    else if (weakCount >= opTotal/2) { summaryLabel = 'Several of your operational processes rely on manual or paper-based steps, which is the most common source of delay and data-entry error.'; summaryColor='#A32D2D'; summaryIcon='ti-file-text'; }
+    else { summaryLabel = 'Your operational processes are a mix of automated and manual steps. The manual steps below are the ones most likely to slow things down or introduce errors.'; summaryColor='#854F0B'; summaryIcon='ti-adjustments'; }
+
+    html += `<div class="op-summary"><div class="gap-title"><i class="ti ti-settings" style="color:#0F6E56"></i>Operational efficiency snapshot</div>
+      <div class="op-score-row">
+        <div class="op-score-icon" style="background:${summaryColor}1A"><i class="ti ${summaryIcon}" style="color:${summaryColor};font-size:20px" aria-hidden="true"></i></div>
+        <div class="op-score-label">${summaryLabel}<br><span style="color:var(--color-text-tertiary);font-size:11px">This reflects process efficiency only and has no effect on the compliance rating above.</span></div>
+      </div>`;
+    opItems.forEach(o => {
+      const cls = o.tierIdx===0?'strong':o.tierIdx===1?'moderate':'weak';
+      html += `<div class="op-item ${cls}">
+        <div class="op-item-q">${o.q}</div>
+        <div class="op-item-answer ${cls}">${o.label}</div>
+        <div class="op-item-impact">${o.impact}</div>
+      </div>`;
+    });
+    html += `</div>`;
+  }
+
+  html += `
+    <div class="cta-card">
+      <div class="cta-title">Want to discuss these results?</div>
+      <div class="cta-sub">Colin Brien is a tax attorney with 20 years of Big 4 experience in information reporting and withholding compliance for tribal casinos.</div>
+      <a class="btn-cta" href="../contact.html" target="_top">Schedule a consultation &#8599;</a>
+    </div>
+    <div class="disclaimer">This assessment is a self-reported, high-level diagnostic tool for general informational purposes only. It is not legal or tax advice, does not constitute a comprehensive compliance audit, and does not create an attorney-client or advisory relationship. Penalty figures are illustrative and subject to change. Results depend entirely on the accuracy of answers provided and have not been independently verified. Consult qualified tax counsel before taking or refraining from any action.</div>
+    <div style="text-align:center;margin-top:1rem"><button class="btn-nav" onclick="location.reload()" style="font-size:13px">Start over</button></div>
+  `;
+
+  document.getElementById('report-content').innerHTML = html;
+}
+</script>
+</body>
+</html>
