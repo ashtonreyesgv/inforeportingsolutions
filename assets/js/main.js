@@ -91,4 +91,67 @@
       window.location.href = href;
     });
   }
+
+  /* ---- Optional subscribe forms (no backend → opens a pre-filled email) --- */
+  var subs = document.querySelectorAll("form[data-subscribe]");
+  Array.prototype.forEach.call(subs, function (sf) {
+    sf.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var email = (new FormData(sf).get("email") || "").toString().trim();
+      var to = sf.getAttribute("data-mailto") || "colin.brien@inforeportingsolutions.com";
+      var subject = "Subscribe — reporting updates";
+      var body = [
+        "Please add me to your information-reporting updates list.",
+        "",
+        "Email: " + email
+      ].join("\n");
+
+      var href = "mailto:" + to +
+        "?subject=" + encodeURIComponent(subject) +
+        "&body=" + encodeURIComponent(body);
+
+      var status = sf.querySelector(".subscribe__status");
+      if (status) {
+        status.hidden = false;
+        status.textContent = "Opening your email app… if nothing happens, email " + to + " directly.";
+      }
+      window.location.href = href;
+    });
+  });
+
+  /* ---- Announcement pop-up (home only, once per session) ------------- */
+  var announce = document.getElementById("announce");
+  if (announce) {
+    var STORE_KEY = "irs_announce_dismissed";
+    var seen = false;
+    try { seen = window.sessionStorage.getItem(STORE_KEY) === "1"; } catch (e) {}
+
+    var closeAnnounce = function () {
+      announce.classList.remove("is-open");
+      try { window.sessionStorage.setItem(STORE_KEY, "1"); } catch (e) {}
+      var done = function () { announce.hidden = true; announce.removeEventListener("transitionend", done); };
+      // hide after the fade; fall back in case transitionend doesn't fire
+      announce.addEventListener("transitionend", done);
+      setTimeout(done, 400);
+    };
+
+    if (!seen) {
+      setTimeout(function () {
+        announce.hidden = false;
+        // force a reflow so the transition runs from the hidden state,
+        // then reveal — synchronous, so it doesn't depend on rAF timing
+        void announce.offsetWidth;
+        announce.classList.add("is-open");
+        var closeBtn = announce.querySelector(".announce__close");
+        if (closeBtn) closeBtn.focus();
+      }, 1100);
+
+      Array.prototype.forEach.call(announce.querySelectorAll("[data-announce-close]"), function (el) {
+        el.addEventListener("click", closeAnnounce);
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && announce.classList.contains("is-open")) closeAnnounce();
+      });
+    }
+  }
 })();
