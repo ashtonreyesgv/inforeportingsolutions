@@ -252,7 +252,7 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
 .hero__inner {
   display: grid; grid-template-columns: 1.2fr .8fr;
   align-items: center; gap: clamp(32px, 5vw, 64px);
-  padding-block: clamp(40px, 5vw, 76px) clamp(32px, 4vw, 56px);
+  padding-block: clamp(22px, 2.8vw, 40px) clamp(20px, 2.4vw, 34px);
 }
 .hero__content { max-width: 680px; }
 .hero h1 { color: #fff; font-size: clamp(2rem, 4.6vw, 3.2rem); }
@@ -325,7 +325,7 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
 /* Page hero (inner pages) */
 .page-hero { background: var(--navy); color: #fff; position: relative; overflow: hidden; }
 .page-hero .container { position: relative; }
-.page-hero__inner { padding-block: clamp(60px, 8vw, 96px); max-width: 760px; position: relative; z-index: 1; }
+.page-hero__inner { padding-block: clamp(26px, 3.4vw, 46px); max-width: 760px; position: relative; z-index: 1; }
 .page-hero h1 { color: #fff; }
 /* Decorative brand seal — anchored to the content container so it stays
    aligned with the text instead of flying to the viewport edge on wide screens */
@@ -333,7 +333,7 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
   position: absolute; top: 50%; right: 0; transform: translateY(-50%);
   z-index: 0; pointer-events: none;
 }
-.page-hero .seal { width: clamp(200px, 22vw, 280px); }
+.page-hero .seal { width: clamp(146px, 15vw, 200px); }
 @media (max-width: 1060px) { .page-hero__seal { display: none; } }
 .page-hero p { color: rgba(255,255,255,.82); font-size: 1.15rem; max-width: 620px; margin-top: 1rem; }
 .breadcrumb { font-size: .85rem; color: rgba(255,255,255,.6); margin-bottom: 1.25rem; letter-spacing: .02em; }
@@ -814,6 +814,39 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
 .media-band p { color: rgba(255,255,255,.84); }
 .media-band .link-arrow { color: var(--gold); margin-top: 1.5rem; }
 .media-band .link-arrow:hover { color: #fff; }
+
+/* Home hero photo — same navy-tinted treatment as the inner-page heroes */
+.hero__bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+.hero__bg img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.hero--media::before {
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background:
+    linear-gradient(100deg,
+      rgba(14,29,56,.96) 0%,
+      rgba(20,40,74,.90) 55%,
+      rgba(20,40,74,.80) 100%);
+}
+.hero--media .container { position: relative; z-index: 2; }
+
+/* Faded photo backgrounds — the image sits behind a heavy overlay so it reads
+   as subtle texture behind the content (no extra markup). Choose the image per
+   instance with the --photo custom property, e.g.
+   style="--photo:url('assets/images/stock/documents-desk.jpg')". */
+.panel-navy--photo {
+  background-image: linear-gradient(rgba(20,40,74,.87), rgba(14,29,56,.93)), var(--photo);
+  background-size: cover; background-position: center;
+}
+.cta--photo {
+  background-image: linear-gradient(100deg, rgba(14,29,56,.92), rgba(20,40,74,.85)), var(--photo);
+  background-size: cover; background-position: center;
+}
+.section--photo { position: relative; }
+.section--photo::before {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: linear-gradient(rgba(246,248,251,.89), rgba(238,241,246,.93)), var(--photo);
+  background-size: cover; background-position: center;
+}
+.section--photo > .container { position: relative; z-index: 1; }
 
 /* 22. Announcement pop-up (home) ---------------------------------------- */
 .announce {
