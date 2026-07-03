@@ -843,7 +843,7 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
 .section--photo { position: relative; }
 .section--photo::before {
   content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
-  background-image: linear-gradient(rgba(246,248,251,.89), rgba(238,241,246,.93)), var(--photo);
+  background-image: linear-gradient(rgba(246,248,251,.88), rgba(238,241,246,.92)), var(--photo);
   background-size: cover; background-position: center;
 }
 .section--photo > .container { position: relative; z-index: 1; }
