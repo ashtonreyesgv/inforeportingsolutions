@@ -1,0 +1,13 @@
+# Dependencies installed by npm — never committed, restored via `npm install`
+node_modules/
+
+# Local environment variables (secrets) — the real values live in Vercel, not git
+.env
+.env.local
+.env*.local
+
+# Vercel CLI local files
+.vercel
+
+# Throwaway local test helper — not part of the site
+test-submit.mjs

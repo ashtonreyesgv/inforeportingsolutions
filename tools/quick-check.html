@@ -194,6 +194,15 @@ function buildReport() {
 
   const ringPct = gapCount === 0 ? 100 : Math.max(20, 100 - gapCount*15);
 
+  // Anonymously record this result so we can build the benchmark comparison.
+  // Fire-and-forget: if the save fails, the visitor still sees their results below.
+  const risk_level = gapCount === 0 ? 'low' : (gapCount <= 2 ? 'medium' : 'high');
+  fetch('/api/submit-assessment', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ assessment_type: 'quick-check', score: ringPct, risk_level })
+  }).catch(() => {});
+
   let html = `
     <div class="outcome-row" style="background:${bg}">
       <div class="outcome-ring-wrap">
