@@ -428,6 +428,15 @@ function buildReport() {
 
   const ringPct = totalGaps===0 ? 100 : Math.max(15, 100 - (critGaps.length*15) - (impGaps.length*5));
 
+  // Anonymously record this result so we can build the benchmark comparison.
+  // Fire-and-forget: if the save fails, the visitor still sees their results below.
+  const risk_level = overallColor === '#3B6D11' ? 'low' : (overallColor === '#A32D2D' ? 'high' : 'medium');
+  fetch('/api/submit-assessment', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ assessment_type: 'full-assessment', score: ringPct, risk_level })
+  }).catch(() => {});
+
   let html = `
     <div class="outcome-row" style="background:${overallBg}">
       <div class="outcome-ring-wrap">
