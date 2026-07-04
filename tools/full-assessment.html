@@ -351,9 +351,30 @@ function renderSection() {
 
 function setAnswer(id, val) { answers[id] = val; renderSection(); }
 function setTierAnswer(id, val) { answers[id] = val; renderSection(); }
-function goBack() { if(currentSection > 0) { currentSection--; renderSection(); } }
+
+// This tool runs inside an auto-sized iframe (no scrollbar of its own), so when
+// the section changes we scroll the PARENT page to bring the top of the
+// assessment back into view — otherwise the visitor stays scrolled at the bottom
+// where the Next button was. Falls back to a normal scroll if opened directly.
+function scrollAssessmentToTop() {
+  try {
+    var frame = window.frameElement;
+    if (frame) {
+      var pw = window.parent;
+      var rect = frame.getBoundingClientRect();
+      var header = pw.document.querySelector('.site-header');
+      var offset = (header ? header.offsetHeight : 0) + 12; // clear the sticky header
+      var target = pw.scrollY + rect.top - offset;
+      pw.scrollTo({ top: target < 0 ? 0 : target, behavior: 'smooth' });
+      return;
+    }
+  } catch (e) {}
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function goBack() { if(currentSection > 0) { currentSection--; renderSection(); scrollAssessmentToTop(); } }
 function goNext() {
-  if(currentSection < sections.length - 1) { currentSection++; renderSection(); }
+  if(currentSection < sections.length - 1) { currentSection++; renderSection(); scrollAssessmentToTop(); }
   else buildReport();
 }
 
@@ -514,6 +535,7 @@ function buildReport() {
   `;
 
   document.getElementById('report-content').innerHTML = html;
+  scrollAssessmentToTop();
 }
 </script>
 </body>

@@ -242,6 +242,27 @@ function buildReport() {
   `;
 
   document.getElementById('report-content').innerHTML = html;
+  scrollAssessmentToTop();
+}
+
+// This tool runs inside an auto-sized iframe (no scrollbar of its own), so after
+// submitting we scroll the PARENT page up to the top of the results instead of
+// leaving the visitor scrolled at the bottom. Falls back to a normal scroll if
+// the tool is ever opened directly (not embedded).
+function scrollAssessmentToTop() {
+  try {
+    var frame = window.frameElement;
+    if (frame) {
+      var pw = window.parent;
+      var rect = frame.getBoundingClientRect();
+      var header = pw.document.querySelector('.site-header');
+      var offset = (header ? header.offsetHeight : 0) + 12; // clear the sticky header
+      var target = pw.scrollY + rect.top - offset;
+      pw.scrollTo({ top: target < 0 ? 0 : target, behavior: 'smooth' });
+      return;
+    }
+  } catch (e) {}
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 </script>
 </body>
