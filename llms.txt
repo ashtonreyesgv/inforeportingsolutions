@@ -1,0 +1,35 @@
+# InfoReporting Solutions
+
+> InfoReporting Solutions is a boutique U.S. tax advisory firm specializing in information reporting and withholding compliance — Forms 1099, 945, 1042, 1042-S, W-2G, and withholding certificates (Forms W-9/W-8) — for nonfinancial businesses. The firm is led by founder Colin Brien, a tax attorney (LL.M.) with more than 20 years of Big Four experience. Contact: (516) 425-3805, colin.brien@inforeportingsolutions.com.
+
+The firm advises payors (not payees) on U.S. information-reporting obligations: payee documentation and validation, backup withholding, nonresident (Chapter 3) withholding, IRS e-filing (FIRE-to-IRIS transition, Form 1042 MeF), CP2100/B-notice response, and penalty abatement. It has particular depth in gaming and casino operations (Form W-2G, Form 945).
+
+## Services
+
+- [Services overview](https://www.inforeportingsolutions.com/services.html): Advisory, Operational Development, Reporting Compliance, Controversy, and Gaming and Casino Operations — scoped engagements to reduce errors and penalties
+- [About the firm](https://www.inforeportingsolutions.com/about.html): Founder background and firm approach
+- [Contact / book a consultation](https://www.inforeportingsolutions.com/contact.html): Phone, email, and consultation requests
+
+## Self-Assessment Tools
+
+- [Self-assessment overview](https://www.inforeportingsolutions.com/self-assessment.html): Free, self-guided compliance checks for gaming and casino operations
+- [3-minute quick check](https://www.inforeportingsolutions.com/self-assessment-quick-check.html): Fast screen covering Form W-2G, Form 945, backup withholding, 1042-S, and IRIS readiness
+- [Full readiness assessment](https://www.inforeportingsolutions.com/self-assessment-readiness.html): Detailed, section-by-section compliance readiness review
+
+## Articles
+
+- [All articles](https://www.inforeportingsolutions.com/articles.html): Plain-English summaries of developments affecting 1099 and 1042-S filers
+- [IRS Revises Draft Form W-9 Again: What the June 2026 Changes Actually Mean](https://www.inforeportingsolutions.com/article-draft-w9-2026.html): The IRS reversed its January 2026 proposal on sole-proprietor TINs; disregarded-entity and Name/TIN matching issues remain
+- [2026 Form 1099 / 1042-S Reporting Checklist for IRIS](https://www.inforeportingsolutions.com/article-iris-checklist.html): Two-path checklist for the FIRE-to-IRIS transition, for direct filers and vendor-reliant businesses
+- [Understand IRS CP2100 and CP2100A Notices](https://www.inforeportingsolutions.com/article-cp2100-notices.html): What triggers CP2100 notices, B-notice steps, backup withholding rules, and risk reduction
+- [Hardship Waivers for Form 1042 Electronic Filing](https://www.inforeportingsolutions.com/article-1042-hardship-waiver.html): What the IRS expects in a hardship waiver request and the March 15 timing
+- [Is Your Organization Ready for Mandatory Electronic Filing of Form 1042?](https://www.inforeportingsolutions.com/article-1042-mef-efiling.html): Confirming MeF readiness and options if you are not ready by the deadline
+- [Preparing for Year-End Form 1099 and Form 1042 Reporting](https://www.inforeportingsolutions.com/article-year-end-1099-1042-prep.html): Why October–November is the time to start, with a three-step preparation plan
+- [IRS Filing Extensions for Forms 1099, 1042, and 1042-S](https://www.inforeportingsolutions.com/article-filing-extensions-2025.html): E-file thresholds, due dates, extension requests (Forms 8809, 15397, 7004), and penalties
+- [IRS Draft Form W-9 (Jan. 2026) Release: Highlights and Impacts](https://www.inforeportingsolutions.com/article-draft-w9-highlights.html): Sole-proprietor SSN requirement, disregarded-entity TIN rules, and the digital-asset broker exemption
+
+## Policies
+
+- [Privacy policy](https://www.inforeportingsolutions.com/privacy.html)
+- [Legal notices](https://www.inforeportingsolutions.com/legal.html)
+- [Accessibility statement](https://www.inforeportingsolutions.com/accessibility.html)
