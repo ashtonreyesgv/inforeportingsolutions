@@ -11,3 +11,10 @@ node_modules/
 
 # Throwaway local test helper — not part of the site
 test-submit.mjs
+
+# Vendor/client file drops — working originals only. These get cleaned up and
+# copied into tools/ before going live; the raw versions must never deploy.
+client_upload/
+
+# Before/after proof screenshots for client reporting — not part of the site
+pdfs/

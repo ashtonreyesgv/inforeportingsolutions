@@ -108,7 +108,13 @@
             <h2 class="subscribe__title">Prefer to get reporting updates by email?</h2>
             <p class="subscribe__note">Optional — you don&rsquo;t need to subscribe to take the assessment. Add your email and we&rsquo;ll send occasional information-reporting updates and guidance. Your assessment answers are saved anonymously and are never linked to your email.</p>
           </div>
-          <form class="subscribe__form" data-subscribe data-mailto="colin.brien@inforeportingsolutions.com" novalidate>
+          <form class="subscribe__form" data-subscribe data-source="casino-readiness" data-mailto="colin.brien@inforeportingsolutions.com" novalidate>
+            <!-- Anti-spam honeypot: hidden from people, irresistible to bots.
+                 If this arrives filled in, the server silently discards it. -->
+            <div class="hp-field" aria-hidden="true">
+              <label for="company-casino-readiness">Company</label>
+              <input type="text" id="company-casino-readiness" name="company" tabindex="-1" autocomplete="off" />
+            </div>
             <div class="subscribe__row">
               <input type="email" name="email" aria-label="Email address" placeholder="you@company.com" required />
               <button type="submit" class="btn btn--primary">Subscribe</button>

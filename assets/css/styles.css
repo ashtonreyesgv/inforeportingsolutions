@@ -748,6 +748,10 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
 .subscribe__row .btn { flex: 0 0 auto; }
 .subscribe__status { margin: 0; }
 @media (max-width: 620px) { .subscribe__row .btn { width: 100%; } }
+/* Anti-spam honeypot — moved off-screen rather than display:none, which some
+   bots check for. Paired with aria-hidden + tabindex="-1" on the markup so
+   screen readers and keyboard users never reach it either. */
+.hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
 /* Tool selection cards (Self-Assessment landing) */
 .tool-card { display: flex; flex-direction: column; }

@@ -92,30 +92,53 @@
     });
   }
 
-  /* ---- Optional subscribe forms (no backend → opens a pre-filled email) --- */
+  /* ---- Optional subscribe forms (saved to the subscribers table) --------- */
   var subs = document.querySelectorAll("form[data-subscribe]");
   Array.prototype.forEach.call(subs, function (sf) {
     sf.addEventListener("submit", function (e) {
       e.preventDefault();
-      var email = (new FormData(sf).get("email") || "").toString().trim();
+
+      var data = new FormData(sf);
+      var email = (data.get("email") || "").toString().trim();
+      var company = (data.get("company") || "").toString(); // honeypot
+      var source = sf.getAttribute("data-source") || null;
       var to = sf.getAttribute("data-mailto") || "colin.brien@inforeportingsolutions.com";
-      var subject = "Subscribe — reporting updates";
-      var body = [
-        "Please add me to your information-reporting updates list.",
-        "",
-        "Email: " + email
-      ].join("\n");
-
-      var href = "mailto:" + to +
-        "?subject=" + encodeURIComponent(subject) +
-        "&body=" + encodeURIComponent(body);
-
       var status = sf.querySelector(".subscribe__status");
-      if (status) {
+      var button = sf.querySelector("button[type=submit]");
+
+      var say = function (msg) {
+        if (!status) return;
         status.hidden = false;
-        status.textContent = "Opening your email app… if nothing happens, email " + to + " directly.";
+        status.textContent = msg;
+      };
+
+      if (!email || email.indexOf("@") === -1) {
+        say("Please enter a valid email address.");
+        return;
       }
-      window.location.href = href;
+
+      // Guard against double-submits while the request is in flight.
+      if (button) { button.disabled = true; }
+      say("Subscribing…");
+
+      fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email, source: source, company: company })
+      })
+        .then(function (res) {
+          if (!res.ok) throw new Error("Request failed");
+          sf.reset();
+          say("Thanks — you're on the list. We'll be in touch with reporting updates.");
+        })
+        .catch(function () {
+          // Never strand the visitor: if the save fails, give them the address
+          // so they can still reach Colin directly.
+          say("Sorry — that didn't save. Please email " + to + " and we'll add you.");
+        })
+        .then(function () {
+          if (button) { button.disabled = false; }
+        });
     });
   });
 

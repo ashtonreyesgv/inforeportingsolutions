@@ -10,7 +10,14 @@ const supabase = createClient(
 );
 
 // The only values we'll accept. Anything else is rejected before we touch the DB.
-const VALID_TYPES = ['quick-check', 'full-assessment'];
+// One entry per published assessment — add a new string here whenever a new
+// assessment goes live, or its results will be rejected with a 400.
+const VALID_TYPES = [
+  'quick-check',
+  'full-assessment',
+  'hospital-quick-check',
+  'hospital-full-assessment',
+];
 const VALID_RISK = ['low', 'medium', 'high'];
 
 export default async function handler(req, res) {

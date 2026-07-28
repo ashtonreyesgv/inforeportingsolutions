@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hospital and Health System Quick Check | InfoReporting Solutions</title>
+<meta name="robots" content="noindex" />
+<style>
+  :root {
+    --navy: #1B3A6B;
+    --gold: #C9A227;
+    --orange: #D4621A;
+    --light-bg: #F4F7FB;
+    --border: #D0D9E8;
+    --green: #1A7A3C;
+    --red: #B91C1C;
+    --yellow: #B45309;
+    --white: #FFFFFF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--light-bg); color: #1a1a2e; }
+
+  .header {
+    background: var(--navy);
+    color: var(--white);
+    padding: 28px 36px 22px;
+    border-bottom: 4px solid var(--gold);
+  }
+  .header h1 { font-size: 1.45rem; font-weight: 700; letter-spacing: 0.01em; }
+  .header p { font-size: 0.9rem; color: #b8c9e8; margin-top: 6px; }
+  .header .badge {
+    display: inline-block; background: var(--gold); color: var(--navy);
+    font-size: 0.75rem; font-weight: 700; padding: 3px 10px; border-radius: 12px; margin-top: 10px;
+  }
+
+  .container { max-width: 780px; margin: 0 auto; padding: 28px 16px 60px; }
+
+  .intro-box {
+    background: var(--white); border: 1px solid var(--border);
+    border-left: 4px solid var(--gold); border-radius: 6px;
+    padding: 16px 20px; margin-bottom: 28px; font-size: 0.92rem; color: #333;
+    line-height: 1.6;
+  }
+
+  .progress-bar-wrap { margin-bottom: 24px; }
+  .progress-label { font-size: 0.8rem; color: #555; margin-bottom: 5px; }
+  .progress-track { background: #dde4ef; border-radius: 8px; height: 8px; overflow: hidden; }
+  .progress-fill { background: var(--gold); height: 100%; border-radius: 8px; transition: width 0.4s ease; width: 0%; }
+
+  .q-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 8px; padding: 22px 24px; margin-bottom: 18px;
+    box-shadow: 0 1px 4px rgba(27,58,107,0.06);
+    display: none;
+  }
+  .q-card.active { display: block; }
+  .q-card.answered { display: block; opacity: 0.7; }
+
+  .q-num {
+    font-size: 0.75rem; font-weight: 700; color: var(--gold);
+    text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px;
+  }
+  .q-critical-tag {
+    display: inline-block; background: #FEE2E2; color: var(--red);
+    font-size: 0.68rem; font-weight: 700; padding: 2px 7px; border-radius: 10px;
+    margin-left: 8px; vertical-align: middle; letter-spacing: 0.05em;
+  }
+  .q-text { font-size: 1.0rem; font-weight: 600; color: var(--navy); line-height: 1.5; margin-bottom: 8px; }
+  .q-context { font-size: 0.83rem; color: #556; line-height: 1.55; margin-bottom: 16px; }
+
+  .branch-note {
+    background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 5px;
+    padding: 8px 12px; font-size: 0.82rem; color: #1e3a5f; margin-bottom: 14px;
+  }
+
+  .btn-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    flex: 1; min-width: 110px; padding: 11px 10px; border: 2px solid var(--border);
+    border-radius: 6px; background: var(--white); font-size: 0.92rem; font-weight: 600;
+    cursor: pointer; transition: all 0.18s; color: #333; text-align: center;
+  }
+  .btn:hover { border-color: var(--navy); background: #EFF3FA; }
+  .btn.selected-yes { background: #D1FAE5; border-color: var(--green); color: var(--green); }
+  .btn.selected-no { background: #FEE2E2; border-color: var(--red); color: var(--red); }
+  .btn.selected-na { background: #F3F4F6; border-color: #9CA3AF; color: #555; }
+
+  /* Results */
+  #results { display: none; }
+  .result-header {
+    background: var(--navy); color: var(--white);
+    border-radius: 8px 8px 0 0; padding: 24px 28px;
+    text-align: center; border-bottom: 4px solid var(--gold);
+  }
+  .result-header h2 { font-size: 1.3rem; }
+  .result-body { background: var(--white); border: 1px solid var(--border); border-top: none; border-radius: 0 0 8px 8px; padding: 28px; }
+
+  .ring-wrap { display: flex; justify-content: center; margin: 16px 0 24px; }
+  svg#ring { display: block; }
+
+  .verdict {
+    text-align: center; margin-bottom: 22px;
+  }
+  .verdict .label {
+    display: inline-block; font-size: 1.05rem; font-weight: 700;
+    padding: 8px 22px; border-radius: 20px; margin-bottom: 8px;
+  }
+  .label.compliant { background: #D1FAE5; color: var(--green); }
+  .label.partial { background: #FEF3C7; color: var(--yellow); }
+  .label.at-risk { background: #FEE2E2; color: var(--red); }
+  .verdict .summary-text { font-size: 0.9rem; color: #444; line-height: 1.6; max-width: 560px; margin: 0 auto; }
+
+  .findings-section { margin-top: 24px; }
+  .findings-section h3 { font-size: 0.95rem; font-weight: 700; color: var(--navy); border-bottom: 2px solid var(--gold); padding-bottom: 6px; margin-bottom: 14px; }
+  .finding-item {
+    display: flex; gap: 12px; margin-bottom: 14px;
+    padding: 12px 14px; border-radius: 6px; border: 1px solid;
+  }
+  .finding-item.critical { background: #FFF5F5; border-color: #FCA5A5; }
+  .finding-item.warning { background: #FFFBEB; border-color: #FCD34D; }
+  .finding-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+  .finding-body .finding-q { font-size: 0.85rem; font-weight: 700; color: #1a1a2e; margin-bottom: 3px; }
+  .finding-body .finding-detail { font-size: 0.82rem; color: #555; line-height: 1.5; }
+  .finding-body .finding-cite { font-size: 0.78rem; color: var(--navy); font-style: italic; margin-top: 4px; }
+
+  .cta-box {
+    margin-top: 28px; background: var(--navy); color: var(--white);
+    border-radius: 8px; padding: 22px 26px; text-align: center;
+  }
+  .cta-box h3 { font-size: 1.05rem; margin-bottom: 8px; }
+  .cta-box p { font-size: 0.88rem; color: #b8c9e8; line-height: 1.6; margin-bottom: 14px; }
+  .cta-btn {
+    display: inline-block; background: var(--gold); color: var(--navy);
+    font-weight: 700; font-size: 0.95rem; padding: 11px 28px; border-radius: 6px;
+    text-decoration: none; cursor: pointer; border: none;
+  }
+  .restart-btn {
+    display: block; margin: 18px auto 0; background: transparent; border: 1px solid #b8c9e8;
+    color: #b8c9e8; font-size: 0.82rem; padding: 8px 20px; border-radius: 5px; cursor: pointer;
+  }
+  .restart-btn:hover { background: rgba(255,255,255,0.08); }
+
+  .footer { text-align: center; font-size: 0.78rem; color: #888; margin-top: 32px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Hospital &amp; Health System | Information Reporting Quick Check</h1>
+  <p>12 questions covering the highest-risk compliance gaps in hospital information reporting</p>
+  <span class="badge">InfoReporting Solutions &mdash; 2026</span>
+</div>
+
+<div class="container">
+  <div class="intro-box">
+    This tool identifies critical gaps in your hospital or health system's IRS information reporting and withholding compliance — focusing on physician payments, Box 6 classification, research subjects, backup withholding, and the 2026 FIRE-to-IRIS transition. Answer Yes, No, or N/A for each question. Results and penalty citations are provided at the end.
+  </div>
+
+  <div class="progress-bar-wrap">
+    <div class="progress-label" id="progress-label">Question 1 of 14</div>
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+  </div>
+
+  <div id="questions">
+
+    <!-- Q1 -->
+    <div class="q-card active" id="qcard-1">
+      <div class="q-num">Question 1 of 14 <span class="q-critical-tag">CRITICAL</span></div>
+      <div class="q-text">Does your organization obtain a completed Form W-9 from physician professional corporations (PCs) and medical practice groups before making any payments — including Box 6 payments — and retain it on file?</div>
+      <div class="q-context">Payments to physician PCs and group practices for medical and health care services are reportable on Form 1099-MISC, Box 6 unless a valid exemption applies. W-9 collection is the foundational control; without it, you cannot determine reportability, TIN accuracy, or backup withholding obligation.</div>
+      <div class="btn-row">
+        <button class="btn" onclick="answer(1,'yes')">Yes</button>
+        <button class="btn" onclick="answer(1,'no')">No</button>
+        <button class="btn" onclick="answer(1,'na')">N/A &mdash; No physician payments</button>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="q-card" id="qcard-2">
+      <div class="q-num">Question 2 of 14 <span class="q-critical-tag">CRITICAL</span></div>
+      <div class="q-text">Does your organization know that the general corporate exemption does not apply to Box 6 &mdash; meaning payments to corporations for medical and health care services are still reportable on 1099-MISC Box 6?</div>
+      <div class="q-context">IRC &sect;6041(a) is the general reporting authority for services payments. The corporate exemption from reporting is found in Reg. &sect;1.6041-3(p)(1), but that regulation expressly excepts corporations engaged in providing medical and health care services &mdash; meaning those payments remain reportable in Box 6. This is the most commonly misapplied rule in hospital AP systems.</div>
+      <div class="btn-row">
+        <button class="btn" onclick="answer(2,'yes')">Yes</button>
+        <button class="btn" onclick="answer(2,'no')">No</button>
+        <button class="btn" onclick="answer(2,'na')">N/A</button>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="q-card" id="qcard-3">
+      <div class="q-num">Question 3 of 14</div>
+      <div class="q-text">Does your AP system or ERP flag payments to physician groups and medical vendors as Box 6 reportable (rather than general 1099-MISC or non-reportable), and does that flagging persist across all departments including lab, radiology, and ancillary services?</div>
+      <div class="q-context">Large health systems frequently have decentralized AP functions where Box 6 flagging exists in one department but not others. Payments made under different GL accounts or cost centers often fall through the net. System-level controls, not manual review, are required at scale.</div>
+      <div class="btn-row">
+        <button class="btn" onclick="answer(3,'yes')">Yes</button>
+        <button class="btn" onclick="answer(3,'no')">No</button>
+        <button class="btn" onclick="answer(3,'na')">N/A &mdash; Single-location, centralized AP</button>
+      </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="q-card" id="qcard-4">
+      <div class="q-num">Question 4 of 14 <span class="q-critical-tag">CRITICAL</span></div>
+      <div class="q-text">When your organization pays physician groups or medical practices for consulting, speaking, advisory, or administrative services (not clinical services), does it report those payments on Form 1099-NEC rather than 1099-MISC Box 6?</div>
+      <div class="q-context">Box 6 applies only to payments for medical and health care services. Consulting fees, speaker bureau payments, and medical advisory fees paid to the same physician entities are reportable on 1099-NEC if the recipient is an individual or partnership, or are exempt from reporting if paid to a corporation under the general corporate exemption (IRC &sect;6041(i)). Misrouting to Box 6 overstates Box 6 exposure and misclassifies the payment type.</div>
+      <div class="btn-row">
+        <button class="btn" onclick="answer(4,'yes')">Yes</button>
+        <button class="btn" onclick="answer(4,'no')">No</button>
+        <button class="btn" onclick="answer(4,'na')">N/A &mdash; No consulting/speaking payments</button>
+      </div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="q-card" id="qcard-5">
+      <div class="q-num">Question 5 of 14 <span class="q-critical-tag">CRITICAL</span></div>
+      <div class="q-text">Does your AP team assign a 1099 payment type code to each invoice at the time it is entered &mdash; not at year-end?</div>
+      <div class="q-context">Year-end classification of accumulated payments is the root cause of most hospital information reporting failures. By the time AP tries to reconstruct what payments were for, invoice details are unavailable and payments get misclassified. Payment characterization must be made at point-of-entry based on invoice description, contract type, and vendor master data.</div>
+      <div class="btn-row">
+        <button class="btn" onclick="answer(5,'yes')">Yes</button>
+        <button class="btn" onclick="answer(5,'no')">No</button>
+        <button class="btn" onclick="answer(5,'na')">N/A</button>
+      </div>
+    </div>
+
+    <!-- Q6 (formerly Q11) -->
+    <div class="q-card" id="qcard-6">
+      <div class="q-num">Question 6 of 14</div>
+      <div class="q-text">Does your organization aggregate Box 6 payments made to the same physician group or medical practice across all departments, facilities, and cost centers before applying the $2,000 reporting threshold?</div>
+      <div class="q-context">The $2,000 threshold (effective TY2026 under OBBBA) under IRC &sect;6041(a) applies per payee per calendar year in aggregate across all departments and cost centers within the same legal entity. If your hospital system operates multiple facilities under a single EIN, all payments to the same physician group must be aggregated across those facilities before applying the threshold. However, if each hospital is a separate legal entity with its own EIN, each entity applies the threshold independently &mdash; payments made by one entity are not aggregated with payments made by a sister entity. The key question is always EIN, not brand name or system affiliation.</div>
+      <div class="btn-row">
+        <button class="btn" onclick="answer(6,'yes')">Yes</button>
+        <button class="btn" onclick="answer(6,'no')">No</button>
+        <button class="btn" onclick="answer(6,'na')">N/A &mdash; Single-facility organization</button>
+      </div>
+    </div>
+
+    <!-- Q7 (new) -->
+    <div class="q-card" id="qcard-7">
+      <div class="q-num">Question 7 of 14 <span class="q-critical-tag">CRITICAL</span></div>
+      <div class="q-text">Does your organization correctly exclude from Box 6 reporting all payments made for the purchase of goods, equipment, or supplies &mdash; including medical devices, pharmaceuticals, lab reagents, surgical instruments, and other medical products?</div>
+      <div class="q-context">Box 6 is limited strictly to payments for medical and health care services. It does not apply to purchases of goods, inventory, or equipment regardless of how "medical" the product is. Payments to medical device companies, pharmaceutical distributors, lab supply vendors, and surgical equipment manufacturers for product purchases are not Box 6 reportable. Incorrectly including these payments in Box 6 is a common overclaiming error that results in incorrect 1099s being issued to vendors who have no reporting obligation.</div>
+      <div class="btn-row">
+        <button class="btn" onclick="answer(7,'yes')">Yes</button>
+        <button class="btn" onclick="answer(7,'no')">No</button>
+        <button class="btn" onclick="answer(7,'na')">N/A</button>
+      </div>
+    </div>
+
+    <!-- Q8 (formerly Q6) -->
+    <div class="q-card" id="qcard-8">
+      <div class="q-num">Question 8 of 14</div>
+      <div class="q-text">Does your organization identify and report payments to human research subjects &mdash; including cash, gift cards, prepaid debit cards, and other incentives &mdash; on Form 1099-MISC (Box 3) when aggregate payments reach $2,000 or more in a calendar year?</div>
+      <div class="q-context">Clinical trial and research subject payments are frequently administered outside AP through grants or research administration offices, creating a reporting blind spot. Gift cards and prepaid debit cards are treated as cash equivalents and are reportable. The $2,000 threshold (effective TY2026 under OBBBA) applies in aggregate per recipient per year across all studies and departments.</div>
+      <div class="btn-row">
+        <button class="btn" onclick="answer(8,'yes')">Yes</button>
+        <button class="btn" onclick="answer(8,'no')">No</button>
+        <button class="btn" onclick="answer(8,'na')">N/A &mdash; No research subject payments</button>
+      </div>
+    </div>
+
+    <!-- Q9 (formerly Q7) -->
+    <div class="q-card" id="qcard-9">
+      <div class="q-num">Question 9 of 14</div>
+      <div class="q-text">Does your organization run TIN/Name matching through an IRS-approved method (such as Sovos TINCheck or IRS TIN Matching) before filing information returns, and does it do so for all reportable vendors &mdash; not just new ones?</div>
+      <div class="q-context">TIN mismatch is the leading cause of IRS CP2100 B-Notices. Physician groups and medical practices frequently operate under different legal names than their DBA names, and solo practitioners often have both individual and EIN options on file. Matching at onboarding only misses EIN changes, entity restructurings, and solo-to-group conversions that occur mid-relationship.</div>
+      <div class="btn-row">
+        <button class="btn" onclick="answer(9,'yes')">Yes</button>
+        <button class="btn" onclick="answer(9,'no')">No</button>
+        <button class="btn" onclick="answer(9,'na')">N/A</button>
+      </div>
+    </div>
+
+    <!-- Q10 (formerly Q8) -->
+    <div class="q-card" id="qcard-10">
+      <div class="q-num">Question 10 of 14 <span class="q-critical-tag">CRITICAL</span></div>
+      <div class="q-text">When your organization receives an IRS CP2100 or CP2100A B-Notice, does it follow the required two-notice process &mdash; including sending the First B-Notice to the payee within 15 business days and initiating backup withholding if a Second B-Notice is received?</div>
+      <div class="q-context">The B-Notice process is a statutory obligation under Reg. &sect;31.3406(d)-5. First B-Notices must be sent within 15 business days of receipt. If the payee fails to respond, backup withholding at 24% must begin. If a Second B-Notice is received within 3 years, the payee must submit Form W-9 directly to the IRS. Many hospitals receive B-Notices but lack a documented process to respond within the required timeframe.</div>
+      <div class="btn-row">
+        <button class="btn" onclick="answer(10,'yes')">Yes</button>
+        <button class="btn" onclick="answer(10,'no')">No</button>
+        <button class="btn" onclick="answer(10,'na')">N/A &mdash; Never received a B-Notice</button>
+      </div>
+    </div>
+
+    <!-- Q11 (formerly Q9) -->
+    <div class="q-card" id="qcard-11">
+      <div class="q-num">Question 11 of 14 <span class="q-critical-tag">CRITICAL</span></div>
+      <div class="q-text">When a reportable payment is made without a valid Form W-9 on file, does your organization withhold and remit 24% backup withholding to the IRS?</div>
+      <div class="q-context">IRC &sect;3406 requires backup withholding when a payee has not provided a TIN. For hospitals, this arises most often with new physician groups, locum tenens providers, and research subject participants. Failure to withhold when required exposes the organization to both the unwithheld tax and associated penalties under IRC &sect;3406(h)(2).</div>
+      <div class="btn-row">
+        <button class="btn" onclick="answer(11,'yes')">Yes</button>
+        <button class="btn" onclick="answer(11,'no')">No</button>
+        <button class="btn" onclick="answer(11,'na')">N/A &mdash; Always have W-9 before payment</button>
+      </div>
+    </div>
+
+    <!-- Q12 - Locum Tenens -->
+    <div class="q-card" id="qcard-12">
+      <div class="q-num">Question 12 of 14</div>
+      <div class="q-text">When your organization uses temporary or contract physicians obtained through a staffing agency &mdash; sometimes called locum tenens or traveling physicians &mdash; does it confirm whether it is paying the staffing agency or the physician directly, and apply the correct reporting treatment to each?</div>
+      <div class="q-context">Locum tenens are physicians who fill temporary coverage gaps, typically sourced through staffing agencies. The reporting obligation depends on who is actually being paid: payments to the staffing agency (a corporation) for placing physicians are generally not reportable; payments made directly to the individual physician for services are reportable on 1099-NEC or Box 6 depending on the nature of the engagement. Many hospitals make direct physician payments without collecting a W-9 first, which is one of the most common backup withholding failures in this vertical.</div>
+      <div class="btn-row">
+        <button class="btn" onclick="answer(12,'yes')">Yes</button>
+        <button class="btn" onclick="answer(12,'no')">No</button>
+        <button class="btn" onclick="answer(12,'na')">N/A &mdash; No temporary or contract physicians</button>
+      </div>
+    </div>
+
+    <!-- Q13 - Foreign Payees / 1042-S -->
+    <div class="q-card" id="qcard-13">
+      <div class="q-num">Question 13 of 14 <span class="q-critical-tag">CRITICAL</span></div>
+      <div class="q-text">If your organization makes payments to temporary nonresident alien physicians, researchers, or other non-employee service providers, does it collect the appropriate Form W-8BEN or Form 8233, withhold Chapter 3 tax where required, and file Form 1042-S?</div>
+      <div class="q-context">This question applies to nonresident alien individuals who are engaged on a temporary, non-employee basis &mdash; such as visiting or rotating physicians, international research collaborators, and foreign independent contractors performing services for the hospital. If a nonresident alien is hired as an employee, withholding and reporting obligations fall under payroll (Forms W-2 and 941), not this compliance track. For non-employee nonresident aliens, payments are subject to Chapter 3 withholding (generally 30% unless a reduced treaty rate applies), require Form W-8BEN or Form 8233 (for personal services income claimed under a tax treaty), and must be reported on Form 1042-S &mdash; not Form 1099. This obligation runs through AP, not payroll, and is frequently missed by hospital teams focused solely on the 1099 track.</div>
+      <div class="btn-row">
+        <button class="btn" onclick="answer(13,'yes')">Yes</button>
+        <button class="btn" onclick="answer(13,'no')">No</button>
+        <button class="btn" onclick="answer(13,'na')">N/A &mdash; No temporary nonresident alien non-employees</button>
+      </div>
+    </div>
+
+    <!-- Q14 - Filing Method Branch -->
+    <div class="q-card" id="qcard-14">
+      <div class="q-num">Question 14 of 14</div>
+      <div class="q-text">How does your organization currently file its information returns, and has it confirmed that filing is happening through IRIS &mdash; not the legacy FIRE system?</div>
+      <div class="q-context">The IRS decommissioned FIRE for Form 1099 filing beginning with Tax Year 2024. All filers must now use IRIS. Select the option that best describes your situation.</div>
+      <div class="branch-note">&#9432; Your answer determines which final question applies to your situation.</div>
+      <div class="btn-row">
+        <button class="btn" onclick="answer(14,'self')">We file directly &mdash; we have our own active IRIS TCC</button>
+        <button class="btn" onclick="answer(14,'outsourced')">We use a third-party provider &mdash; they handle filing on our behalf</button>
+      </div>
+    </div>
+
+    <!-- Q14a (self-filer) -->
+    <div class="q-card" id="qcard-14a" style="display:none;">
+      <div class="q-num">Question 14a of 14</div>
+      <div class="q-text">Has your organization tested your IRIS connection with a small batch of returns before the filing deadline, and confirmed your TCC is active and in good standing?</div>
+      <div class="q-context">IRIS TCC credentials can lapse or require reactivation. A failed submission discovered at the deadline results in a late filing penalty under IRC &sect;6721. Testing before peak season is the minimum best practice for direct IRIS filers.</div>
+      <div class="btn-row">
+        <button class="btn" onclick="answerBranch('14a','yes')">Yes</button>
+        <button class="btn" onclick="answerBranch('14a','no')">No</button>
+      </div>
+    </div>
+
+    <!-- Q14b (outsourced) -->
+    <div class="q-card" id="qcard-14b" style="display:none;">
+      <div class="q-num">Question 14b of 14</div>
+      <div class="q-text">Has your filing provider confirmed in writing that it files through IRIS, and have you verified that your data extract includes all required Box 6, 1099-NEC, research subject, and 1042-S payments?</div>
+      <div class="q-context">Outsourcing filing does not transfer penalty liability. Under IRC &sect;6721, the payor organization remains responsible for penalties arising from late, incorrect, or missing returns regardless of who files. Provider confirmation of IRIS filing and a complete data extract review are required controls for outsourced filers.</div>
+      <div class="btn-row">
+        <button class="btn" onclick="answerBranch('14b','yes')">Yes</button>
+        <button class="btn" onclick="answerBranch('14b','no')">No</button>
+      </div>
+    </div>
+
+  </div><!-- /questions -->
+
+  <!-- RESULTS -->
+  <div id="results">
+    <div class="result-header">
+      <h2>Hospital Information Reporting Quick Check &mdash; Results</h2>
+      <p style="font-size:0.85rem;color:#b8c9e8;margin-top:6px;">InfoReporting Solutions | 2026</p>
+    </div>
+    <div class="result-body">
+
+      <div class="ring-wrap">
+        <svg id="ring" width="160" height="160" viewBox="0 0 160 160">
+          <circle cx="80" cy="80" r="60" fill="none" stroke="#e5e9f2" stroke-width="18"/>
+          <circle id="ring-fill" cx="80" cy="80" r="60" fill="none" stroke="#C9A227"
+            stroke-width="18" stroke-linecap="round" stroke-dasharray="0 377"
+            transform="rotate(-90 80 80)" style="transition:stroke-dasharray 1s ease"/>
+          <text id="ring-pct" x="80" y="75" text-anchor="middle" font-size="26" font-weight="700" fill="#1B3A6B" font-family="Segoe UI,Arial,sans-serif">0%</text>
+          <text x="80" y="97" text-anchor="middle" font-size="11" fill="#666" font-family="Segoe UI,Arial,sans-serif">Compliance</text>
+        </svg>
+      </div>
+
+      <div class="verdict">
+        <div class="label" id="verdict-label">--</div>
+        <p class="summary-text" id="verdict-text"></p>
+      </div>
+
+      <div class="findings-section" id="findings-section">
+        <h3>Findings &amp; Priority Actions</h3>
+        <div id="findings-list"></div>
+      </div>
+
+      <div class="cta-box">
+        <h3>Ready for a Full Assessment?</h3>
+        <p>This quick check covers 13 of the 56 questions in the Hospital &amp; Health System Information Reporting Compliance Assessment. A full engagement identifies gaps across all payment types, all forms, and all operational controls &mdash; with a remediation roadmap.</p>
+        <button class="cta-btn" onclick="window.location.href='mailto:colin.brien@inforeportingsolutions.com?subject=Hospital%20Compliance%20Assessment%20Inquiry'">Schedule a Consultation</button>
+        <button class="restart-btn" onclick="restart()">&#8635; Retake the Quick Check</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">InfoReporting Solutions &bull; Not legal advice. Results are for internal assessment purposes only.</div>
+</div>
+
+<script>
+const answers = {};
+let currentQ = 1;
+const TOTAL = 14;
+
+// Penalty / detail data per question
+const findings = {
+  1: {
+    critical: true,
+    q: "W-9 collection from physician PCs and medical group practices",
+    detail: "Without a W-9, TIN accuracy cannot be confirmed, reportability cannot be determined, and backup withholding obligations cannot be properly triggered. This is the foundational control failure for Box 6 compliance.",
+    cite: "IRC \u00A76041(a); Reg. \u00A71.6041-3(p)(1) (medical services exception to corporate exemption); IRC \u00A73406"
+  },
+  2: {
+    critical: true,
+    q: "Box 6 corporate exemption exception (medical vs. non-medical services)",
+    detail: "The general corporate exemption under IRC \u00A76041 does not apply to payments for medical and health care services. Corporations receiving payments for medical and health care services remain reportable under IRC \u00A76041(a) and Reg. \u00A71.6041-3(p)(1), regardless of entity type. Misapplying the exemption results in underreporting with penalties up to $310 per return.",
+    cite: "IRC \u00A76041(a); Reg. \u00A71.6041-3(p)(1); IRC \u00A76721"
+  },
+  3: {
+    critical: false,
+    q: "AP system flagging for Box 6 vs. non-reportable across all departments",
+    detail: "Decentralized AP functions in multi-facility health systems frequently have inconsistent flagging, resulting in unreported payments in some cost centers or departments. System-level controls are required; manual year-end reconciliation is insufficient.",
+    cite: "IRC \u00A76041(a); Reg. \u00A71.6041-3(p)(1); IRC \u00A76721 (penalty per missing return)"
+  },
+  4: {
+    critical: true,
+    q: "Separate reporting of consulting/speaking fees vs. Box 6 medical payments",
+    detail: "Consulting and advisory fees paid to physician corporations are reportable on 1099-NEC if paid to individuals/partnerships, or exempt from reporting if paid to a corporation under the general corporate exemption \u2014 not Box 6. Misrouting overstates Box 6 liability and creates incorrect 1099s that require correction.",
+    cite: "IRC \u00A76041(a); IRC \u00A76041A; Reg. \u00A71.6041-3(p)(1)"
+  },
+  5: {
+    critical: true,
+    q: "Payment type determination at time of entry (not year-end reconciliation)",
+    detail: "Year-end reconstruction of payment types from incomplete invoice data is the root cause of most hospital information reporting failures. Without invoice-level characterization at point of entry, payments get misclassified or missed entirely. This is an operational process failure, not just a tax failure.",
+    cite: "IRC \u00A76041(a); Reg. \u00A71.6041-3(p)(1); IRC \u00A76721/6722 penalties apply per return"
+  },
+  6: {
+    critical: false,
+    q: "Box 6 threshold aggregation across all departments and facilities",
+    detail: "The $2,000 reporting threshold (TY2026 under OBBBA) under IRC \u00A76041(a) applies per payee in aggregate across the entire legal entity \u2014 not per department, facility, or cost center. Health systems that don\u2019t aggregate may miss the threshold per unit while exceeding it in total, resulting in missing 1099s.",
+    cite: "IRC \u00A76041(a); Reg. \u00A71.6041-3(p)(1); OBBBA (TY2026 threshold)"
+  },
+  7: {
+    critical: true,
+    q: "Goods/product purchases correctly excluded from Box 6 (medical devices, pharma, lab supplies, equipment)",
+    detail: "Box 6 applies only to payments for medical and health care services \u2014 not purchases of goods, equipment, or supplies. Payments to medical device companies, pharmaceutical distributors, lab reagent suppliers, and surgical equipment manufacturers for product purchases are not Box 6 reportable regardless of how medical the product is. Overclaiming Box 6 on product purchases generates incorrect 1099s and may trigger unnecessary IRS scrutiny of the vendor.",
+    cite: "IRC \u00A76041(a) (services only \u2014 goods purchases excluded); Reg. \u00A71.6041-3(c) (payments for merchandise excluded)"
+  },
+  8: {
+    critical: false,
+    q: "Research subject payments reported on 1099-MISC Box 3",
+    detail: "Payments to clinical trial and research study participants \u2014 including gift cards and prepaid debit cards \u2014 are taxable income reportable in Box 3 at $2,000+ aggregate per recipient (TY2026 threshold under OBBBA). These are frequently administered outside AP, creating a reporting blind spot.",
+    cite: "IRC \u00A761; OBBBA (TY2026 threshold); Rev. Rul. 2014-1; Temp. Reg. \u00A71.6041-1T"
+  },
+  9: {
+    critical: false,
+    q: "TIN/Name matching for all reportable vendors (not just new ones)",
+    detail: "Relying on onboarding-only TIN matching misses mid-relationship entity restructurings, EIN changes, and solo-to-group conversions. Unmatched TINs generate CP2100 B-Notices and, if unaddressed, trigger backup withholding obligations.",
+    cite: "IRC \u00A73406; Reg. \u00A731.3406(d)-5; IRS Publication 1281"
+  },
+  10: {
+    critical: true,
+    q: "B-Notice two-notice process (15-business-day First Notice; backup withholding on Second)",
+    detail: "The First B-Notice must be sent within 15 business days of receipt from the IRS. Failure to respond to B-Notices and initiate backup withholding exposes the organization to liability for the unwithheld 24% tax plus failure-to-deposit penalties. Many hospitals receive B-Notices but have no documented response process.",
+    cite: "Reg. \u00A731.3406(d)-5; IRC \u00A73406(h)(2); IRS Pub. 1281"
+  },
+  11: {
+    critical: true,
+    q: "24% backup withholding applied when no valid W-9 is on file",
+    detail: "Backup withholding at 24% is mandatory when a reportable payment is made without a valid TIN. Failure to withhold makes the organization liable for the unwithheld tax and failure-to-deposit penalties. This arises frequently with new locum tenens providers and research study participants.",
+    cite: "IRC \u00A73406; IRC \u00A73406(h)(2)"
+  },
+  12: {
+    critical: false,
+    q: "Locum tenens / temporary contract physician payment characterization and W-9 collection",
+    detail: "The reporting obligation for temporary physician arrangements depends on who is actually paid. Payments to the staffing agency (a corporation) are generally not reportable; direct payments to individual physicians require a W-9 before payment and are reportable on 1099-NEC or Box 6. Direct physician payments without a W-9 on file are a leading source of backup withholding failures in hospitals.",
+    cite: "IRC \u00A76041(a); Reg. \u00A71.6041-3(p)(1); IRC \u00A73406"
+  },
+  13: {
+    critical: true,
+    q: "Form 1042-S filing and Chapter 3 withholding for non-resident alien payees",
+    detail: "Payments to non-resident alien physicians, researchers, and other service providers are subject to Chapter 3 withholding (generally 30% unless a treaty rate applies) and must be reported on Form 1042-S, not Form 1099. This obligation is frequently missed by hospital AP teams focused solely on the 1099 compliance track.",
+    cite: "IRC \u00A71441; IRC \u00A71461; Reg. \u00A71.1441-1; Reg. \u00A71.1461-1; Form 1042-S"
+  },
+  "14a": {
+    critical: false,
+    q: "IRIS TCC tested and connection verified before filing deadline (self-filer)",
+    detail: "A failed IRIS submission discovered at the deadline results in late filing penalties. Testing with a small batch and verifying TCC status before peak season is the minimum control for direct IRIS filers.",
+    cite: "IRC \u00A76721; IRIS filing procedures"
+  },
+  "14b": {
+    critical: false,
+    q: "Third-party filing provider confirmed on IRIS; data extract verified including 1042-S (outsourced filer)",
+    detail: "Penalty liability under IRC \u00A76721 remains with the payor organization, not the service provider. Provider confirmation of IRIS filing and a complete data extract review — including Box 6, 1099-NEC, research subject, and 1042-S payments — are required controls for outsourced filers.",
+    cite: "IRC \u00A76721; IRC \u00A76723; Rev. Proc. 96-18"
+  }
+};
+
+function answer(qNum, val) {
+  answers[qNum] = val;
+  // Highlight selected button
+  const card = document.getElementById('qcard-' + qNum);
+  card.querySelectorAll('.btn').forEach(b => b.classList.remove('selected-yes','selected-no','selected-na'));
+  const idx = val === 'yes' ? 0 : val === 'no' ? 1 : 2;
+  if(card.querySelectorAll('.btn')[idx]) card.querySelectorAll('.btn')[idx].classList.add('selected-' + val);
+
+  // Handle Q14 branch
+  if(qNum === 14) {
+    if(val === 'self') {
+      document.getElementById('qcard-14a').style.display = 'block';
+      document.getElementById('qcard-14a').classList.add('active');
+    } else {
+      document.getElementById('qcard-14b').style.display = 'block';
+      document.getElementById('qcard-14b').classList.add('active');
+    }
+    updateProgress(14, TOTAL);
+    return;
+  }
+
+  // Advance
+  setTimeout(() => {
+    card.classList.remove('active');
+    card.classList.add('answered');
+    currentQ = qNum + 1;
+    if(currentQ <= TOTAL) {
+      const next = document.getElementById('qcard-' + currentQ);
+      if(next) { next.style.display = 'block'; next.classList.add('active'); }
+    }
+    updateProgress(qNum, TOTAL);
+  }, 300);
+}
+
+function answerBranch(branch, val) {
+  answers[branch] = val;
+  const card = document.getElementById('qcard-' + branch);
+  card.querySelectorAll('.btn').forEach(b => b.classList.remove('selected-yes','selected-no'));
+  card.querySelectorAll('.btn')[val === 'yes' ? 0 : 1].classList.add('selected-' + val);
+  setTimeout(() => {
+    card.classList.remove('active');
+    card.classList.add('answered');
+    showResults();
+  }, 300);
+}
+
+function updateProgress(current, total) {
+  const pct = Math.round((current / total) * 100);
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-label').textContent = 'Question ' + Math.min(current+1, total) + ' of ' + total;
+}
+
+function showResults() {
+  document.getElementById('questions').style.display = 'none';
+  document.getElementById('progress-bar-wrap') && (document.querySelector('.progress-bar-wrap').style.display = 'none');
+
+  // Determine which branch answer to score
+  const branchKey = answers[14] === 'self' ? '14a' : '14b';
+  const scoreKeys = [1,2,3,4,5,6,7,8,9,10,11,12,13, branchKey];
+
+  let yesCount = 0, noCount = 0, naCount = 0;
+  let criticalFail = false;
+  const noItems = [];
+  const naItems = [];
+
+  scoreKeys.forEach(k => {
+    const a = answers[k];
+    if(a === 'yes') yesCount++;
+    else if(a === 'no' || a === 'self' || a === 'outsourced') {
+      // Q12 itself is branch routing, not scored yes/no
+      if(k !== 12) { noCount++; if(findings[k] && findings[k].critical) criticalFail = true; noItems.push(k); }
+    }
+    else if(a === 'na') naCount++;
+  });
+
+  const scored = yesCount + noCount;
+  const pct = scored > 0 ? Math.round((yesCount / scored) * 100) : 100;
+
+  // Anonymously record this result so we can build the benchmark comparison.
+  // Fire-and-forget: if the save fails, the visitor still sees their results below.
+  const risk_level = (criticalFail || pct < 55) ? 'high' : (pct < 80 ? 'medium' : 'low');
+  fetch('/api/submit-assessment', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ assessment_type: 'hospital-quick-check', score: pct, risk_level })
+  }).catch(() => {});
+
+  // Ring
+  setTimeout(() => {
+    const circ = 2 * Math.PI * 60;
+    const fill = (pct / 100) * circ;
+    document.getElementById('ring-fill').setAttribute('stroke-dasharray', fill + ' ' + circ);
+    document.getElementById('ring-fill').setAttribute('stroke', pct >= 80 ? '#1A7A3C' : pct >= 55 ? '#B45309' : '#B91C1C');
+    document.getElementById('ring-pct').textContent = pct + '%';
+    document.getElementById('ring-pct').setAttribute('fill', pct >= 80 ? '#1A7A3C' : pct >= 55 ? '#B45309' : '#B91C1C');
+  }, 100);
+
+  // Verdict
+  let verdictClass, verdictLabelText, verdictText;
+  if(criticalFail || pct < 55) {
+    verdictClass = 'at-risk';
+    verdictLabelText = 'At Risk';
+    verdictText = 'Your responses indicate one or more critical compliance gaps in your hospital\'s information reporting program. Critical failures \u2014 particularly around Box 6 classification, W-9 collection, backup withholding, or IRIS transition \u2014 carry penalty exposure under IRC \u00A76721, \u00A76722, and \u00A73406. Immediate review is warranted.';
+  } else if(pct < 80) {
+    verdictClass = 'partial';
+    verdictLabelText = 'Partial Compliance';
+    verdictText = 'Your program has foundational controls in place but has identifiable gaps that create penalty exposure. These gaps are addressable through process improvements, AP system configuration, and procedural documentation. A structured compliance review would prioritize and remediate these areas.';
+  } else {
+    verdictClass = 'compliant';
+    verdictLabelText = 'Strong Compliance Posture';
+    verdictText = 'Your responses indicate a strong information reporting program. Continue to monitor for regulatory changes, including IRIS system updates, threshold changes under OBBBA, and evolving Box 6 guidance. Annual compliance reviews are still recommended for organizations of this complexity.';
+  }
+
+  document.getElementById('verdict-label').className = 'label ' + verdictClass;
+  document.getElementById('verdict-label').textContent = verdictLabelText;
+  document.getElementById('verdict-text').textContent = verdictText;
+
+  // Findings
+  const list = document.getElementById('findings-list');
+  list.innerHTML = '';
+  if(noItems.length === 0) {
+    list.innerHTML = '<p style="color:#1A7A3C;font-weight:600;font-size:0.9rem;">No gaps identified in answered questions. Review N/A responses if circumstances change.</p>';
+  } else {
+    noItems.forEach(k => {
+      const f = findings[k];
+      if(!f) return;
+      const div = document.createElement('div');
+      div.className = 'finding-item ' + (f.critical ? 'critical' : 'warning');
+      div.innerHTML = '<div class="finding-icon">' + (f.critical ? '\u26A0\uFE0F' : '\u26A0\uFE0F') + '</div>' +
+        '<div class="finding-body">' +
+        '<div class="finding-q">' + (f.critical ? '[CRITICAL] ' : '') + f.q + '</div>' +
+        '<div class="finding-detail">' + f.detail + '</div>' +
+        '<div class="finding-cite">Authority: ' + f.cite + '</div>' +
+        '</div>';
+      list.appendChild(div);
+    });
+  }
+
+  document.getElementById('results').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function restart() {
+  Object.keys(answers).forEach(k => delete answers[k]);
+  currentQ = 1;
+  // Reset all cards
+  document.querySelectorAll('.q-card').forEach(c => {
+    c.classList.remove('active','answered');
+    c.style.display = 'none';
+    c.querySelectorAll('.btn').forEach(b => b.classList.remove('selected-yes','selected-no','selected-na'));
+  });
+  document.getElementById('qcard-1').style.display = 'block';
+  document.getElementById('qcard-1').classList.add('active');
+  document.getElementById('progress-fill').style.width = '0%';
+  document.getElementById('progress-label').textContent = 'Question 1 of 14';
+  document.querySelector('.progress-bar-wrap').style.display = 'block';
+  document.getElementById('questions').style.display = 'block';
+  document.getElementById('results').style.display = 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
