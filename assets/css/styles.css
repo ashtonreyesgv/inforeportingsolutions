@@ -754,6 +754,24 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
 .hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
 /* Tool selection cards (Self-Assessment landing) */
+/* Assessment track tiles (Self-Assessment hub) — one per industry, laid out
+   left to right. New industries add a tile instead of lengthening the page. */
+.track-card { display: flex; flex-direction: column; }
+.track-card .tag { align-self: flex-start; margin-bottom: 14px; }
+.track-card h3 { margin-bottom: 6px; }
+/* `.card p` sets a muted colour and is more specific than a lone class, so the
+   lede is scoped to .track-card to win without resorting to !important. */
+.track-card p.track-card__lede {
+  font-family: var(--serif); font-style: italic;
+  color: var(--accent); font-size: 1.02rem; line-height: 1.45; margin: 0 0 12px;
+}
+.track-card > p:not(.track-card__lede) { flex: 1; margin-bottom: 22px; }
+.track-card__actions { display: flex; flex-direction: column; gap: 10px; margin-top: auto; }
+/* The general assessment isn't industry-specific, so it gets a subtle tint to
+   read as a different kind of thing rather than a third industry. */
+.track-card--general { background: var(--paper); }
+@media (max-width: 980px) { .track-grid { grid-template-columns: 1fr; } }
+
 .tool-card { display: flex; flex-direction: column; }
 .tool-card .tag { align-self: flex-start; margin-bottom: 14px; }
 .tool-card p { flex: 1; }

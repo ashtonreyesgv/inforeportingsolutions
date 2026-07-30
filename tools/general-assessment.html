@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026–2027 Information Reporting Changes Assessment | InfoReporting Solutions</title>
+<meta name="robots" content="noindex" />
+<style>
+:root{
+  --navy:#1B3A6B;--navy-mid:#24508F;--gold:#C9A227;
+  --slate:#F0F3F8;--border:#D4DCEA;--text:#1A1A2E;--text-sec:#4A5568;
+  --green:#1A6E3C;--green-bg:#E8F5EE;
+  --red:#A8221C;--red-bg:#FAEAEA;
+  --amber:#7A3D00;--amber-bg:#FEF3E2;
+  --white:#FFFFFF;--radius:8px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;background:var(--slate);color:var(--text);line-height:1.55;min-height:100vh}
+
+/* Header */
+.hdr{background:var(--navy);border-bottom:3px solid var(--gold);padding:18px 28px}
+.hdr-inner{max-width:820px;margin:0 auto}
+.hdr-logo{font-size:0.72rem;font-weight:700;color:var(--gold);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:4px}
+.hdr-title{font-size:1.15rem;font-weight:700;color:var(--white)}
+.hdr-sub{font-size:0.78rem;color:#9BAAC8;margin-top:3px}
+
+/* Page */
+.page{max-width:820px;margin:0 auto;padding:28px 16px 72px}
+
+/* Intro screen */
+.intro-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:30px}
+.intro-card h2{font-size:1.05rem;font-weight:700;color:var(--navy);margin-bottom:10px}
+.intro-card p{font-size:0.88rem;color:var(--text-sec);line-height:1.65;margin-bottom:14px}
+.scope-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0 24px}
+@media(max-width:560px){.scope-grid{grid-template-columns:1fr}}
+.scope-card{border:1px solid var(--border);border-radius:var(--radius);padding:14px;background:var(--slate)}
+.scope-num{font-size:1.4rem;font-weight:700;color:var(--gold);line-height:1}
+.scope-label{font-size:0.78rem;font-weight:600;color:var(--navy);margin:4px 0 2px}
+.scope-desc{font-size:0.73rem;color:var(--text-sec);line-height:1.5}
+.btn-begin{background:var(--navy);color:var(--white);border:none;border-radius:var(--radius);padding:12px 32px;font-size:0.95rem;font-weight:600;cursor:pointer;display:block;margin-left:auto}
+.btn-begin:hover{background:var(--navy-mid)}
+
+/* Progress */
+.prog-wrap{margin-bottom:20px}
+.prog-meta{display:flex;justify-content:space-between;font-size:0.78rem;margin-bottom:5px}
+.prog-label{font-weight:700;color:var(--navy)}
+.prog-count{color:var(--text-sec)}
+.prog-track{height:5px;background:var(--border);border-radius:3px;overflow:hidden}
+.prog-fill{height:100%;background:var(--gold);border-radius:3px;transition:width 0.3s}
+
+/* Section card */
+.sec-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.sec-head{background:var(--navy);padding:15px 22px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.sec-badge{background:var(--gold);color:var(--navy);font-size:0.68rem;font-weight:700;padding:3px 10px;border-radius:10px;letter-spacing:0.05em;white-space:nowrap}
+.sec-title{color:var(--white);font-size:0.95rem;font-weight:600}
+.sec-body{padding:20px 22px}
+.sec-intro{font-size:0.84rem;color:var(--text-sec);line-height:1.65;margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+
+/* N/A toggle */
+.na-row{display:flex;align-items:center;gap:10px;background:var(--amber-bg);border:1px solid #F5C97A;border-radius:6px;padding:9px 14px;margin-bottom:16px;cursor:pointer;user-select:none}
+.na-row input{cursor:pointer;accent-color:var(--amber)}
+.na-row span{font-size:0.81rem;color:var(--amber);font-weight:500}
+.qs-wrap{transition:opacity 0.2s}
+.qs-wrap.dimmed{opacity:0.35;pointer-events:none}
+
+/* Question */
+.q-item{border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:10px}
+.q-item:last-child{margin-bottom:0}
+.q-meta{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.q-num{font-size:0.68rem;font-weight:700;color:var(--gold);letter-spacing:0.08em;text-transform:uppercase}
+.q-crit{background:var(--red-bg);color:var(--red);font-size:0.63rem;font-weight:700;padding:2px 7px;border-radius:8px;letter-spacing:0.05em}
+.q-text{font-size:0.87rem;color:var(--text);line-height:1.6;margin-bottom:10px}
+.q-note{font-size:0.77rem;color:var(--text-sec);background:var(--slate);border-left:3px solid var(--gold);padding:7px 10px;border-radius:0 4px 4px 0;margin-bottom:10px;line-height:1.55}
+.btn-row{display:flex;gap:8px}
+.btn-a{flex:1;padding:8px 4px;font-size:0.82rem;font-weight:500;border:1.5px solid var(--border);border-radius:6px;background:var(--white);color:var(--text-sec);cursor:pointer;transition:all 0.13s;text-align:center}
+.btn-a:hover{border-color:var(--navy);background:var(--slate)}
+.btn-a.yes{background:var(--green-bg);border-color:var(--green);color:var(--green);font-weight:600}
+.btn-a.no{background:var(--red-bg);border-color:var(--red);color:var(--red);font-weight:600}
+.btn-a.na{background:#F3F4F6;border-color:#9CA3AF;color:#555;font-weight:600}
+
+/* Nav */
+.nav-row{display:flex;justify-content:space-between;margin-top:20px;gap:12px}
+.btn-nav{padding:10px 22px;font-size:0.88rem;border:1px solid var(--border);border-radius:var(--radius);background:var(--white);color:var(--text);cursor:pointer}
+.btn-nav:hover{background:var(--slate)}
+.btn-nav.primary{background:var(--navy);color:var(--white);border-color:var(--navy);font-weight:600}
+.btn-nav.primary:hover{background:var(--navy-mid)}
+.btn-nav:disabled{opacity:0.3;cursor:default}
+
+/* Results */
+#results-screen{display:none}
+.res-hdr{background:var(--navy);border-radius:var(--radius) var(--radius) 0 0;padding:22px 26px;border-bottom:3px solid var(--gold)}
+.res-hdr h2{color:var(--white);font-size:1.05rem;font-weight:700}
+.res-hdr p{color:#9BAAC8;font-size:0.78rem;margin-top:4px}
+.res-body{background:var(--white);border:1px solid var(--border);border-top:none;border-radius:0 0 var(--radius) var(--radius);padding:26px}
+
+/* Score grid */
+.score-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:26px}
+@media(max-width:560px){.score-grid{grid-template-columns:1fr}}
+.score-card{border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-align:center}
+.ring-wrap{position:relative;width:76px;height:76px;margin:0 auto 8px}
+.ring-wrap svg{display:block}
+.ring-center{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column}
+.ring-pct{font-size:1.05rem;font-weight:700}
+.score-name{font-size:0.75rem;font-weight:700;color:var(--navy);margin-bottom:5px}
+.score-verdict{display:inline-block;font-size:0.72rem;font-weight:700;padding:3px 10px;border-radius:10px}
+.vg{background:var(--green-bg);color:var(--green)}
+.va{background:var(--amber-bg);color:var(--amber)}
+.vr{background:var(--red-bg);color:var(--red)}
+.vn{background:#F3F4F6;color:#666}
+
+/* Gaps */
+.gap-sec{margin-bottom:22px}
+.gap-sec-title{font-size:0.82rem;font-weight:700;color:var(--navy);border-bottom:2px solid var(--gold);padding-bottom:6px;margin-bottom:12px}
+.gap-item{border-left:3px solid var(--red);background:var(--red-bg);border-radius:0 6px 6px 0;padding:12px 14px;margin-bottom:8px}
+.gap-item.imp{border-left-color:#D4A520;background:var(--amber-bg)}
+.gap-qnum{font-size:0.68rem;font-weight:700;color:var(--text-sec);margin-bottom:3px;letter-spacing:0.05em}
+.gap-qtext{font-size:0.83rem;font-weight:600;color:var(--text);margin-bottom:4px;line-height:1.5}
+.gap-penalty{font-size:0.78rem;color:var(--red);font-style:italic;line-height:1.5}
+.gap-item.imp .gap-penalty{color:var(--amber)}
+.gap-cite{font-size:0.72rem;color:var(--navy);font-style:italic;margin-top:4px}
+
+.all-clear{text-align:center;padding:22px;background:var(--green-bg);border-radius:var(--radius);margin-bottom:18px}
+.all-clear p{font-size:0.9rem;color:var(--green);font-weight:600}
+
+/* CTA */
+.cta{background:var(--navy);border-radius:var(--radius);padding:24px 28px;text-align:center;margin-top:26px}
+.cta h3{color:var(--white);font-size:1rem;font-weight:700;margin-bottom:8px}
+.cta p{color:#9BAAC8;font-size:0.83rem;line-height:1.6;margin-bottom:16px;max-width:500px;margin-left:auto;margin-right:auto}
+.btn-cta{display:inline-block;background:var(--gold);color:var(--navy);font-weight:700;font-size:0.92rem;padding:11px 28px;border-radius:6px;text-decoration:none;border:none;cursor:pointer}
+.btn-restart{display:block;margin:14px auto 0;background:transparent;border:1px solid #9BAAC8;color:#9BAAC8;font-size:0.78rem;padding:7px 20px;border-radius:5px;cursor:pointer}
+.btn-restart:hover{background:rgba(255,255,255,0.08)}
+.disclaimer{font-size:0.72rem;color:var(--text-sec);text-align:center;margin-top:22px;line-height:1.6;padding:0 8px}
+.note-item{background:#F0F7FF;border:1px solid #BFDBFE;border-left:4px solid var(--navy-mid);border-radius:0 var(--radius) var(--radius) 0;padding:14px 16px;margin-bottom:10px}
+.note-item-label{font-size:0.68rem;font-weight:700;color:var(--navy-mid);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:6px}
+.note-item-title{font-size:0.88rem;font-weight:700;color:var(--navy);margin-bottom:6px}
+.note-item-body{font-size:0.85rem;color:var(--text-sec);line-height:1.65}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-inner">
+    <div class="hdr-logo">InfoReporting Solutions</div>
+    <div class="hdr-title">2026–2027 Information Reporting Changes Assessment</div>
+    <div class="hdr-sub">OBBBA Threshold Update &nbsp;·&nbsp; FIRE-to-IRIS Transition &nbsp;·&nbsp; State Reporting Implications</div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- INTRO -->
+  <div id="intro-screen">
+    <div class="intro-card">
+      <h2>What this assessment covers</h2>
+      <p>Two federal regulatory changes take effect for Tax Year 2026 returns filed in 2027, with significant operational implications for any organization filing information returns. This assessment evaluates your organization's readiness across all three impact areas.</p>
+      <div class="scope-grid">
+        <div class="scope-card">
+          <div class="scope-num">8</div>
+          <div class="scope-label">OBBBA Threshold</div>
+          <div class="scope-desc">§6041(a) threshold raised from $600 to $2,000 — system, process, and withholding implications</div>
+        </div>
+        <div class="scope-card">
+          <div class="scope-num">10</div>
+          <div class="scope-label">FIRE to IRIS</div>
+          <div class="scope-desc">FIRE decommissioned for Form 1099 and 1042-S — IRIS credentialing, data elements, and filing readiness</div>
+        </div>
+        <div class="scope-card">
+          <div class="scope-num">6</div>
+          <div class="scope-label">State Reporting</div>
+          <div class="scope-desc">State threshold conformity, filing formats, deadlines, and withholding obligations</div>
+        </div>
+      </div>
+      <p>Each section can be marked not applicable if your organization has no obligations in that area. Results include statutory citations for every gap identified.</p>
+      <button class="btn-begin" onclick="startAssessment()">Begin assessment &rarr;</button>
+    </div>
+  </div>
+
+  <!-- ASSESSMENT -->
+  <div id="assessment-screen" style="display:none">
+    <div class="prog-wrap">
+      <div class="prog-meta">
+        <span class="prog-label" id="prog-label"></span>
+        <span class="prog-count" id="prog-count"></span>
+      </div>
+      <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+    </div>
+    <div id="sec-container"></div>
+    <div class="nav-row">
+      <button class="btn-nav" id="btn-back" onclick="nav(-1)" disabled>&larr; Back</button>
+      <button class="btn-nav primary" id="btn-next" onclick="nav(1)">Next &rarr;</button>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="results-screen">
+    <div class="res-hdr">
+      <h2>Assessment Results — 2026–2027 Reporting Changes</h2>
+      <p>InfoReporting Solutions &nbsp;·&nbsp; Results based on self-reported responses</p>
+    </div>
+    <div class="res-body" id="res-body"></div>
+  </div>
+
+</div>
+
+<script>
+const SECTIONS = [
+{
+  id:'T', label:'Section 1', title:'OBBBA \u2014 $2,000 Reporting Threshold',
+  intro:'The One Big Beautiful Bill Act (OBBBA) raised the \u00A76041 information reporting threshold from $600 to $2,000 effective for Tax Year 2026 payments. These questions assess whether your organization has updated its systems, withholding controls, and operational processes to reflect that change across every department that initiates reportable payments.',
+  items:[
+    {num:'T-1',text:'Has your organization confirmed the \u00A76041 reporting threshold increase to $2,000 for Tax Year 2026, updated your AP system or ERP to apply that threshold, and identified vendors who received less than $2,000 in TY2025 and will not require Forms 1099 for TY2026?',weight:'Critical',penalty:'All three steps are operationally linked. A system still configured at $600 generates 1099s for payees who are no longer reportable, producing incorrect returns that require correction under \u00A76721/6722. Identifying the affected payee population before year-end allows vendor master records and withholding configurations to be updated proactively rather than corrected retroactively.',cite:'\u00A76041(a); OBBBA (P.L. 119-21); \u00A76721'},
+    {num:'T-2',text:'Has your organization updated its backup withholding controls to reflect that the \u00A73406 withholding obligation applies only to reportable payments \u2014 and that payments below the $2,000 \u00A76041 threshold are neither reportable nor subject to backup withholding?',weight:'Critical',penalty:'The \u00A73406 backup withholding obligation is tied to whether a payment is reportable. A payment below the $2,000 \u00A76041 threshold is not reportable and therefore not subject to backup withholding even if no W-9 is on file. Systems still triggering backup withholding at $600 will over-withhold on sub-threshold payments.',cite:'\u00A73406; \u00A76041(a); OBBBA (P.L. 119-21)'},
+    {num:'T-3',text:'Most organizations collect Form W-9 from all vendors as part of onboarding, regardless of expected payment volume \u2014 which is good practice. Has your organization confirmed that the \u00A76041 threshold change affects only the filing and withholding trigger, not the W-9 collection requirement, and that W-9 collection continues universally across all departments including AP, procurement, research, grants, and legal?',weight:'Critical',penalty:'The threshold change does not eliminate the W-9 collection requirement for sub-threshold vendors. W-9 collection is a foundational documentation control independent of whether a payment ultimately triggers a 1099. Departments that misread the threshold change as reducing their W-9 obligations leave the organization without documentation if payment volumes increase later in the year.',cite:'\u00A76041(a); \u00A73406; OBBBA (P.L. 119-21)'},
+    {num:'T-4',text:'Has your organization confirmed that the $2,000 threshold applies only to \u00A76041 payments \u2014 and that your AP system continues to apply the correct separate thresholds to royalties (\u00A76050N, reportable at $10), interest, where applicable (\u00A76049, reportable at $10), and dividends (\u00A76042, reportable at $10), none of which were affected by OBBBA?',weight:'Critical',penalty:'OBBBA raised only the \u00A76041(a) threshold. Royalties, interest on registered obligations, and dividends remain reportable at $10 under their own provisions. A system applying the $2,000 threshold globally will underreport on these payment types, creating \u00A76721/6722 penalty exposure for every missing return in those populations.',cite:'\u00A76041(a); OBBBA (P.L. 119-21); \u00A76050N; \u00A76049; \u00A76042'},
+    {num:'T-5',text:'Has your organization confirmed that attorney fees paid for services are now subject to the $2,000 \u00A76041 threshold under OBBBA, while attorney gross proceeds under \u00A76045(f) remain reportable at $600 per Reg. \u00A71.6045-5(a)?',weight:'Critical',penalty:'These are two distinct obligations governed by different statutory provisions. Attorney fees are \u00A76041 service payments and move to $2,000 under OBBBA. Attorney gross proceeds paid to an attorney in connection with a legal settlement are \u00A76045(f) payments with a $600 threshold that OBBBA did not amend. Applying the new $2,000 threshold to gross proceeds payments creates underreporting exposure on every gross proceeds payment between $600 and $1,999.',cite:'\u00A76041(a); OBBBA (P.L. 119-21); \u00A76045(f); Reg. \u00A71.6045-5(a)'}
+  ]
+},
+{
+  id:'I', label:'Section 2', title:'FIRE Decommissioning \u2014 IRIS Transition',
+  intro:'The IRS has decommissioned the FIRE system for electronic filing of both Form 1099 and Form 1042-S effective for Tax Year 2026 returns filed in 2027. IRIS is now the only available electronic filing system. These questions assess whether your organization has completed the full transition \u2014 from credentialing through data readiness, provider confirmation, and post-submission controls.',
+  items:[
+    {num:'I-1',text:'Has your organization identified and communicated that the IRS FIRE system will no longer be available for electronic filing of 2026 Forms 1099 and Forms 1042-S \u2014 and that all such returns must be submitted through IRIS?',weight:'Critical',penalty:'Returns submitted through FIRE are not received by the IRS, are treated as unfiled, and are subject to the full late-filing penalty under \u00A76721 \u2014 currently $340 per return. Internal communication of this change to AP, tax, and any third-party providers is a prerequisite to all other IRIS readiness steps.',cite:'\u00A76721; IRS FIRE Decommissioning Notice'},
+    {num:'I-2',text:'If your organization files information returns directly, has it obtained an active IRIS Transmitter Control Code (TCC) through the IRS IR Application portal?',weight:'Critical',penalty:'Without an active IRIS TCC, self-filing of Form 1099 and Form 1042-S electronically is not possible. The IRIS TCC application must be completed through the IRS IR Application portal. Note: a prior FIRE TCC cannot be used for IRIS and does not transfer. Organizations with fewer than 10 total information returns may paper file and do not require an IRIS TCC. Organizations that outsource filing should confirm their provider holds an active IRIS TCC \u2014 see I-7.',note:'Answer N/A if your organization uses a third-party provider to file all information returns. See I-7 for provider-specific questions.',cite:'IRS IRIS TCC requirements; \u00A76011(e)'},
+    {num:'I-3',text:'If self-reporting, has your organization selected its IRIS filing method \u2014 A2A (which requires an API to be built and a specific TCC for API access) or Manual (direct data submission, better suited for lower-volume filers) \u2014 and confirmed it has the technical infrastructure and correctly formatted data to support that method?',weight:'Critical',penalty:'IRIS A2A requires a registered API client credential in addition to the TCC, and data must be formatted as JSON. Attempting A2A without the correct credential or data format results in rejected submissions treated as unfiled. Manual filing has practical volume limitations that create deadline risk for large filer populations.',note:'Answer N/A if your organization uses a third-party provider to file all information returns.',cite:'IRS IRIS A2A technical specifications; \u00A76721'},
+    {num:'I-4',text:'Has your organization structured its data extract to provide recipient names in the distinct fields required by IRIS \u2014 first name and last name in separate fields for individuals, and a single legal entity name field for organizations \u2014 rather than the single combined 40-character name field used in the legacy FIRE ASCII format?',weight:'Critical',penalty:'IRIS requires recipient names in separate JSON fields: first name, last name, and entity name are distinct data elements. A data extract that feeds a combined name string will result in rejected returns or name/TIN mismatches. Errors not corrected within the 30-day correction window carry the same \u00A76721 penalty as unfiled returns.',cite:'\u00A76721; IRIS data element specifications; IRS Publication 5717'},
+    {num:'I-5',text:'Has your organization confirmed that all recipient TINs in your IRIS filing data are validated against the legal name on the W-9 or W-8 \u2014 not a trade name, DBA, or prior legal name \u2014 and that TIN/Name combinations match IRS records before submission?',weight:'Critical',penalty:'IRIS enforces TIN/Name matching at submission. A name that does not match IRS records for that TIN generates a mismatch error, resulting in a rejected or accepted-with-errors return. Pre-submission TIN validation through IRS TIN Matching or an approved third-party service is the only way to identify mismatches before they generate \u00A76721 penalty exposure.',cite:'\u00A76721; \u00A73406; IRIS TIN validation requirements'},
+    {num:'I-6',text:'Has your organization confirmed that its IRIS filing data extract captures all required payment populations \u2014 including, but not limited to, 1099-NEC, 1099-MISC, 1099-INT, 1099-DIV, 1099-R, and Form 1042-S for nonresident alien payees \u2014 and that no payment population is excluded because it originates from a source system outside the primary AP workflow?',weight:'Critical',penalty:'The most common IRIS filing failure in multi-department organizations is not a data format error \u2014 it is an entire payment population missing from the filing universe because it is managed in a system not connected to the central AP-driven 1099 workflow. A complete filing universe must be confirmed before IRIS submission.',cite:'\u00A76041(a); \u00A76721; Form 1042-S filing requirements'},
+    {num:'I-7',text:'If your organization uses a third-party provider to file information returns, has it confirmed with the provider that the provider holds an active IRIS TCC and that all TY2026 returns \u2014 both Form 1099 and Form 1042-S \u2014 will be filed through IRIS?',weight:'Critical',penalty:'Penalty liability under \u00A76721/6722 remains with the payor organization as the filer of record regardless of provider error. Confirming the provider\'s IRIS readiness covering both form types is the minimum baseline protection.',note:'Answer N/A if your organization files all returns directly without a third-party provider.',cite:'\u00A76721; \u00A76723'},
+    {num:'I-8',text:'Has your organization \u2014 or its third-party provider \u2014 completed a test submission to IRIS with a controlled batch of returns before the production filing deadline to confirm TCC activation, data format compliance, and submission pipeline functionality?',weight:'Important',penalty:'A submission failure discovered at the production deadline leaves no practical time to remediate. Pre-deadline testing is the only way to confirm that the TCC is active, the data format is accepted, and the submission pipeline is functional before the full return population is at risk of late-filing penalties.',cite:'\u00A76721; IRIS filing procedures'},
+    {num:'I-9',text:'Does your organization have a documented process for reviewing IRIS acknowledgment files after submission and resolving any rejected or accepted-with-errors returns within the applicable IRS correction window?',weight:'Important',penalty:'Returns rejected by IRIS are not considered filed. Monitoring acknowledgment files after submission is the only way to identify rejections before an IRS notice arrives. A documented resolution process ensures rejections are addressed within the correction window while reduced penalty rates are still available.',cite:'\u00A76721; IRIS acknowledgment procedures'},
+    {num:'I-10',text:'Does your organization understand the IRIS correction process \u2014 specifically that corrections to previously accepted returns must be submitted through IRIS as corrected returns?',weight:'Important',penalty:'',cite:'IRIS correction filing procedures'}
+  ]
+},
+{
+  id:'S', label:'Section 3', title:'State Reporting Implications',
+  intro:'State information reporting obligations run parallel to \u2014 and do not automatically conform to \u2014 federal regulatory changes. The OBBBA threshold increase and the FIRE-to-IRIS transition each carry distinct state-level implications that must be assessed independently. These questions identify the most consequential state compliance gaps created by the federal changes.',
+  items:[
+    {num:'S-1',text:'Has your organization identified which states do not conform to the OBBBA federal $2,000 threshold change \u2014 meaning those states still require information return filing at $600 or another threshold below $2,000 for payments made in 2026?',weight:'Critical',penalty:'State threshold conformity to the OBBBA federal change is not automatic and varies by state. Excluding payees from state filing because they fall below the federal $2,000 threshold \u2014 without confirming the applicable state threshold \u2014 creates state-level underreporting exposure and associated penalties for each missing state return.',cite:'\u00A76041(a); OBBBA (P.L. 119-21); applicable state revenue statutes'},
+    {num:'S-2',text:'Has your organization reconfirmed its Combined Federal/State Filing (CF/SF) program participation for TY2026 \u2014 recognizing that some states that previously accepted CF/SF filings through FIRE may no longer do so under IRIS?',weight:'Critical',penalty:'The FIRE-to-IRIS transition changed the transmission path for CF/SF submissions. States that accepted CF/SF through FIRE may not have confirmed acceptance through IRIS. An organization that assumes its prior CF/SF arrangement continues automatically under IRIS may have unfiled state returns for TY2026 without realizing it. Where a state is no longer accepting CF/SF through IRIS, the organization must identify and implement that state\'s required alternative filing methodology before the deadline.',cite:'IRS Publication 1220 (CF/SF program); IRS FIRE Decommissioning Notice; applicable state filing requirements'},
+    {num:'S-3',text:'For states identified in S-2 as requiring direct filing outside the CF/SF program, has your organization confirmed that returns are produced in the format required by each state \u2014 typically the legacy Publication 1220 ASCII format \u2014 rather than the IRIS XML/JSON format used for federal submissions, which most states do not accept?',weight:'Critical',penalty:'Most states that require direct filing do not accept the IRIS XML or JSON format. Submitting a file in an unsupported format may result in the state treating the filing as not received, triggering the state\'s late-filing penalty even when the federal IRIS filing was timely and correct.',cite:'IRS Publication 1220; applicable state electronic filing format requirements'},
+    {num:'S-4',text:'Has your organization confirmed the applicable state filing deadlines for each state where it has filing obligations \u2014 recognizing that state deadlines frequently differ from the federal January 31 (1099-NEC) and March 31 (1099-MISC electronic) deadlines?',weight:'Important',penalty:'State deadlines vary significantly. Missing a state deadline carries that state\'s own penalty regime, separate from and in addition to any federal exposure.',cite:'Applicable state revenue statutes; state filing deadline schedules'},
+    {num:'S-5',text:'Has your organization identified which states impose withholding obligations on payments to non-resident non-employee service providers \u2014 and confirmed whether state-level withholding deposits and returns are required for those states?',weight:'Important',penalty:'Several states impose non-resident withholding on payments to non-employee service providers performing services within the state. Failure to withhold and deposit at the state level where required creates state underpayment, late-deposit penalties, and interest exposure separate from any federal backup withholding obligations.',cite:'Applicable state income tax withholding statutes; \u00A73406 (federal obligation, separate)'}
+  ]
+}
+];
+
+let current=0, answers={}, sectionNA={};
+
+function startAssessment(){
+  document.getElementById('intro-screen').style.display='none';
+  document.getElementById('assessment-screen').style.display='block';
+  render(true);
+}
+
+function render(scrollTop){
+  const s=SECTIONS[current];
+  const pct=Math.round((current/SECTIONS.length)*100);
+  document.getElementById('prog-fill').style.width=pct+'%';
+  document.getElementById('prog-label').textContent=s.label+': '+s.title;
+  document.getElementById('prog-count').textContent='Section '+(current+1)+' of '+SECTIONS.length;
+  document.getElementById('btn-back').disabled=current===0;
+  document.getElementById('btn-next').textContent=current===SECTIONS.length-1?'View results \u2192':'Next \u2192';
+  const isNA=!!sectionNA[s.id];
+  let h=`<div class="sec-card"><div class="sec-head"><span class="sec-badge">${s.label}</span><span class="sec-title">${s.title}</span></div><div class="sec-body"><p class="sec-intro">${s.intro}</p>`;
+  h+=`<div class="na-row" onclick="toggleNA('${s.id}')"><input type="checkbox" id="na-${s.id}" ${isNA?'checked':''} onclick="event.stopPropagation()" onchange="toggleNA('${s.id}',true)"><span>This section is not applicable to my organization</span></div>`;
+  h+=`<div class="qs-wrap${isNA?' dimmed':''}" id="qs-${s.id}">`;
+  s.items.forEach(q=>{
+    if(q.type==='note'){
+      h+=`<div class="note-item"><div class="note-item-label">&#9432;&nbsp; Business Practice Note</div><div class="note-item-title">${q.text}</div><div class="note-item-body">${q.body}</div></div>`;
+      return;
+    }
+    const a=answers[q.num]||null;
+    h+=`<div class="q-item"><div class="q-meta"><span class="q-num">${q.num}</span>${q.weight==='Critical'?'<span class="q-crit">CRITICAL</span>':''}</div><div class="q-text">${q.text}</div>${q.note?`<div class="q-note">${q.note}</div>`:''}<div class="btn-row"><button class="btn-a${a==='yes'?' yes':''}" onclick="ans('${q.num}','yes')">Yes</button><button class="btn-a${a==='no'?' no':''}" onclick="ans('${q.num}','no')">No</button><button class="btn-a${a==='na'?' na':''}" onclick="ans('${q.num}','na')">N/A</button></div></div>`;
+  });
+  h+=`</div></div></div>`;
+  document.getElementById('sec-container').innerHTML=h;
+  if(scrollTop) scrollAssessmentToTop();
+}
+
+// This tool runs inside an auto-sized iframe, so scrolling our own window does
+// nothing the visitor can see — we have to scroll the PARENT page to the top of
+// the frame instead, clearing the sticky site header.
+function scrollAssessmentToTop() {
+  try {
+    var frame = window.frameElement;
+    if (frame) {
+      var pw = window.parent;
+      var rect = frame.getBoundingClientRect();
+      var header = pw.document.querySelector('.site-header');
+      var offset = (header ? header.offsetHeight : 0) + 12;
+      var target = pw.scrollY + rect.top - offset;
+      pw.scrollTo({ top: target < 0 ? 0 : target, behavior: 'smooth' });
+      return;
+    }
+  } catch (e) {}
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function toggleNA(id,fromCb){
+  if(!fromCb){const cb=document.getElementById('na-'+id);cb.checked=!cb.checked;}
+  sectionNA[id]=document.getElementById('na-'+id).checked;
+  const w=document.getElementById('qs-'+id);
+  if(w) w.classList.toggle('dimmed',sectionNA[id]);
+}
+
+function ans(num,val){answers[num]=val;render(false);}
+
+function nav(dir){
+  const next=current+dir;
+  if(next>=0&&next<SECTIONS.length){current=next;render(true);}
+  else if(next===SECTIONS.length) buildResults();
+}
+
+function ring(pct,color){
+  const r=30,c=2*Math.PI*r,off=c-(pct/100)*c;
+  return `<svg width="72" height="72" viewBox="0 0 72 72"><circle cx="36" cy="36" r="${r}" fill="none" stroke="#E5E9F2" stroke-width="8"/><circle cx="36" cy="36" r="${r}" fill="none" stroke="${color}" stroke-width="8" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${off}" transform="rotate(-90 36 36)"/></svg>`;
+}
+
+function buildResults(){
+  document.getElementById('assessment-screen').style.display='none';
+  document.getElementById('results-screen').style.display='block';
+  let scoreCards='', critGaps=[], impGaps=[];
+  let totalYes=0, totalNo=0;   // running totals for the anonymous benchmark score
+  SECTIONS.forEach(s=>{
+    if(sectionNA[s.id]){
+      scoreCards+=`<div class="score-card"><div class="ring-wrap">${ring(100,'#9CA3AF')}<div class="ring-center"><span class="ring-pct" style="color:#9CA3AF">—</span></div></div><div class="score-name">${s.label}</div><span class="score-verdict vn">Not applicable</span></div>`;
+      return;
+    }
+    let yes=0,no=0,crit=false;
+    s.items.forEach(q=>{
+      if(q.type==='note') return;
+      const a=answers[q.num];
+      if(!a||a==='na') return;
+      if(a==='yes') yes++;
+      if(a==='no'){
+        no++;
+        if(q.weight==='Critical'){crit=true;critGaps.push({sec:s.label,q});}
+        else impGaps.push({sec:s.label,q});
+      }
+    });
+    totalYes+=yes; totalNo+=no;
+    const scored=yes+no;
+    const pct=scored===0?100:Math.round((yes/scored)*100);
+    const col=crit?'#A8221C':pct>=80?'#1A6E3C':'#7A3D00';
+    const vc=crit?'vr':pct>=80?'vg':'va';
+    const vt=crit?'Action required':pct>=80?'Strong posture':'Gaps identified';
+    scoreCards+=`<div class="score-card"><div class="ring-wrap">${ring(pct,col)}<div class="ring-center"><span class="ring-pct" style="color:${col}">${pct}%</span></div></div><div class="score-name">${s.label}</div><span class="score-verdict ${vc}">${vt}</span></div>`;
+  });
+  // Anonymously record this result so we can build the benchmark comparison.
+  // Fire-and-forget: if the save fails, the visitor still sees their results below.
+  const scoredTotal = totalYes + totalNo;
+  const overallPct = scoredTotal === 0 ? 100 : Math.round((totalYes / scoredTotal) * 100);
+  const risk_level = critGaps.length ? 'high' : (overallPct < 80 ? 'medium' : 'low');
+  fetch('/api/submit-assessment', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ assessment_type: 'general-assessment', score: overallPct, risk_level })
+  }).catch(() => {});
+
+  let gapsHtml='';
+  if(critGaps.length===0&&impGaps.length===0){
+    gapsHtml='<div class="all-clear"><p>No gaps identified based on your responses.</p></div>';
+  } else {
+    if(critGaps.length){
+      gapsHtml+='<div class="gap-sec"><div class="gap-sec-title">&#9888;&nbsp; Critical gaps &mdash; immediate attention required</div>';
+      critGaps.forEach(({sec,q})=>{
+        gapsHtml+=`<div class="gap-item"><div class="gap-qnum">${sec} &middot; ${q.num}</div><div class="gap-qtext">${q.text}</div><div class="gap-penalty">${q.penalty}</div>${q.cite?`<div class="gap-cite">Authority: ${q.cite}</div>`:''}</div>`;
+      });
+      gapsHtml+='</div>';
+    }
+    if(impGaps.length){
+      gapsHtml+='<div class="gap-sec"><div class="gap-sec-title">&#9432;&nbsp; Other gaps &mdash; address before filing season</div>';
+      impGaps.forEach(({sec,q})=>{
+        gapsHtml+=`<div class="gap-item imp"><div class="gap-qnum">${sec} &middot; ${q.num}</div><div class="gap-qtext">${q.text}</div><div class="gap-penalty">${q.penalty}</div>${q.cite?`<div class="gap-cite">Authority: ${q.cite}</div>`:''}</div>`;
+      });
+      gapsHtml+='</div>';
+    }
+  }
+  document.getElementById('res-body').innerHTML=`
+    <div class="score-grid">${scoreCards}</div>
+    ${gapsHtml}
+    <div class="cta">
+      <h3>Ready to close these gaps?</h3>
+      <p>InfoReporting Solutions provides targeted compliance support for the OBBBA threshold update, FIRE-to-IRIS transition, and state reporting obligations \u2014 from system configuration review to filing readiness confirmation and staff training.</p>
+      <button class="btn-cta" onclick="window.location.href='mailto:colin.brien@inforeportingsolutions.com?subject=2026-2027 Reporting Changes Inquiry'">Schedule a consultation</button>
+      <button class="btn-restart" onclick="location.reload()">&#8635; Start over</button>
+    </div>
+    <div class="disclaimer">This assessment is a self-reported diagnostic tool provided for general informational purposes only. It does not constitute legal or tax advice and does not represent a comprehensive compliance review. Results depend entirely on the accuracy of responses provided. Consult qualified tax counsel before taking or refraining from any compliance action.</div>
+  `;
+  scrollAssessmentToTop();
+}
+</script>
+</body>
+</html>

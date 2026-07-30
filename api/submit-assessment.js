@@ -17,6 +17,7 @@ const VALID_TYPES = [
   'full-assessment',
   'hospital-quick-check',
   'hospital-full-assessment',
+  'general-assessment',
 ];
 const VALID_RISK = ['low', 'medium', 'high'];
 

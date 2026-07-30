@@ -12,7 +12,8 @@ The firm advises payors (not payees) on U.S. information-reporting obligations: 
 
 ## Self-Assessment Tools
 
-- [Self-assessment overview](https://www.inforeportingsolutions.com/self-assessment.html): Free, self-guided compliance checks for gaming and casino operations and for hospitals and health systems
+- [Self-assessment overview](https://www.inforeportingsolutions.com/self-assessment.html): Free, self-guided compliance checks by industry — gaming and casino operations, hospitals and health systems — plus a general assessment of the 2026 reporting changes
+- [2026–2027 Reporting Changes Assessment (general)](https://www.inforeportingsolutions.com/self-assessment-general.html): For any organization filing information returns — the FIRE-to-IRIS transition, the OBBBA dollar threshold increase, and state reporting implications. No industry-specific questions
 - [Gaming and casino 3-minute quick check](https://www.inforeportingsolutions.com/self-assessment-quick-check.html): Fast screen covering Form W-2G, Form 945, backup withholding, 1042-S, and IRIS readiness
 - [Gaming and casino full readiness assessment](https://www.inforeportingsolutions.com/self-assessment-readiness.html): Detailed, section-by-section compliance readiness review
 - [Hospital and health system 3-minute quick check](https://www.inforeportingsolutions.com/self-assessment-hospital-quick-check.html): Fast screen covering physician-practice W-9 collection, Box 6 medical and health care payments, backup withholding, foreign payees, and IRIS readiness

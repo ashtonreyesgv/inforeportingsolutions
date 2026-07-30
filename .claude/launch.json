@@ -4,8 +4,8 @@
     {
       "name": "site",
       "runtimeExecutable": "C:\\Users\\Ashton\\anaconda3\\python.exe",
-      "runtimeArgs": ["-m", "http.server", "5500"],
-      "port": 5500
+      "runtimeArgs": ["-m", "http.server", "5510"],
+      "port": 5510
     }
   ]
 }
