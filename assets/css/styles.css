@@ -756,7 +756,23 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
 /* Tool selection cards (Self-Assessment landing) */
 /* Assessment track tiles (Self-Assessment hub) — one per industry, laid out
    left to right. New industries add a tile instead of lengthening the page. */
-.track-card { display: flex; flex-direction: column; }
+.track-card {
+  display: flex; flex-direction: column;
+  position: relative; overflow: hidden;
+  padding-top: 116px;               /* room for the photo band above the content */
+  --card-surface: #fff;             /* colour the photo dissolves into */
+}
+/* Per the client's standing preference, the photo FADES into the card surface —
+   no frame, no hard edge, no visible photo "card". */
+.track-card__media { position: absolute; top: 0; left: 0; right: 0; height: 168px; }
+.track-card__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.track-card__media::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(to bottom,
+    rgba(255,255,255,.06) 0%, rgba(255,255,255,.62) 48%,
+    rgba(255,255,255,.94) 80%, var(--card-surface) 100%);
+}
+.track-card > *:not(.track-card__media) { position: relative; z-index: 1; }
 .track-card .tag { align-self: flex-start; margin-bottom: 14px; }
 .track-card h3 { margin-bottom: 6px; }
 /* `.card p` sets a muted colour and is more specific than a lone class, so the
@@ -769,7 +785,7 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
 .track-card__actions { display: flex; flex-direction: column; gap: 10px; margin-top: auto; }
 /* The general assessment isn't industry-specific, so it gets a subtle tint to
    read as a different kind of thing rather than a third industry. */
-.track-card--general { background: var(--paper); }
+.track-card--general { background: var(--paper); --card-surface: var(--paper); }
 @media (max-width: 980px) { .track-grid { grid-template-columns: 1fr; } }
 
 .tool-card { display: flex; flex-direction: column; }
