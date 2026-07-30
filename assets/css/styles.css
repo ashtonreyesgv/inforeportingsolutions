@@ -132,8 +132,17 @@ p:last-child { margin-bottom: 0; }
 .eyebrow--navy { color: var(--navy); }
 .eyebrow--light { color: rgba(255,255,255,.66); }
 
-.section-head { max-width: 720px; margin-bottom: clamp(36px, 5vw, 56px); }
+.section-head { max-width: 720px; margin-bottom: clamp(28px, 3.4vw, 44px); }
 .section-head--center { margin-inline: auto; text-align: center; }
+
+/* The band directly under a hero opens tighter than a mid-page section. The
+   hero already supplies the breathing room above it, so the full section
+   padding just pushes the first real content below the fold. */
+.page-hero + .section,
+.hero + .section,
+.stats + .section { padding-top: clamp(40px, 4.4vw, 62px); }
+.page-hero + .section--tight { padding-top: clamp(34px, 3.6vw, 50px); }
+.page-hero + .article { padding-top: clamp(32px, 3.8vw, 54px); }
 
 h1 { font-size: clamp(2.3rem, 5vw, 3.5rem); }
 h2 { font-size: clamp(1.85rem, 3.6vw, 2.6rem); }
@@ -178,21 +187,26 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
 .link-arrow svg { width: 18px; height: 18px; flex: none; transition: transform .18s var(--ease); }
 .link-arrow:hover svg { transform: translateX(3px); }
 
+/* E-mail addresses and full URLs are single unbreakable words. Left alone they
+   set a min-content width wider than a narrow phone, which drags the whole
+   page into sideways scroll — let them wrap when they can't fit. */
+a[href^="mailto:"], a[href^="http"] { overflow-wrap: anywhere; }
+
 /* 6. Top utility bar ----------------------------------------------------- */
 .topbar {
   background: var(--navy-900);
   color: rgba(255,255,255,.82);
-  font-size: .82rem;
+  font-size: .8rem;
 }
 .topbar__inner {
   display: flex; align-items: center; justify-content: space-between;
-  gap: 16px; min-height: 40px;
+  gap: 16px; min-height: 32px;
 }
 .topbar__tag { letter-spacing: .02em; }
 .topbar__contact { display: flex; align-items: center; gap: 22px; }
 .topbar a { color: rgba(255,255,255,.82); display: inline-flex; align-items: center; gap: .45em; }
 .topbar a:hover { color: #fff; }
-.topbar svg { width: 15px; height: 15px; stroke: currentColor; opacity: .8; }
+.topbar svg { width: 14px; height: 14px; stroke: currentColor; opacity: .8; }
 
 /* 7. Header / navigation ------------------------------------------------- */
 .site-header {
@@ -202,10 +216,10 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
 }
 .site-header__inner {
   display: flex; align-items: center; justify-content: space-between;
-  min-height: 86px; gap: 24px;
+  min-height: 70px; gap: 24px;
 }
 .brand { display: inline-flex; align-items: center; }
-.brand img { height: 46px; width: auto; }
+.brand img { height: 40px; width: auto; }
 
 .nav { display: flex; align-items: center; gap: 4px; }
 .nav a {
@@ -325,8 +339,11 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
 /* Page hero (inner pages) */
 .page-hero { background: var(--navy); color: #fff; position: relative; overflow: hidden; }
 .page-hero .container { position: relative; }
-.page-hero__inner { padding-block: clamp(26px, 3.4vw, 46px); max-width: 760px; position: relative; z-index: 1; }
-.page-hero h1 { color: #fff; }
+.page-hero__inner { padding-block: clamp(20px, 2.4vw, 32px); max-width: 760px; position: relative; z-index: 1; }
+/* Inner-page titles run a notch smaller than the home hero. The page hero is a
+   banner, not the content — keeping it compact means the first real section is
+   visible without scrolling. */
+.page-hero h1 { color: #fff; font-size: clamp(2rem, 3.9vw, 3rem); }
 /* Decorative brand seal — anchored to the content container so it stays
    aligned with the text instead of flying to the viewport edge on wide screens */
 .page-hero__seal {
@@ -335,8 +352,8 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
 }
 .page-hero .seal { width: clamp(146px, 15vw, 200px); }
 @media (max-width: 1060px) { .page-hero__seal { display: none; } }
-.page-hero p { color: rgba(255,255,255,.82); font-size: 1.15rem; max-width: 620px; margin-top: 1rem; }
-.breadcrumb { font-size: .85rem; color: rgba(255,255,255,.6); margin-bottom: 1.25rem; letter-spacing: .02em; }
+.page-hero p { color: rgba(255,255,255,.82); font-size: 1.08rem; max-width: 620px; margin-top: .7rem; }
+.breadcrumb { font-size: .85rem; color: rgba(255,255,255,.6); margin-bottom: .8rem; letter-spacing: .02em; }
 .breadcrumb a { color: rgba(255,255,255,.6); }
 .breadcrumb a:hover { color: #fff; }
 .breadcrumb span { margin: 0 .5em; opacity: .5; }
@@ -580,12 +597,20 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
 }
 
 @media (max-width: 860px) {
+  /* Below this width the forms tagline wraps to a second line and doubles the
+     top bar's height, so drop it and centre the contact links instead. */
+  .topbar__tag { display: none; }
+  .topbar__inner { justify-content: center; }
+
   /* Mobile nav */
   .nav-toggle { display: inline-flex; }
   .nav {
     position: fixed; inset: 0 0 0 auto; width: min(320px, 84vw);
     flex-direction: column; align-items: stretch; gap: 4px;
-    background: #fff; padding: 92px 20px 28px;
+    /* Top padding clears the sticky header in its tallest state (top bar +
+       header, i.e. page unscrolled) so the first link is never tucked behind
+       it — the header sits at a higher z-index than this panel. */
+    background: #fff; padding: 112px 20px 28px;
     box-shadow: -16px 0 40px rgba(20,40,74,.12);
     transform: translateX(100%); transition: transform .28s var(--ease);
     z-index: 90;
@@ -617,8 +642,6 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
 
 @media (max-width: 620px) {
   body { font-size: 16px; }
-  .topbar__tag { display: none; }
-  .topbar__inner { justify-content: center; }
   .cards--2, .cards--3, .cards--4 { grid-template-columns: 1fr; }
   .feature-list--cols { grid-template-columns: 1fr; }
   .field-row { grid-template-columns: 1fr; gap: 0; }
