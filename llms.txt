@@ -22,6 +22,7 @@ The firm advises payors (not payees) on U.S. information-reporting obligations: 
 ## Articles
 
 - [All articles](https://www.inforeportingsolutions.com/articles.html): Plain-English summaries of developments affecting 1099 and 1042-S filers
+- [Your IRS Notices Are Telling You Whether You Are Ready for IRIS](https://www.inforeportingsolutions.com/article-notices-iris-readiness.html): Why CP2100, CP2100A and 972CG payee listings are a data-quality report on the records headed for IRIS, and a seven-step look-back to run before the next filing season
 - [IRS Revises Draft Form W-9 Again: What the June 2026 Changes Actually Mean](https://www.inforeportingsolutions.com/article-draft-w9-2026.html): The IRS reversed its January 2026 proposal on sole-proprietor TINs; disregarded-entity and Name/TIN matching issues remain
 - [2026 Form 1099 / 1042-S Reporting Checklist for IRIS](https://www.inforeportingsolutions.com/article-iris-checklist.html): Two-path checklist for the FIRE-to-IRIS transition, for direct filers and vendor-reliant businesses
 - [Understand IRS CP2100 and CP2100A Notices](https://www.inforeportingsolutions.com/article-cp2100-notices.html): What triggers CP2100 notices, B-notice steps, backup withholding rules, and risk reduction
