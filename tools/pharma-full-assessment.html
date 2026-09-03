@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pharmaceutical, Biotech &amp; Life Sciences Information Reporting Compliance Assessment | InfoReporting Solutions</title>
+<meta name="robots" content="noindex" />
+<style>
+:root{
+  --navy:#1B3A6B;--navy-mid:#24508F;--gold:#C9A227;
+  --slate:#F0F3F8;--border:#D4DCEA;--text:#1A1A2E;--text-sec:#4A5568;
+  --green:#1A6E3C;--green-bg:#E8F5EE;
+  --red:#A8221C;--red-bg:#FAEAEA;
+  --amber:#7A3D00;--amber-bg:#FEF3E2;
+  --white:#FFFFFF;--radius:8px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;background:var(--slate);color:var(--text);line-height:1.55;min-height:100vh}
+
+/* Header */
+.hdr{background:var(--navy);border-bottom:3px solid var(--gold);padding:18px 28px}
+.hdr-inner{max-width:820px;margin:0 auto}
+.hdr-logo{font-size:0.72rem;font-weight:700;color:var(--gold);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:4px}
+.hdr-title{font-size:1.15rem;font-weight:700;color:var(--white)}
+.hdr-sub{font-size:0.78rem;color:#9BAAC8;margin-top:3px}
+
+/* Page */
+.page{max-width:820px;margin:0 auto;padding:28px 16px 72px}
+
+/* Intro screen */
+.intro-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:30px}
+.intro-card h2{font-size:1.05rem;font-weight:700;color:var(--navy);margin-bottom:10px}
+.intro-card p{font-size:0.88rem;color:var(--text-sec);line-height:1.65;margin-bottom:14px}
+.scope-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:20px 0 24px}
+@media(max-width:560px){.scope-grid{grid-template-columns:1fr}}
+.scope-card{border:1px solid var(--border);border-radius:var(--radius);padding:14px;background:var(--slate)}
+.scope-num{font-size:1.4rem;font-weight:700;color:var(--gold);line-height:1}
+.scope-label{font-size:0.78rem;font-weight:600;color:var(--navy);margin:4px 0 2px}
+.scope-desc{font-size:0.73rem;color:var(--text-sec);line-height:1.5}
+.btn-begin{background:var(--navy);color:var(--white);border:none;border-radius:var(--radius);padding:12px 32px;font-size:0.95rem;font-weight:600;cursor:pointer;display:block;margin-left:auto}
+.btn-begin:hover{background:var(--navy-mid)}
+
+/* Progress */
+.prog-wrap{margin-bottom:20px}
+.prog-meta{display:flex;justify-content:space-between;font-size:0.78rem;margin-bottom:5px}
+.prog-label{font-weight:700;color:var(--navy)}
+.prog-count{color:var(--text-sec)}
+.prog-track{height:5px;background:var(--border);border-radius:3px;overflow:hidden}
+.prog-fill{height:100%;background:var(--gold);border-radius:3px;transition:width 0.3s}
+
+/* Section card */
+.sec-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.sec-head{background:var(--navy);padding:15px 22px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.sec-badge{background:var(--gold);color:var(--navy);font-size:0.68rem;font-weight:700;padding:3px 10px;border-radius:10px;letter-spacing:0.05em;white-space:nowrap}
+.sec-title{color:var(--white);font-size:0.95rem;font-weight:600}
+.sec-body{padding:20px 22px}
+.sec-intro{font-size:0.84rem;color:var(--text-sec);line-height:1.65;margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+
+/* N/A toggle */
+.na-row{display:flex;align-items:center;gap:10px;background:var(--amber-bg);border:1px solid #F5C97A;border-radius:6px;padding:9px 14px;margin-bottom:16px;cursor:pointer;user-select:none}
+.na-row input{cursor:pointer;accent-color:var(--amber)}
+.na-row span{font-size:0.81rem;color:var(--amber);font-weight:500}
+.qs-wrap{transition:opacity 0.2s}
+.qs-wrap.dimmed{opacity:0.35;pointer-events:none}
+
+/* Question group (e.g. foreign-persons determinations grouped under shared context) */
+.q-group{border:1.5px solid var(--navy-mid);border-radius:var(--radius);padding:12px 12px 2px 12px;margin-bottom:14px;background:#FAFBFF}
+.q-group .note-item{margin-bottom:12px}
+.q-group .q-item{background:var(--white)}
+
+/* Question */
+.q-item{border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:10px}
+.q-item:last-child{margin-bottom:0}
+.q-meta{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.q-num{font-size:0.68rem;font-weight:700;color:var(--gold);letter-spacing:0.08em;text-transform:uppercase}
+.q-crit{background:var(--red-bg);color:var(--red);font-size:0.63rem;font-weight:700;padding:2px 7px;border-radius:8px;letter-spacing:0.05em}
+.q-text{font-size:0.87rem;color:var(--text);line-height:1.6;margin-bottom:10px}
+.q-note{font-size:0.77rem;color:var(--text-sec);background:var(--slate);border-left:3px solid var(--gold);padding:7px 10px;border-radius:0 4px 4px 0;margin-bottom:10px;line-height:1.55}
+.btn-row{display:flex;gap:8px}
+.btn-a{flex:1;padding:8px 4px;font-size:0.82rem;font-weight:500;border:1.5px solid var(--border);border-radius:6px;background:var(--white);color:var(--text-sec);cursor:pointer;transition:all 0.13s;text-align:center}
+.btn-a:hover{border-color:var(--navy);background:var(--slate)}
+.btn-a.yes{background:var(--green-bg);border-color:var(--green);color:var(--green);font-weight:600}
+.btn-a.no{background:var(--red-bg);border-color:var(--red);color:var(--red);font-weight:600}
+.btn-a.na{background:#F3F4F6;border-color:#9CA3AF;color:#555;font-weight:600}
+
+/* Nav */
+.nav-row{display:flex;justify-content:space-between;margin-top:20px;gap:12px}
+.btn-nav{padding:10px 22px;font-size:0.88rem;border:1px solid var(--border);border-radius:var(--radius);background:var(--white);color:var(--text);cursor:pointer}
+.btn-nav:hover{background:var(--slate)}
+.btn-nav.primary{background:var(--navy);color:var(--white);border-color:var(--navy);font-weight:600}
+.btn-nav.primary:hover{background:var(--navy-mid)}
+.btn-nav:disabled{opacity:0.3;cursor:default}
+
+/* Results */
+#results-screen{display:none}
+.res-hdr{background:var(--navy);border-radius:var(--radius) var(--radius) 0 0;padding:22px 26px;border-bottom:3px solid var(--gold)}
+.res-hdr h2{color:var(--white);font-size:1.05rem;font-weight:700}
+.res-hdr p{color:#9BAAC8;font-size:0.78rem;margin-top:4px}
+.res-body{background:var(--white);border:1px solid var(--border);border-top:none;border-radius:0 0 var(--radius) var(--radius);padding:26px}
+
+/* Score grid */
+.score-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:26px}
+@media(max-width:680px){.score-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:400px){.score-grid{grid-template-columns:1fr}}
+.score-card{border:1px solid var(--border);border-radius:var(--radius);padding:16px;text-align:center}
+.ring-wrap{position:relative;width:76px;height:76px;margin:0 auto 8px}
+.ring-wrap svg{display:block}
+.ring-center{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column}
+.ring-pct{font-size:1.05rem;font-weight:700}
+.score-name{font-size:0.75rem;font-weight:700;color:var(--navy);margin-bottom:5px}
+.score-verdict{display:inline-block;font-size:0.72rem;font-weight:700;padding:3px 10px;border-radius:10px}
+.vg{background:var(--green-bg);color:var(--green)}
+.va{background:var(--amber-bg);color:var(--amber)}
+.vr{background:var(--red-bg);color:var(--red)}
+.vn{background:#F3F4F6;color:#666}
+
+/* Gaps */
+.gap-sec{margin-bottom:22px}
+.gap-sec-title{font-size:0.82rem;font-weight:700;color:var(--navy);border-bottom:2px solid var(--gold);padding-bottom:6px;margin-bottom:12px}
+.gap-item{border-left:3px solid var(--red);background:var(--red-bg);border-radius:0 6px 6px 0;padding:12px 14px;margin-bottom:8px}
+.gap-item.imp{border-left-color:#D4A520;background:var(--amber-bg)}
+.gap-qnum{font-size:0.68rem;font-weight:700;color:var(--text-sec);margin-bottom:3px;letter-spacing:0.05em}
+.gap-qtext{font-size:0.83rem;font-weight:600;color:var(--text);margin-bottom:4px;line-height:1.5}
+.gap-penalty{font-size:0.78rem;color:var(--red);font-style:italic;line-height:1.5}
+.gap-item.imp .gap-penalty{color:var(--amber)}
+.gap-cite{font-size:0.72rem;color:var(--navy);font-style:italic;margin-top:4px}
+
+.all-clear{text-align:center;padding:22px;background:var(--green-bg);border-radius:var(--radius);margin-bottom:18px}
+.all-clear p{font-size:0.9rem;color:var(--green);font-weight:600}
+
+/* CTA */
+.cta{background:var(--navy);border-radius:var(--radius);padding:24px 28px;text-align:center;margin-top:26px}
+.cta h3{color:var(--white);font-size:1rem;font-weight:700;margin-bottom:8px}
+.cta p{color:#9BAAC8;font-size:0.83rem;line-height:1.6;margin-bottom:16px;max-width:500px;margin-left:auto;margin-right:auto}
+.btn-cta{display:inline-block;background:var(--gold);color:var(--navy);font-weight:700;font-size:0.92rem;padding:11px 28px;border-radius:6px;text-decoration:none;border:none;cursor:pointer}
+.btn-restart{display:block;margin:14px auto 0;background:transparent;border:1px solid #9BAAC8;color:#9BAAC8;font-size:0.78rem;padding:7px 20px;border-radius:5px;cursor:pointer}
+.btn-restart:hover{background:rgba(255,255,255,0.08)}
+.disclaimer{font-size:0.72rem;color:var(--text-sec);text-align:center;margin-top:22px;line-height:1.6;padding:0 8px}
+.note-item{background:#F0F7FF;border:1px solid #BFDBFE;border-left:4px solid var(--navy-mid);border-radius:0 var(--radius) var(--radius) 0;padding:14px 16px;margin-bottom:10px}
+.note-item-label{font-size:0.68rem;font-weight:700;color:var(--navy-mid);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:6px}
+.note-item-title{font-size:0.88rem;font-weight:700;color:var(--navy);margin-bottom:6px}
+.note-item-body{font-size:0.85rem;color:var(--text-sec);line-height:1.65}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-inner">
+    <div class="hdr-logo">InfoReporting Solutions</div>
+    <div class="hdr-title">Pharmaceutical, Biotech &amp; Life Sciences Information Reporting Compliance Assessment</div>
+    <div class="hdr-sub">HCP &amp; KOL Payments &nbsp;·&nbsp; Royalties &amp; Licensing &nbsp;·&nbsp; Clinical Trials &nbsp;·&nbsp; Foreign Withholding &amp; Form 1042-S &nbsp;·&nbsp; IRIS &amp; State Reporting</div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- INTRO -->
+  <div id="intro-screen">
+    <div class="intro-card">
+      <h2>What this assessment covers</h2>
+      <p>Pharmaceutical manufacturers, biotechnology companies, medical device manufacturers, diagnostics companies, and contract research organizations (CROs) share a common information reporting risk profile: payments to health care professionals (HCPs) and key opinion leaders (KOLs), royalty and licensing payments, clinical trial and research subject payments, and a heavier-than-average volume of foreign payees. Rather than treating foreign payees as a separate topic, this assessment builds Chapter 3 withholding and Form 1042-S questions directly into each payment category below, alongside the corresponding domestic questions. This assessment evaluates your organization's readiness across all seven risk areas below.</p>
+      <div class="scope-grid">
+        <div class="scope-card">
+          <div class="scope-num">18</div>
+          <div class="scope-label">HCP &amp; Royalty Payments</div>
+          <div class="scope-desc">Consulting, speaking, advisory board, and IP royalty payments to both U.S. and foreign HCPs and licensors — the $10 vs. $2,000 threshold distinction, the Box 6 misapplication risk unique to this industry, and Chapter 3 withholding / Form 1042-S for foreign payees</div>
+        </div>
+        <div class="scope-card">
+          <div class="scope-num">14</div>
+          <div class="scope-label">Clinical Trials &amp; Distribution</div>
+          <div class="scope-desc">Research subject and investigator payments (U.S. and foreign), CRO-administered payment filing responsibility, and correctly excluding goods/rebate payments from 1099 reporting</div>
+        </div>
+        <div class="scope-card">
+          <div class="scope-num">5</div>
+          <div class="scope-label">TIN Matching &amp; Backup Withholding</div>
+          <div class="scope-desc">TIN matching, B-Notices, and 24% backup withholding controls applied across HCP, royalty, clinical trial, and vendor payee populations</div>
+        </div>
+        <div class="scope-card">
+          <div class="scope-num">11</div>
+          <div class="scope-label">IRIS &amp; State Reporting</div>
+          <div class="scope-desc">FIRE-to-IRIS filing transition across multiple source systems, plus state threshold conformity and filing format requirements</div>
+        </div>
+      </div>
+      <p>Each section can be marked not applicable if your organization has no obligations in that area. Results include statutory citations for every gap identified.</p>
+      <button class="btn-begin" onclick="startAssessment()">Begin assessment &rarr;</button>
+    </div>
+  </div>
+
+  <!-- ASSESSMENT -->
+  <div id="assessment-screen" style="display:none">
+    <div class="prog-wrap">
+      <div class="prog-meta">
+        <span class="prog-label" id="prog-label"></span>
+        <span class="prog-count" id="prog-count"></span>
+      </div>
+      <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+    </div>
+    <div id="sec-container"></div>
+    <div class="nav-row">
+      <button class="btn-nav" id="btn-back" onclick="nav(-1)" disabled>&larr; Back</button>
+      <button class="btn-nav primary" id="btn-next" onclick="nav(1)">Next &rarr;</button>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="results-screen">
+    <div class="res-hdr">
+      <h2>Assessment Results &mdash; Pharmaceutical, Biotech &amp; Life Sciences</h2>
+      <p>InfoReporting Solutions &nbsp;·&nbsp; Results based on self-reported responses</p>
+    </div>
+    <div class="res-body" id="res-body"></div>
+  </div>
+
+</div>
+
+<script>
+const SECTIONS = [
+{
+  id:'H', label:'Section 1', title:'HCP, Physician & KOL Payments',
+  intro:'Pharmaceutical and biotech companies routinely pay physicians, other health care professionals (HCPs), and key opinion leaders (KOLs) for consulting, speaking, advisory board participation, and clinical input. These payments are governed by the same IRC §6041 information reporting framework as any other services payment. The questions below are created for physicians, HCPs, and KOLs engaged as independent contractors rather than employees.',
+  items:[
+    {num:'H-1',text:'Does your organization have a process to collect withholding certificates — Form W-9 from U.S. persons, and Form W-8 or Form 8233 from foreign persons (foreign nationals or nonresident aliens) — from every physician, Health Care Professional (HCP), or Key Opinion Leader (KOL) engaged for consulting, speaking, or advisory board services, including those engaged through a speaker bureau or medical communications agency, before any payment is issued?',weight:'Critical',penalty:'Without the correct withholding certificate on file, the organization cannot confirm TIN accuracy, determine the correct reporting form, or apply the correct withholding treatment. A U.S. person without a valid W-9 is subject to backup withholding; a foreign person without a valid W-8 or Form 8233 defaults to 30% withholding under Chapter 3. This is the foundational control for HCP payment compliance, covering both populations at intake rather than routing them through separate processes. Which specific foreign-person form applies, and at what rate, depends on the determinations in H-2 through H-5.',cite:'IRC §6041(a); IRC §3406; IRC §1441; Reg. §1.1441-1'},
+    {type:'note',num:'H-2-note',groupStart:true,label:'Context',text:'Foreign-Person Withholding Determinations',body:'Once a physician, HCP, or KOL is identified as a foreign person, the correct withholding treatment depends on three separate determinations — none of which follows just from knowing the payee is foreign.'},
+    {num:'H-2',text:'Do you determine whether the consulting, speaking, or advisory board services were performed inside or outside the United States — for example, distinguishing an advisory board call taken from abroad from an in-person U.S. speaking engagement?',weight:'Critical',penalty:'The source of personal services income is generally determined by where the services are physically performed, not the payee’s residency or the payor’s location. Treating a foreign-performed engagement as reportable creates unnecessary withholding and filings; treating a U.S.-performed engagement as exempt because the payee is foreign creates direct under-withholding liability under IRC §1461, plus §6721/6722 exposure for a missed Form 1042-S.',cite:'IRC §861(a)(3); IRC §862(a)(3); IRC §1441; IRC §1461'},
+    {num:'H-3',text:'Do you determine whether the payee is the individual performing the services or an entity, in order to collect the correct form — Form 8233 for an individual nonresident alien claiming a treaty exemption on personal services, or Form W-8 for a foreign entity?',weight:'Critical',penalty:'Form 8233 supports a treaty exemption only for an individual nonresident alien performing the services personally. Collecting the wrong form for the payee’s actual status — an 8233 from a foreign entity, or a Form W-8 from an individual claiming a personal-services treaty exemption — does not validly support the treaty position, and the default 30% withholding rate applies.',cite:'IRC §1441; Reg. §1.1441-1; Form 8233; Form W-8 instructions'},
+    {num:'H-4',text:'Do you determine whether the default 30% withholding rate applies, or whether a reduced treaty rate is available and properly documented?',weight:'Critical',penalty:'The default Chapter 3 withholding rate is 30% absent a valid, current treaty claim. Applying 30% when a documented reduced rate actually applies over-withholds the payee; failing to apply 30% when no valid treaty claim is on file under-withholds and creates direct liability under IRC §1461.',cite:'IRC §1441; IRC §894; applicable income tax treaties'},
+    {num:'H-5',groupEnd:true,text:'Does your speaker bureau, medical communications agency, and advisory board engagement process flag foreign physician, HCP, or KOL engagements early enough for these determinations to be made before the first payment is made, rather than after payments have already begun?',weight:'Important',penalty:'These determinations need to occur before the first payment to a foreign physician, HCP, or KOL. Engagements arranged by medical affairs, commercial, or a speaker bureau vendor without early involvement from tax/finance frequently result in the first payment being made before any withholding analysis has occurred, creating retroactive under-withholding exposure.',cite:'IRC §1441; Reg. §1.1441-1'},
+    {num:'H-6',text:'For physicians, HCPs, or KOLs engaged as independent contractors, as raised above, does your organization treat expense reimbursements as additional taxable compensation on Form 1099-NEC unless your reimbursement arrangement is actually structured to meet the accountable plan requirements for contractor payments?',weight:'Important',note:'This question does not include flat per diem reimbursement due to the limited availability under the Code.',penalty:'The accountable plan rules under Treas. Reg. §1.62-2 are structured around employer-employee reimbursement arrangements. Even where a contractor keeps records and substantiates the business purpose, time, and place of an expense, that substantiation does not cure a reimbursement arrangement that was never built to extend accountable-plan treatment to non-employee payments. If the organization’s plan does not extend to contractors, reimbursements to physicians, HCPs, or KOLs engaged as contractors are compensation reportable on Form 1099-NEC, regardless of how well the contractor personally documents the expense.',cite:'Treas. Reg. §1.62-2; Treas. Reg. §1.274-5; IRC §6041(a)'},
+    {num:'H-7',text:'Does your organization correctly report physician, HCP, and KOL consulting, speaking, and advisory board fees on Form 1099-NEC (or apply the general corporate exemption if paid to a corporation) — rather than applying the "medical and health care services" Box 6 that applies to payors receiving patient care, such as hospitals and insurers?',weight:'Critical',penalty:'The Reg. §1.6041-3(p)(1) exception to the corporate exemption applies specifically to payments for medical and health care services rendered to the payor or its plan participants — the classic hospital or insurer fact pattern. A pharmaceutical company paying a physician, HCP, or KOL for consulting or speaking is not receiving medical or health care services; it is purchasing professional services. Payments to physician, HCP, or KOL corporations for these services are generally covered by the standard corporate exemption and are not Box 6 reportable, while payments to individuals or partnerships are reportable on 1099-NEC. Misapplying hospital-style Box 6 logic causes systematic misclassification in pharma AP systems.',cite:'IRC §6041(a); IRC §6041A; Reg. §1.6041-3(p)(1)'},
+    {num:'H-8',text:'Does your organization file Form 1042-S — rather than Form 1099-NEC — for U.S.-source payments to foreign physicians, HCPs, or KOLs, and reconcile the withholding reported on those Forms 1042-S to the amounts actually deposited with the IRS on Form 1042?',weight:'Critical',penalty:'Form 1042-S, not Form 1099-NEC, is the correct reporting form for U.S.-source personal services income paid to a foreign physician, HCP, or KOL. A mismatch between 1042-S reported withholding and Form 1042 deposits is a common audit trigger and indicates either a withholding failure or a reporting/deposit reconciliation gap.',cite:'IRC §1461; Reg. §1.1461-1; Form 1042 and Form 1042-S instructions'},
+    {num:'H-9',text:'Does your organization have a process or system that captures every payment type made to a physician, HCP, or KOL — consulting and speaking fees under §6041, and royalty payments under §6050N — across all engagement types and across medical affairs, commercial, and R&amp;D functions, so that each payment type is separately characterized and the correct threshold is applied to the full relationship rather than per department, program, or payment type?',weight:'Important',penalty:'Physicians, HCPs, and KOLs frequently engage with a pharma company across multiple functions and payment types simultaneously — for example, a speaker bureau consulting engagement through commercial, an advisory board engagement through medical affairs, and a royalty stream from licensed IP. Siloed tracking by department or by payment type causes two distinct failures: under-threshold consulting/speaking payments in each silo can go unreported even though the $2,000 aggregate (TY2026 under OBBBA) is exceeded across the full relationship, and royalty payments reportable at the separate $10 §6050N threshold can be commingled with — or lost among — consulting fees tracked under the $2,000 §6041 threshold, misapplying both the threshold and the form type.',cite:'IRC §6041(a); IRC §6050N; OBBBA (P.L. 119-21) (§6041 threshold only)'},
+    {num:'H-10',text:'If your organization uses a third-party aggregator, medical communications agency, or speaker bureau management platform to administer payments to physicians, HCPs, or KOLs, has it confirmed contractually and operationally who bears the Form 1099 and Form 1042-S filing obligation, and does it reconcile the platform’s payment data into its own information reporting process regardless of that allocation?',weight:'Important',penalty:'Outsourcing physician, HCP, or KOL payment administration does not necessarily transfer the §6041 or Chapter 3/§1461 filing obligation, and platform providers do not always issue accurate or complete Forms 1099 or 1042-S on the sponsor’s behalf — a risk that spans both the domestic and foreign-payee populations these platforms often administer together. Ambiguity about which party files creates a real risk that no one files. Contractual clarity and independent reconciliation are required regardless of which party is designated as filer.',cite:'IRC §6041(a); IRC §1461; IRC §6721/6722'}
+  ]
+},
+{
+  id:'R', label:'Section 2', title:'Royalty, Licensing & Milestone Payments',
+  intro:'In-licensing and out-licensing arrangements, IP royalties, and milestone payments are common throughout pharma and biotech deal structures. These payments are governed by a different statutory threshold and character than ordinary services payments, and the distinction between payment types within a single license agreement is a frequent source of reporting errors.',
+  items:[
+    {num:'R-1',text:'Does your organization report royalty payments made under license agreements — including payments to individual inventors, universities, and licensing corporations — on Form 1099-MISC Box 2 at the $10 IRC §6050N threshold, confirming that these payments are not evaluated against the $2,000 §6041 threshold used for services payments?',weight:'Critical',penalty:'OBBBA raised only the §6041(a) threshold to $2,000; it did not amend §6050N. Royalties remain reportable at $10. Applying the §6041 threshold to royalty payments — a common error when the same AP system processes both payment types — results in systematic underreporting of royalty income.',cite:'IRC §6050N; OBBBA (P.L. 119-21) (§6041 only)'},
+    {num:'R-2',text:'When a license agreement includes both an upfront/milestone payment and an ongoing royalty stream, does your organization correctly characterize each component separately — recognizing that upfront and milestone payments may be treated differently from ongoing royalties for information reporting purposes — rather than reporting the entire arrangement as a single payment type?',weight:'Critical',penalty:'License and collaboration agreements frequently bundle upfront fees, development and regulatory milestones, and sales-based royalties into a single contractual relationship. Each payment component must be evaluated on its own facts to determine the correct reporting treatment and threshold; treating the entire arrangement as a single payment type misapplies the statutory framework to at least one payment stream.',cite:'Treas. Reg. §1.1235-1(b); Treas. Reg. §1.61-8(a); Treas. Reg. §1.6041-1(a)(1)(ii); Treas. Reg. §1.6050N-1; contract-specific analysis required'},
+    {num:'R-3',text:'Does your organization collect and retain a valid Form W-9 (domestic) or Form W-8 (foreign) from every licensor, inventor, and royalty recipient before the first royalty or milestone payment is made?',weight:'Important',penalty:'Without current payee tax documentation, the organization cannot determine domestic vs. foreign reporting treatment, cannot confirm TIN accuracy for §6050N reporting, and cannot apply the correct withholding rate for foreign licensors.',cite:'IRC §6050N; IRC §1441; Reg. §1.1441-1'},
+    {num:'R-4',text:'Does your organization source royalty payments made to foreign licensors based on where the licensed intellectual property is used or exploited — not the licensor’s residency or the license agreement’s governing law — when determining whether the royalty is U.S.-source income subject to Chapter 3 withholding?',weight:'Critical',penalty:'Royalty income is sourced under a different rule than personal services income: a royalty is U.S.-source to the extent the licensed IP is used within the United States, regardless of where the licensor is organized or resides. A global license covering both U.S. and foreign territories or products requires the U.S.-source portion to be identified and withheld on separately; treating the entire royalty stream as foreign-source because the licensor is foreign creates direct under-withholding liability under IRC §1461, while treating it as entirely U.S.-source without a use-based allocation over-withholds. Misapplying this sourcing rule in either direction is the proximate cause of the exposure — not a secondary refinement on top of documentation and rate questions.',cite:'IRC §861(a)(4); IRC §862(a)(4); IRC §1441; IRC §1461'},
+    {num:'R-5',text:'Once a licensor, inventor, or royalty recipient is identified as foreign through Form W-8, and the royalty or milestone payment is U.S.-source because the licensed intellectual property is used or exploited in the United States, does your organization apply the applicable Chapter 3 withholding rate to that payment and report it on Form 1042-S — rather than Form 1099-MISC?',weight:'Important',penalty:'Collecting a valid Form W-8 does not, by itself, ensure the resulting payment is correctly withheld and reported. Royalty accounting and AP systems built primarily around Form 1099-MISC Box 2 reporting can continue to default a documented foreign licensor into the domestic 1099 filing path, resulting in a payment that is both under-withheld and reported on the wrong form.',cite:'IRC §1441; IRC §6050N; Reg. §1.1441-1; Form 1042-S'},
+    {num:'R-6',text:'Does your organization’s license and collaboration agreement review process flag foreign licensor counterparties early enough for tax/withholding review to occur before the first royalty or milestone payment is made, rather than after payments have already begun?',weight:'Important',penalty:'Withholding determinations, treaty analysis, and Form W-8 collection all need to occur before the first payment to a foreign licensor. License agreements negotiated by legal or business development without early involvement from tax/finance frequently result in the first milestone or royalty payment being made before any withholding analysis has occurred, creating retroactive under-withholding exposure.',cite:'IRC §1441; Reg. §1.1441-1'},
+    {num:'R-7',text:'Does your organization have a process to identify when a licensor’s entity status changes — for example, an individual inventor assigning rights to a newly formed holding company, or a university licensing office restructuring — and update reporting characterization and TIN documentation accordingly?',weight:'Important',penalty:'Royalty relationships often span many years, during which the recipient’s legal structure can change. Continuing to report to a prior legal entity or individual after a restructuring creates TIN mismatches and potential B-Notices, and may misstate who the payments were actually made to.',cite:'IRC §6050N; Reg. §31.3406(d)-5'},
+    {num:'R-8',text:'Does your organization aggregate all payments characterized as royalty income under §6050N — including any milestone or upfront payments determined under R-2 to be royalty in nature — made to the same payee across multiple license agreements, products, or territories, before applying the $10 threshold?',weight:'Important',penalty:'A payee that licenses IP for use across multiple products or territories under separate agreements is still a single payee for §6050N aggregation purposes. Tracking royalties by product or agreement without aggregating at the payee level can obscure payees who individually appear under any single agreement’s threshold but exceed it in the aggregate.',cite:'IRC §6050N'}
+  ]
+},
+{
+  id:'C', label:'Section 3', title:'Clinical Trial & Research Subject Payments',
+  intro:'Clinical development activity generates several distinct categories of reportable payments — to trial participants, to investigator sites, and to individual physician-investigators — that are frequently administered outside the core AP workflow through clinical operations, CROs, or grants management systems, creating reporting blind spots.',
+  items:[
+    {num:'C-1',text:'Does your organization identify when per-patient site fees and other payments are owed to an individual physician-investigator — as distinguished from the institution or academic medical center employing them — and collect the correct withholding certificate before the first payment: Form W-9 for a U.S. investigator, or Form W-8 or Form 8233 for a foreign investigator?',weight:'Important',penalty:'Clinical trial agreements often route payment nominally to "the site," but the underlying economic relationship may run to an individual physician-investigator, particularly at smaller or independent sites — a foreign national investigator included. Payments to individuals for professional services are reportable on Form 1099-NEC (U.S. persons) or subject to Chapter 3 withholding and Form 1042-S (foreign persons) regardless of institutional branding on the contract, and the correct withholding certificate must be on file before the first payment.',cite:'IRC §6041(a); IRC §3406; IRC §1441; Reg. §1.1441-1'},
+    {num:'C-2',text:'Does your organization determine, based on where clinical trial services or participation are actually performed — not merely a participant’s or investigator’s nationality or a site’s address — whether a payment to a non-U.S. person is U.S.-source income subject to Chapter 3 withholding and Form 1042-S reporting, as distinct from foreign-source income paid to a foreign person for services or participation performed entirely at a non-U.S. site, which generally requires no U.S. withholding or Form 1042-S reporting at all?',weight:'Critical',penalty:'The source of personal services income and clinical trial participation payments is determined by where the activity is physically performed, not by the payee’s nationality or a site’s address on paper. Two distinct errors are equally live risks: automatically treating every foreign-national participant or investigator as 1042-S reportable — even when the underlying services were performed entirely outside the U.S. — creates unnecessary withholding and filings on genuinely foreign-source payments; and assuming a "foreign trial" is categorically outside U.S. reporting can cause a real U.S.-source payment to be missed entirely, for example when a foreign national participant enrolls at a U.S. site or a foreign investigator travels into the U.S. to perform work. The second error carries direct Chapter 3 under-withholding liability under IRC §1461, in addition to §6721/6722 exposure for the missed Form 1042-S.',cite:'IRC §861(a)(3); IRC §862(a)(3); IRC §1441; IRC §1461; Reg. §1.1441-1'},
+    {num:'C-3',text:'For foreign participants and foreign investigators identified under C-2 as receiving U.S.-source payments, does your organization collect the correct withholding documentation — Form W-8, or Form 8233 for a treaty-exempt nonresident alien investigator performing services in the United States — before the first payment is made?',weight:'Important',penalty:'Once a foreign participant or investigator is identified as receiving U.S.-source payments, the correct documentation still needs to be collected before payment — a step that is frequently missed when participant and investigator payments are administered through clinical operations or a CRO platform not built around Chapter 3 documentation requirements. Without valid documentation, the default withholding rate is 30% and no treaty rate or exemption can be applied.',cite:'IRC §1441; Reg. §1.1441-1; Form W-8; Form 8233'},
+    {num:'C-4',text:'Does your organization apply the correct Chapter 3 withholding rate to U.S.-source clinical trial participant and investigator payments made to foreign persons, and file Form 1042-S — rather than Form 1099-MISC or Form 1099-NEC — for these payments, reconciling the withholding reported on those Forms 1042-S to the amounts deposited on Form 1042?',weight:'Important',penalty:'Participant payment platforms are typically configured for a domestic 1099 population by default. A U.S.-source payment to a foreign participant or investigator processed through that default configuration is reported on the wrong form, at the wrong (or no) withholding rate, and is not reconciled to Form 1042 deposits — creating both a reporting error and an under-withholding liability.',cite:'IRC §1461; Reg. §1.1461-1; Form 1042 and Form 1042-S instructions'},
+    {num:'C-5',text:'Does your organization’s clinical trial agreement (CTA) and site activation process flag potential U.S.-source payments to foreign participants or investigators — for example, a foreign national enrolling at a U.S. trial site, or a foreign investigator traveling into the U.S. to perform any part of the work — early enough for tax/withholding review to occur before the first such payment is made?',weight:'Important',penalty:'Withholding determinations and Form W-8 or Form 8233 collection need to occur before the first U.S.-source payment to a foreign participant or investigator. CTAs and site activation processes negotiated by clinical operations or a CRO without early involvement from tax/finance frequently fail to flag this cross-border risk at all — particularly on a global trial with a mostly foreign site population, where "this is a foreign site, so it is outside U.S. reporting" is usually the correct read but not always, and the exception is exactly what creates exposure.',cite:'IRC §1441; Reg. §1.1441-1'},
+    {num:'C-6',text:'Does your organization identify and report payments to clinical trial participants — including cash, gift cards, prepaid debit cards, and other incentives for study participation — on Form 1099-MISC Box 3 when aggregate payments to a single participant reach $2,000 or more in a calendar year?',weight:'Critical',penalty:'Participant stipends are frequently administered by clinical operations or through a CRO rather than corporate AP, creating a reporting blind spot. Gift cards and prepaid debit cards are treated as cash equivalents and are reportable. The $2,000 threshold (TY2026 under OBBBA) applies in aggregate per participant per year, including across multiple trials if the same individual participates in more than one study sponsored by your organization.',cite:'IRC §61; OBBBA (P.L. 119-21); Rev. Rul. 2014-1; Temp. Reg. §1.6041-1T'},
+    {num:'C-7',text:'When your organization pays an academic medical center, university, or hospital system as the contracting party for a clinical trial site, does it confirm the institution’s tax-exempt or corporate status and document that basis for treating the payment as non-reportable or exempt, rather than assuming exemption without documentation?',weight:'Important',penalty:'Payments to tax-exempt organizations for services are generally excepted from 1099 reporting, but that exemption depends on the payee’s actual §501(c)(3) status or other qualifying status being documented — typically via Form W-9 indicating exempt payee status — not merely assumed because the payee is a hospital or university.',cite:'Reg. §1.6041-3; IRC §6041(a)'},
+    {num:'C-8',text:'Does your organization apply IRC §3406 backup withholding at 24% when a clinical trial participant or investigator payment is reportable and no valid taxpayer identification number has been collected?',weight:'Important',penalty:'Participant stipend programs frequently prioritize enrollment and retention over tax documentation collection, creating a population of reportable payments made without a TIN on file. Backup withholding is mandatory in that circumstance regardless of programmatic pressure to pay quickly.',cite:'IRC §3406'},
+    {num:'C-9',text:'If your organization uses a CRO to manage and disburse clinical trial participant payments on its behalf, has it confirmed contractually who holds the Form 1099 and Form 1042-S filing obligation for those payments — covering both U.S. and foreign participants — and does your organization retain visibility into the participant payment data regardless of who ultimately files?',weight:'Critical',penalty:'A CRO administering participant payments as the sponsor’s agent does not automatically relieve the sponsor of its §6041 filing obligation for U.S. participants or its §1441/Chapter 3 withholding and Form 1042-S obligation for foreign participants. Without contractual clarity and a data-sharing mechanism covering both populations, sponsor and CRO can each assume the other is filing, resulting in no return being filed for a reportable population.',cite:'IRC §6041(a); IRC §1441; IRC §6721/6722; Form 1042-S'}
+  ]
+},
+{
+  id:'D', label:'Section 4', title:'Distribution, Rebates, Samples & Patient Support Programs',
+  intro:'Payments to wholesalers, distributors, group purchasing organizations, specialty pharmacies, and patient assistance foundations make up a large share of pharma and biotech cash outflows, but most are not services payments and fall outside §6041 reporting. The risk in this category is less about missed reporting and more about correctly excluding goods, rebate, and chargeback payments that do not belong on a 1099 — and correctly documenting the payments that do.',
+  items:[
+    {num:'D-1',text:'Does your organization correctly exclude from Form 1099 reporting all payments made for the purchase of goods, product, or inventory — including chargebacks, rebates, and distribution fees paid to wholesalers, distributors, specialty pharmacies, and group purchasing organizations (GPOs) for product sold, not services rendered?',weight:'Critical',penalty:'IRC §6041 reporting applies to payments for services, not payments for goods or merchandise. Rebates and chargebacks paid to wholesalers and distributors are price adjustments on product sales, not service fees, and are not §6041 reportable. Incorrectly issuing 1099s for these payment streams generates unnecessary vendor inquiries and does not reflect the correct legal characterization of the payment.',cite:'Reg. §1.6041-3(c) (payments for merchandise excluded); IRC §6041(a)'},
+    {num:'D-2',text:'Does your organization’s AP system distinguish, at the vendor master level, between wholesalers/distributors (goods) and consulting, marketing, or professional service vendors (services) — domestic or foreign — so that reportability determinations are made based on payment type and payee residency rather than defaulting based on the vendor category alone?',weight:'Important',penalty:'A single vendor can be paid for both goods and services under different contracts (for example, a distributor that also provides market access consulting). Vendor-master-level defaults that classify an entire vendor as "goods, non-reportable" can cause a genuine services payment to that same vendor to be missed — including a foreign vendor’s service fee, which requires Chapter 3 withholding and Form 1042-S rather than Form 1099-NEC.',cite:'IRC §6041(a); Reg. §1.6041-3(c); IRC §1441; Reg. §1.1441-1'},
+    {num:'D-3',text:'Does your organization document a legal and tax basis before treating any GPO administrative fee, data fee, or distribution service fee as non-reportable — recognizing that some fees paid to a distribution partner, even in a broader goods-purchase relationship, may in fact compensate the recipient for a genuine service reportable on Form 1099-NEC for a U.S. vendor, or subject to Chapter 3 withholding and Form 1042-S for a foreign vendor?',weight:'Important',penalty:'Not every payment within a distribution relationship is a goods payment. Administrative fees, data reporting fees, and certain services embedded in a distribution agreement can be service payments subject to §6041 even when most of the relationship involves product sales. Blanket exclusion of an entire vendor relationship without line-item review risks under-reporting the service component — and if the distribution partner providing that service is a foreign entity, the correct treatment is Chapter 3 withholding and Form 1042-S, not Form 1099-NEC, which a vendor-master system built around a domestic 1099 default can easily miss.',cite:'IRC §6041(a); Reg. §1.6041-3; IRC §1441; Reg. §1.1441-1; Form 1042-S'},
+    {num:'D-4',text:'Does your organization confirm and document the tax-exempt status (typically via Form W-9) of independent patient assistance foundations before making contributions or co-pay assistance payments, and retain that documentation to support the payment’s treatment as a charitable contribution or grant rather than a reportable services payment?',weight:'Important',penalty:'Payments to independent, non-affiliated charitable foundations that provide co-pay assistance are generally not §6041 reportable if the foundation is a documented tax-exempt organization and the payment is a genuine grant rather than compensation for a service performed for the pharma company. Absent documentation, the basis for excluding the payment from reporting is unsupported.',cite:'Reg. §1.6041-3; IRC §501(c)(3) documentation via Form W-9'},
+    {num:'D-5',text:'If your organization operates its own co-pay assistance or patient support program that involves direct payments to patients (rather than to a pharmacy or independent foundation), has it evaluated whether those payments constitute reportable income to the patient, and applied the correct reporting treatment?',weight:'Important',penalty:'Direct-to-patient payment structures raise a different analysis than pharmacy-based or foundation-based co-pay assistance. Payments or subsidies paid directly to an individual patient may be treated differently for reporting purposes than a price reduction processed through a pharmacy claims system, and require case-specific evaluation rather than a default assumption of non-reportability.',cite:'IRC §61; IRC §6041(a) (fact-specific analysis)'}
+  ]
+},
+{
+  id:'B', label:'Section 5', title:'TIN Matching, Backup Withholding & B-Notices',
+  intro:'The volume and diversity of payee types in pharma and biotech — HCPs, licensors, trial participants, and vendors — makes TIN accuracy and backup withholding controls especially consequential. These questions cover the core withholding and notice-response controls required of any large information return filer.',
+  items:[
+    {num:'B-1',text:'Does your organization run TIN/Name matching through an IRS-approved method (such as IRS TIN Matching or an approved third-party service) before filing information returns, across all reportable payee populations — HCPs, licensors, trial participants, and vendors alike — not only newly onboarded payees?',weight:'Important',penalty:'TIN mismatch is the leading cause of IRS CP2100 B-Notices. Matching only at onboarding misses legal name changes, entity conversions, and restructurings that occur mid-relationship — particularly common among individual HCPs who incorporate mid-relationship or licensors who assign rights to a new entity.',cite:'IRC §3406; Reg. §31.3406(d)-5; IRS Publication 1281'},
+    {num:'B-2',text:'When your organization receives an IRS CP2100 or CP2100A B-Notice, does it follow the required two-notice process — sending the First B-Notice to the payee within 15 business days; and, if a Second B-Notice is received for the same payee within a 3-year window, requiring the payee to validate their Name/TIN directly with the SSA or IRS (a new Form W-9 does not cure a second notice) and beginning 24% backup withholding if a validated TIN is not received within 30 business days of the notice date?',weight:'Critical',penalty:'The B-Notice process is a statutory obligation under Reg. §31.3406(d)-5, and the first and second notices have different cure requirements. A First B-Notice is resolved with a corrected Form W-9. A Second B-Notice within 3 years is not — it requires the payee to independently validate their Name/TIN combination with the SSA (for an SSN) or IRS (for an EIN); a fresh W-9 does not stop backup withholding at that stage. A team that treats both notices the same, by simply requesting an updated W-9 either time, will fail to begin required withholding after a second notice and remain exposed for the unwithheld tax plus associated penalties.',cite:'Reg. §31.3406(d)-5; IRC §3406(h)(2); IRS Pub. 1281'},
+    {num:'B-3',text:'When a reportable payment is made to any payee — HCP, licensor, trial participant, or vendor — without a valid Form W-9 or W-8 on file, does your organization withhold and remit 24% backup withholding (or the applicable Chapter 3 rate for foreign payees) to the IRS?',weight:'Critical',penalty:'IRC §3406 requires backup withholding whenever a payee has not provided a valid TIN for a reportable domestic payment. For pharma and biotech, this arises most often with newly enrolled trial participants and newly engaged HCP speakers who are paid before administrative onboarding is complete.',cite:'IRC §3406; IRC §3406(h)(2)'},
+    {num:'B-4',text:'Does your organization maintain a centralized vendor/payee master file that captures W-9 and W-8 status across all payment types — HCP, royalty, clinical trial, and standard AP vendor populations — so that TIN documentation gaps are visible enterprise-wide rather than siloed by department?',weight:'Important',penalty:'Pharma and biotech companies frequently administer HCP payments, royalties, and clinical trial payments through separate systems (medical affairs platforms, legal/IP systems, and clinical operations or CRO platforms) that do not share a common payee master with core AP. This fragmentation is the most common root cause of missed TIN documentation and, downstream, missed or incorrect information returns.',cite:'IRC §6041(a); IRC §3406; IRC §6721/6722'},
+    {num:'B-5',text:'Does your organization have a documented, assigned-ownership process for tracking B-Notice response deadlines and confirming backup withholding is actually applied in payroll/AP systems once triggered — rather than relying on informal or ad hoc handling?',weight:'Important',penalty:'B-Notice response and backup withholding initiation are time-bound, statutory obligations. Without a documented process with assigned ownership, responses are missed, particularly in organizations where the tax or compliance function does not have direct visibility into AP payment runs across HCP, royalty, and clinical trial payment streams.',cite:'Reg. §31.3406(d)-5; IRC §3406'}
+  ]
+},
+{
+  id:'I', label:'Section 6', title:'FIRE Decommissioning — IRIS Transition',
+  intro:'The IRS has decommissioned the FIRE system for electronic filing of Form 1099 and Form 1042-S effective for Tax Year 2026 returns filed in 2027. For pharma and biotech companies, this is complicated by the fact that reportable payments often originate from several disconnected systems — core AP, medical affairs/HCP payment platforms, clinical operations or CRO platforms, and legal/IP licensing systems — each of which must feed a single, complete IRIS filing.',
+  items:[
+    {num:'I-1',text:'Has your organization confirmed that the IRS FIRE system is no longer available for electronic filing of 2026 Forms 1099 and 1042-S, and communicated this to every function that originates reportable payments — AP, medical affairs, clinical operations, and legal/licensing?',weight:'Critical',penalty:'Returns submitted through FIRE are not received by the IRS and are treated as unfiled, triggering the full late-filing penalty under §6721 — currently $340 per return. In a multi-system environment, communication must reach every payment-originating function, not just central AP/tax.',cite:'§6721; IRS FIRE system webpage (decommissioning notice); IRS QuickAlerts for Tax Professionals'},
+    {num:'I-2',text:'If your organization files directly, has it obtained an active IRIS Transmitter Control Code (TCC), and confirmed that a single TCC (or coordinated set of TCCs) covers all reportable payment populations across HCP, royalty, clinical trial, and standard vendor payments — rather than assuming each system will file independently?',weight:'Critical',penalty:'A prior FIRE TCC does not transfer to IRIS. Organizations with reportable payments originating from multiple systems risk gaps if each system owner assumes another group holds the filing credential and files on the organization’s behalf.',note:'Answer N/A if a third-party provider files all information returns on your organization’s behalf.',cite:'IRS IRIS TCC requirements; §6011(e)'},
+    {num:'I-3',text:'Has your organization confirmed its IRIS filing method — A2A or Manual — and verified that the payment data feeding IRIS from each source system (AP, HCP platform, clinical/CRO platform, licensing system) is captured in the JSON data structure IRIS requires, including separate first/last name fields for individuals?',weight:'Important',penalty:'IRIS requires structured JSON data with distinct name fields, unlike the legacy FIRE ASCII format. Data extracts built for FIRE, or extracts pulled from HCP or clinical payment platforms not originally designed for tax filing, frequently do not conform to IRIS data element requirements without remediation.',cite:'§6721; IRS Publication 5717 (IRIS Taxpayer Portal user guide); IRS Publication 5718 (IRIS A2A specifications, incl. JSON schema)'},
+    {num:'I-4',text:'Has your organization confirmed that its IRIS filing universe includes every reportable payment population — HCP consulting/speaking (1099-NEC), royalties (1099-MISC Box 2), clinical trial participant payments (1099-MISC Box 3), and foreign payments (Form 1042-S) — and that no population is excluded because it originates outside the core AP workflow?',weight:'Critical',penalty:'The most common IRIS filing failure in multi-system organizations like pharma and biotech companies is not a data format error — it is an entire payment population (most often clinical trial participant payments or HCP royalties) missing from the filing universe because it lives in a system that was never connected to the central 1099/1042-S filing process.',cite:'§6041(a); §6050N; §6721; Form 1042-S filing requirements'},
+    {num:'I-5',text:'If your organization uses a third-party provider to file some or all information returns, has it confirmed the provider holds an active IRIS TCC and receives complete data extracts from every source system — not only core AP?',weight:'Important',penalty:'Penalty liability under §6721/6722 remains with the payor organization as filer of record regardless of provider error. A provider that files accurately from AP data but never receives HCP, royalty, or clinical trial payment data from other systems will produce an incomplete — but seemingly successful — filing.',cite:'§6721; §6723'},
+    {num:'I-6',text:'Has your organization — or its provider — completed a test submission to IRIS covering a representative sample from each source system before the production filing deadline, to confirm both technical connectivity and completeness of the filing population?',weight:'Important',penalty:'A submission failure or population gap discovered at the production deadline leaves no time to remediate. Testing must include samples from every source system, not only core AP, to catch integration gaps unique to multi-system filers.',cite:'§6721; IRIS filing procedures'}
+  ]
+},
+{
+  id:'S', label:'Section 7', title:'State Reporting Implications',
+  intro:'State information reporting obligations run parallel to federal requirements and do not automatically conform to federal threshold or system changes. Pharma and biotech companies with HCPs, trial sites, and licensors located across many states face this exposure across a wider set of states than most industries.',
+  items:[
+    {num:'S-1',text:'Has your organization identified which states do not conform to the OBBBA federal $2,000 threshold change — meaning those states still require information return filing at $600 or another threshold below $2,000 for HCP, royalty, or vendor payments made in 2026?',weight:'Critical',penalty:'State threshold conformity to the OBBBA federal change is not automatic and varies by state. Excluding a payee from state filing because they fall below the federal $2,000 threshold — without confirming the applicable state threshold — creates state-level underreporting exposure.',cite:'§6041(a); OBBBA (P.L. 119-21); applicable state revenue statutes'},
+    {num:'S-2',text:'Has your organization reconfirmed Combined Federal/State Filing (CF/SF) program participation for TY2026, recognizing that some states accepting CF/SF through FIRE may not yet accept it through IRIS?',weight:'Important',penalty:'The FIRE-to-IRIS transition changed the CF/SF transmission path. A state that is no longer accepting CF/SF through IRIS requires its own alternative direct filing method, which must be identified and implemented before the deadline.',cite:'IRS Publication 1220 (CF/SF program); IRS FIRE system webpage (decommissioning notice)'},
+    {num:'S-3',text:'Has your organization identified states that impose non-resident withholding on payments to non-employee HCPs, consultants, or clinical trial investigators performing services within that state?',weight:'Important',penalty:'Several states impose withholding on payments to non-resident service providers performing services within the state — a common fact pattern for HCP speakers traveling to in-state events or investigators at in-state trial sites. Failure to withhold and deposit at the state level creates state underpayment and penalty exposure separate from federal backup withholding.',cite:'Applicable state income tax withholding statutes'},
+    {num:'S-4',text:'For states requiring direct filing outside the CF/SF program, has your organization confirmed the required file format — typically the legacy Publication 1220 ASCII format rather than the IRIS XML/JSON format most states do not accept?',weight:'Important',penalty:'Submitting a file in an unsupported format may result in a state treating the filing as not received, triggering that state’s late-filing penalty even when the federal IRIS filing was timely.',cite:'IRS Publication 1220; applicable state electronic filing format requirements'},
+    {num:'S-5',text:'Has your organization confirmed state-specific filing deadlines for every state in which it has HCP, licensor, trial participant, or vendor reporting obligations, recognizing that state deadlines frequently differ from the federal January 31 and March 31 deadlines?',weight:'Important',penalty:'State deadlines vary significantly and each carries its own penalty regime, separate from and in addition to federal exposure. Given the geographic spread of HCPs and trial sites, pharma and biotech companies often have filing obligations in more states than a typical single-location business.',cite:'Applicable state revenue statutes; state filing deadline schedules'}
+  ]
+}
+];
+
+let current=0, answers={}, sectionNA={};
+
+function startAssessment(){
+  document.getElementById('intro-screen').style.display='none';
+  document.getElementById('assessment-screen').style.display='block';
+  render(true);
+}
+
+function render(scrollTop){
+  const s=SECTIONS[current];
+  const pct=Math.round((current/SECTIONS.length)*100);
+  document.getElementById('prog-fill').style.width=pct+'%';
+  document.getElementById('prog-label').textContent=s.label+': '+s.title;
+  document.getElementById('prog-count').textContent='Section '+(current+1)+' of '+SECTIONS.length;
+  document.getElementById('btn-back').disabled=current===0;
+  document.getElementById('btn-next').textContent=current===SECTIONS.length-1?'View results →':'Next →';
+  const isNA=!!sectionNA[s.id];
+  let h=`<div class="sec-card"><div class="sec-head"><span class="sec-badge">${s.label}</span><span class="sec-title">${s.title}</span></div><div class="sec-body"><p class="sec-intro">${s.intro}</p>`;
+  h+=`<div class="na-row" onclick="toggleNA('${s.id}')"><input type="checkbox" id="na-${s.id}" ${isNA?'checked':''} onclick="event.stopPropagation()" onchange="toggleNA('${s.id}',true)"><span>This section is not applicable to my organization</span></div>`;
+  h+=`<div class="qs-wrap${isNA?' dimmed':''}" id="qs-${s.id}">`;
+  s.items.forEach(q=>{
+    if(q.groupStart) h+='<div class="q-group">';
+    if(q.type==='note'){
+      h+=`<div class="note-item"><div class="note-item-label">&#9432;&nbsp; ${q.label||'Business Practice Note'}</div><div class="note-item-title">${q.text}</div><div class="note-item-body">${q.body}</div></div>`;
+    } else {
+      const a=answers[q.num]||null;
+      h+=`<div class="q-item"><div class="q-meta"><span class="q-num">${q.num}</span>${q.weight==='Critical'?'<span class="q-crit">CRITICAL</span>':''}</div><div class="q-text">${q.text}</div>${q.note?`<div class="q-note">${q.note}</div>`:''}<div class="btn-row"><button class="btn-a${a==='yes'?' yes':''}" onclick="ans('${q.num}','yes')">Yes</button><button class="btn-a${a==='no'?' no':''}" onclick="ans('${q.num}','no')">No</button><button class="btn-a${a==='na'?' na':''}" onclick="ans('${q.num}','na')">N/A</button></div></div>`;
+    }
+    if(q.groupEnd) h+='</div>';
+  });
+  h+=`</div></div></div>`;
+  document.getElementById('sec-container').innerHTML=h;
+  if(scrollTop) window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function toggleNA(id,fromCb){
+  if(!fromCb){const cb=document.getElementById('na-'+id);cb.checked=!cb.checked;}
+  sectionNA[id]=document.getElementById('na-'+id).checked;
+  const w=document.getElementById('qs-'+id);
+  if(w) w.classList.toggle('dimmed',sectionNA[id]);
+}
+
+function ans(num,val){answers[num]=val;render(false);}
+
+function nav(dir){
+  const next=current+dir;
+  if(next>=0&&next<SECTIONS.length){current=next;render(true);}
+  else if(next===SECTIONS.length) buildResults();
+}
+
+function ring(pct,color){
+  const r=30,c=2*Math.PI*r,off=c-(pct/100)*c;
+  return `<svg width="72" height="72" viewBox="0 0 72 72"><circle cx="36" cy="36" r="${r}" fill="none" stroke="#E5E9F2" stroke-width="8"/><circle cx="36" cy="36" r="${r}" fill="none" stroke="${color}" stroke-width="8" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${off}" transform="rotate(-90 36 36)"/></svg>`;
+}
+
+function buildResults(){
+  document.getElementById('assessment-screen').style.display='none';
+  document.getElementById('results-screen').style.display='block';
+  let scoreCards='', critGaps=[], impGaps=[];
+  let totalYes=0, totalNo=0;
+  SECTIONS.forEach(s=>{
+    if(sectionNA[s.id]){
+      scoreCards+=`<div class="score-card"><div class="ring-wrap">${ring(100,'#9CA3AF')}<div class="ring-center"><span class="ring-pct" style="color:#9CA3AF">—</span></div></div><div class="score-name">${s.label}</div><span class="score-verdict vn">Not applicable</span></div>`;
+      return;
+    }
+    let yes=0,no=0,crit=false;
+    s.items.forEach(q=>{
+      if(q.type==='note') return;
+      const a=answers[q.num];
+      if(!a||a==='na') return;
+      if(a==='yes') yes++;
+      if(a==='no'){
+        no++;
+        if(q.weight==='Critical'){crit=true;critGaps.push({sec:s.label,q});}
+        else impGaps.push({sec:s.label,q});
+      }
+    });
+    totalYes+=yes; totalNo+=no;
+    const scored=yes+no;
+    const pct=scored===0?100:Math.round((yes/scored)*100);
+    const col=crit?'#A8221C':pct>=80?'#1A6E3C':'#7A3D00';
+    const vc=crit?'vr':pct>=80?'vg':'va';
+    const vt=crit?'Action required':pct>=80?'Strong posture':'Gaps identified';
+    scoreCards+=`<div class="score-card"><div class="ring-wrap">${ring(pct,col)}<div class="ring-center"><span class="ring-pct" style="color:${col}">${pct}%</span></div></div><div class="score-name">${s.label}</div><span class="score-verdict ${vc}">${vt}</span></div>`;
+  });
+
+  // Anonymously record this result so we can build the benchmark comparison.
+  // Fire-and-forget: if the save fails, the visitor still sees their results below.
+  const totalScored = totalYes + totalNo;
+  const overallPct = totalScored === 0 ? 100 : Math.round((totalYes / totalScored) * 100);
+  const risk_level = critGaps.length ? 'high' : (overallPct < 80 ? 'medium' : 'low');
+  fetch('/api/submit-assessment', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ assessment_type: 'pharma-full-assessment', score: overallPct, risk_level })
+  }).catch(() => {});
+
+  let gapsHtml='';
+  if(critGaps.length===0&&impGaps.length===0){
+    gapsHtml='<div class="all-clear"><p>No gaps identified based on your responses.</p></div>';
+  } else {
+    if(critGaps.length){
+      gapsHtml+='<div class="gap-sec"><div class="gap-sec-title">&#9888;&nbsp; Critical gaps &mdash; immediate attention required</div>';
+      critGaps.forEach(({sec,q})=>{
+        gapsHtml+=`<div class="gap-item"><div class="gap-qnum">${sec} &middot; ${q.num}</div><div class="gap-qtext">${q.text}</div><div class="gap-penalty">${q.penalty}</div>${q.cite?`<div class="gap-cite">Authority: ${q.cite}</div>`:''}</div>`;
+      });
+      gapsHtml+='</div>';
+    }
+    if(impGaps.length){
+      gapsHtml+='<div class="gap-sec"><div class="gap-sec-title">&#9432;&nbsp; Other gaps &mdash; address before filing season</div>';
+      impGaps.forEach(({sec,q})=>{
+        gapsHtml+=`<div class="gap-item imp"><div class="gap-qnum">${sec} &middot; ${q.num}</div><div class="gap-qtext">${q.text}</div><div class="gap-penalty">${q.penalty}</div>${q.cite?`<div class="gap-cite">Authority: ${q.cite}</div>`:''}</div>`;
+      });
+      gapsHtml+='</div>';
+    }
+  }
+  document.getElementById('res-body').innerHTML=`
+    <div class="score-grid">${scoreCards}</div>
+    ${gapsHtml}
+    <div class="cta">
+      <h3>Ready to close these gaps?</h3>
+      <p>InfoReporting Solutions provides targeted compliance support for pharmaceutical, biotech, and life sciences information reporting — from HCP and royalty payment classification to clinical trial payment controls, foreign withholding, and IRIS filing readiness.</p>
+      <button class="btn-cta" onclick="window.location.href='mailto:colin.brien@inforeportingsolutions.com?subject=Pharma%2FBiotech%20Compliance%20Assessment%20Inquiry'">Schedule a consultation</button>
+      <button class="btn-restart" onclick="location.reload()">&#8635; Start over</button>
+    </div>
+    <div class="disclaimer">This assessment is a self-reported diagnostic tool provided for general informational purposes only. It does not constitute legal or tax advice and does not represent a comprehensive compliance review. Results depend entirely on the accuracy of responses provided. Consult qualified tax counsel before taking or refraining from any compliance action.</div>
+  `;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
