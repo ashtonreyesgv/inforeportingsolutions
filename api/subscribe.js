@@ -1,13 +1,4 @@
-import { createClient } from '@supabase/supabase-js';
-
-// Same reasoning as submit-assessment.js: we use the browser-safe "anon"
-// (publishable) key even though this runs on the server. Our RLS policy lets it
-// INSERT rows but NOT read them — so if this endpoint were ever compromised, it
-// still could not dump the subscriber list.
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_ANON_KEY
-);
+import { sendToPortal } from './_portal.js';
 
 // 254 is the maximum length of an email address per RFC 5321.
 const MAX_EMAIL_LENGTH = 254;
@@ -53,21 +44,19 @@ export default async function handler(req, res) {
   const cleanSource =
     typeof source === 'string' && SAFE_SOURCE.test(source) ? source : null;
 
-  // 4. Insert exactly one row. id and created_at are filled in by the database.
-  const { error } = await supabase
-    .from('subscribers')
-    .insert({ email: cleanEmail, source_page: cleanSource });
+  // 4. Add the address to the list. The portal keeps one row per address, so
+  //    subscribing twice changes nothing, and it answers the same way both
+  //    times. We pass that same success on to the visitor: saying "you're
+  //    already on the list" would let someone test whether a given address is
+  //    subscribed.
+  const saved = await sendToPortal('subscriber', {
+    email: cleanEmail,
+    sourcePage: cleanSource,
+  });
 
-  if (error) {
-    // 23505 = Postgres unique_violation: this email is already subscribed.
-    // That's not a failure from the visitor's point of view, and we must not
-    // say "you're already on the list" — that would let someone test whether a
-    // given address is subscribed. So we return the same success either way.
-    if (error.code === '23505') {
-      return res.status(201).json({ ok: true });
-    }
+  if (!saved.ok) {
     // Log the real reason server-side; send the visitor a generic message.
-    console.error('Supabase subscriber insert failed:', error);
+    console.error('Saving the subscription failed:', saved.reason);
     return res.status(500).json({ error: 'Could not save subscription' });
   }
 

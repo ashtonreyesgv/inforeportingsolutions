@@ -1,26 +1,18 @@
-import { createClient } from '@supabase/supabase-js';
+import { sendToPortal } from './_portal.js';
 
-// We use the browser-safe "anon" (publishable) key here on purpose.
-// Our RLS policy lets this key INSERT rows but NOT read them — so even though
-// this runs on the server, it holds the least power it possibly can.
-// (The benchmark endpoint, which needs to read, will use the secret key instead.)
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_ANON_KEY
-);
-
-// The only values we'll accept. Anything else is rejected before we touch the DB.
-// One entry per published assessment — add a new string here whenever a new
+// The only assessments we'll accept. Anything else is rejected before it is saved.
+// One entry per published assessment: the short name its page sends, and the
+// name the firm sees for it in the client portal. Add a line here whenever a new
 // assessment goes live, or its results will be rejected with a 400.
-const VALID_TYPES = [
-  'quick-check',
-  'full-assessment',
-  'hospital-quick-check',
-  'hospital-full-assessment',
-  'general-assessment',
-  'pharma-quick-check',
-  'pharma-full-assessment',
-];
+const ASSESSMENTS = {
+  'quick-check': 'Casino Quick Check',
+  'full-assessment': 'Casino Readiness Assessment',
+  'hospital-quick-check': 'Hospital Quick Check',
+  'hospital-full-assessment': 'Hospital Readiness Assessment',
+  'general-assessment': '2026-2027 Reporting Changes Assessment',
+  'pharma-quick-check': 'Pharma and Biotech Quick Check',
+  'pharma-full-assessment': 'Pharma and Biotech Readiness Assessment',
+};
 const VALID_RISK = ['low', 'medium', 'high'];
 
 export default async function handler(req, res) {
@@ -32,9 +24,9 @@ export default async function handler(req, res) {
   // 2. Pull the three fields out of the JSON body the browser sends.
   const { assessment_type, score, risk_level } = req.body || {};
 
-  // 3. Validate everything before writing. This is the real "required fields"
-  //    guard we talked about — the code enforces it, the DB is the backstop.
-  if (!VALID_TYPES.includes(assessment_type)) {
+  // 3. Validate everything before sending it on. The portal checks again on its
+  //    side, but a bad request should stop here, at the first door.
+  if (typeof assessment_type !== 'string' || !Object.hasOwn(ASSESSMENTS, assessment_type)) {
     return res.status(400).json({ error: 'Invalid assessment_type' });
   }
   if (!Number.isInteger(score) || score < 0 || score > 100) {
@@ -44,14 +36,18 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Invalid risk_level' });
   }
 
-  // 4. Insert exactly one row. id and created_at are filled in by the database.
-  const { error } = await supabase
-    .from('assessment_results')
-    .insert({ assessment_type, score, risk_level });
+  // 4. Save exactly one result. Nothing about the visitor goes with it: no name,
+  //    no email, no IP address. The portal fills in the date and time itself.
+  const saved = await sendToPortal('assessment', {
+    type: assessment_type,
+    label: ASSESSMENTS[assessment_type],
+    score,
+    riskLevel: risk_level,
+  });
 
-  if (error) {
+  if (!saved.ok) {
     // Log the real reason server-side; send the visitor a generic message.
-    console.error('Supabase insert failed:', error);
+    console.error('Saving the assessment result failed:', saved.reason);
     return res.status(500).json({ error: 'Could not save result' });
   }
 
